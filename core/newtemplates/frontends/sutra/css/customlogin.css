@@ -1,0 +1,22 @@
+body {
+    background-image: url("/swr/resize:w(1280)/-/img/background-login-register.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+a, a:visited, a:active {
+    color:#2b7bb9;
+    text-decoration: none;
+    outline: 0;
+}
+
+a:hover {
+    color:#2b9bff;
+    text-decoration: none;
+    outline: 0;
+}

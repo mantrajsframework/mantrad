@@ -1,0 +1,13 @@
+{
+    "name" : "Core component",
+    "version" : "1.0.0",
+    "defaultconfig": {
+        "croncleanupevent": "*/5 * * * * *",
+        "cronbackupevent": "0 */5 * * * *",
+        "minifyhtml": false,
+        "compressresponses": false,
+        "translatejsapi": "",
+        "translatecssapi": "",
+        "baseurl": "http://localhost:8080/"
+     }
+}

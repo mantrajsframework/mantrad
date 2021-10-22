@@ -1,0 +1,7 @@
+{
+    "name" : "Statis component",
+    "version" : "1.0.0",
+    "defaultconfig": {
+        "cached": false
+    }
+}

@@ -1,0 +1,31 @@
+[
+    {
+        "name": "Microservices (API REST)",
+        "configtemplate": "microservices.mantraconfig.json",
+        "hasFrontend": false
+    },
+    {
+        "name": "HTML 5 boilerplate 8.0.0",
+        "configtemplate": "base.mantraconfig.json",
+        "hasfrontend": true,
+        "frontend": "html5_boilerplate_v8.0.0"
+    },
+    {
+        "name": "Bare (Bootstrap 4 Starter Template)",
+        "configtemplate": "base.mantraconfig.json",
+        "hasfrontend": true,
+        "frontend": "startbootstrap_bare_gh_pages"
+    },
+    {
+        "name": "HTML5UP - Twenty",
+        "configtemplate": "base.mantraconfig.json",
+        "hasfrontend": true,
+        "frontend": "html5up-twenty"
+    },
+    {
+        "name": "Sutra - HTML5 + Bootstrap 4 mantra default template",
+        "configtemplate": "base.mantraconfig.json",
+        "hasfrontend": true,
+        "frontend": "sutra"
+    }
+]

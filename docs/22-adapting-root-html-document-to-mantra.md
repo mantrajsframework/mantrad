@@ -1,0 +1,26 @@
+# Adapting root html document to be used with Mantra
+
+Any html template can be used with Mantra. Actually, despite in current version of the framework (1.x) Mustache is used as the rendering engine, you can include any UI library (Angular, Vue. etc.).
+
+To use a html template as a front end in Mantra, three Mantra blocks must be included:
+
+* mantra-css-files, for including css files.
+* mantra-content-view, to render the content of the views.
+* mantra-js-files, for including js files.
+
+That's all!
+
+Here there's a minimal example:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {{{mantra-css-files}}}
+    </head>
+    <body>
+        {{{mantra-content-view}}}
+        {{{mantra-js-files}}}
+    </body>
+</html>
+```

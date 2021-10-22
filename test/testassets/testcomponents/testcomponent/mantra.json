@@ -1,0 +1,7 @@
+{
+    "name": "testcomponent",
+    "description": "Test component",
+    "version": "1.0.0",
+    "dependencies": [],
+    "defaultconfig": {}
+}

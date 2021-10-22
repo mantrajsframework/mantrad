@@ -1,0 +1,21 @@
+{
+  "name": "Hub de Libros",
+  "short_name": "HDL",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "description": "Hub de Libros - Plataforma de publicación abierta. Para autores y lectores.",
+  "icons": [{
+    "src": "img/logo66.png",
+    "sizes": "66x66",
+    "type": "image/png",
+    "purpose": "any"
+  }, {
+    "src": "/img/logo180.png",
+    "sizes": "180x180",
+    "type": "image/png",
+    "purpose": "any"
+  }],
+  "orientation": "any",
+  "categories": ["books"]
+}

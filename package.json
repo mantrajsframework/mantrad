@@ -1,0 +1,36 @@
+{
+  "name": "mantra",
+  "version": "1.0.16",
+  "description": "Mantra Microkernel Framework (MMF)",
+  "main": "mantra.js",
+  "scripts": {},
+  "author": "Rafael Gómez Blanes",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.5",
+    "cron": "^1.8.2",
+    "cron-validator": "^1.2.1",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "extract-values": "^0.1.2",
+    "fs-extra": "^9.1.0",
+    "gimport": "^1.0.3",
+    "html-minifier": "^4.0.0",
+    "jsonschema": "^1.4.0",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.29.1",
+    "mustache": "^4.2.0",
+    "redentities": "^2.0.2",
+    "shortid": "^2.2.16",
+    "underscore": "^1.13.1"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "mocha": "^8.3.2"
+  },
+  "bin": {
+    "mantra": "./mantra.js"
+  }
+}

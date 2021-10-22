@@ -1,0 +1,14 @@
+[
+    {
+        "dataname": "version",
+        "datavalue": "1.0.0"
+    },
+    {
+        "dataname": "description",
+        "datavalue": "Mantra framework"
+    },
+    {
+        "dataname": "initialized",
+        "datavalue": "false"
+    }
+]

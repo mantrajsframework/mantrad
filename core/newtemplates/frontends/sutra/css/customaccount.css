@@ -1,0 +1,88 @@
+@font-face {
+    font-family: 'Righteous';
+    src: url(../fonts/Righteous-Regular.ttf); }
+  
+@font-face {
+    font-family: 'Merriweather';
+    src: url(../fonts/Merriweather-Regular.ttf); }
+    
+body {
+    min-width: 240px;
+    min-height: 320px;
+    background-color: white;
+    font-family: Merriweather;
+    color: #292929;
+}
+
+.maincontent {
+    font-size: 18px;
+    line-height: 32px;
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+a, a:visited, a:active {
+    color: #777777;
+    text-decoration: none;
+    outline: 0;
+}
+
+a:hover {
+    color:  #8c8785; 
+    text-decoration: none;
+    outline: 0;
+    border: 1px dotted #8c8785;
+    border-style: none none dotted;
+}
+
+
+.btn-pill {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    font-size: 16px;
+    padding: 6px 12px 6px 12px;
+}
+
+/* Class to add to imgs o other elements embraced by <a> to avoid dotted button line */
+.hdlnodots:hover {
+    border-style: none;
+}
+
+.btn-pill:hover {
+    background-color:black;
+    color:white;
+    border: 1px solid black;
+}
+
+blockquote { 
+    padding: 16px 16px 16px 16px; 
+    border-left: 5px solid #cccccc; 
+}
+
+blockquote { 
+    font-style: italic; 
+    color: #8c8785; 
+}
+
+.btn-success:not(:disabled):not(.disabled):active, .btn-success:not(:disabled):not(.disabled).active,
+.show > .btn-success.dropdown-toggle {
+  color: #fff;
+  background-color: black;/* #3a9d5d;*/
+  border-color: white;/* #379457;*/
+}
+
+footer {
+    background-color:#FBFCFC;
+}
+
+.img-in-col {
+    max-width: 100%;
+    height: auto;
+}
+  
+/* Fix to set the bottom line of faq cards. Bug in bootstrap 4 */
+.card-header { border-bottom: 2px solid rgba(0, 0, 0, 0.125); border-radius: calc(0.25rem - 1px); }
+.card .collapse { border-bottom: 1px solid rgba(0, 0, 0, 0.125); }

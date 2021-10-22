@@ -1,0 +1,457 @@
+"use strict";
+
+const ComponentInstaller = global.gimport("componentinstaller");
+const CoreConstants = global.gimport("coreconstants");
+const MantraConsole = global.gimport("mantraconsole");
+const MantraDB = global.gimport("mantradb");
+const NpmInstaller = global.gimport("npminstaller");
+
+module.exports = {
+    InstallComponent: async (MantraAPI, componentName) => {
+        let answer = await MantraConsole.question(`Install component ${componentName} [Y]/N? `);
+
+        if ( answer == "Y" || answer == "" ) {
+            const installed = await InstallComponent(MantraAPI, componentName);
+            
+            if ( installed ) {
+                MantraConsole.info( `Remember to add the component name to 'DefaultComponents' at ${CoreConstants.MANTRACONFIGFILE} if will be a default component.`, false );
+            }
+        } else { 
+            global.gimport("fatalending").exit();
+        }
+    },
+
+    UinstallComponent: async (MantraAPI, componentName) => {
+        const answer = await MantraConsole.question(`Uninstall component ${componentName} [Y]/N? `);
+    
+        if ( answer == "Y" || answer == "" ) {
+            const uninstalled = await UninstallComponent(MantraAPI, componentName);
+
+            if ( !uninstalled ) {
+                MantraConsole.info( `Remember to remove component name from 'DefaultComponents' at ${CoreConstants.MANTRACONFIGFILE} if will no longer be a default component.`, false );
+            }
+        } else { 
+            global.gimport("fatalending").exit();
+        }
+    },
+
+    EnableComponent: async (MantraAPI, componentName) => {
+        let answer = await MantraConsole.question(`Enable component ${componentName} [Y]/N? `);
+    
+        if ( answer == "Y" || answer == "" ) {
+            await EnableComponent(MantraAPI, componentName);
+        } else { 
+            global.gimport("fatalending").exit();
+        }
+    },
+
+    DisableComponent: async (MantraAPI, componentName) => {
+        let answer = await MantraConsole.question(`Disable component ${componentName} [Y]/N? `);
+    
+        if ( answer == "Y" || answer == "" ) {
+            await DisableComponent(MantraAPI, componentName);
+        } else { 
+            global.gimport("fatalending").exit();
+        }
+    },
+
+    UpdateSystem: async (MantraAPI) => {
+        return UpdateSystem(MantraAPI);
+    },
+
+    UpdateComponentsLocations: async (MantraAPI) => {
+        let answer = await MantraConsole.question(`Check for components new locations to update [Y]/N? ` );
+
+        if ( answer == "Y" || answer == "" ) { 
+            await UpdateComponentsLocations(MantraAPI);
+        }
+    },
+
+    NewComponent: async (MantraAPI) => {
+        await CreateNewComponent(MantraAPI);
+    },
+    
+    ShowComponents: async (MantraAPI) => {
+        let entitiesConfig = global.Mantra.MantraConfig.getEntitiesConfiguration();
+        let mantraDB = MantraDB(entitiesConfig);
+    
+        let components = await mantraDB.GetAllComponents();
+
+        components = MantraAPI.Utils.Underscore.sortBy(components, "name");
+
+        MantraConsole.info( `${components.length} components installed` );
+
+        for( let cmp of components ) {
+            MantraConsole.info(`${cmp.name} - ${cmp.version} - ${cmp.enabled ? 'enabled':'disabled'}`, false);
+        }
+    },
+
+    ShowApps: async( MantraAPI ) => {
+        const apps = Object.keys(global.Mantra.MantraConfig.Apps).sort();
+
+        MantraConsole.info( 'Your app(s):', false);
+
+        for( const appName of apps ) {
+            MantraConsole.info( `* ${appName}`, false)
+        }
+
+        MantraConsole.info('Tu run your app(s):', false);
+
+        for( const appName of apps ) {
+            MantraConsole.info( `$ mantra startapp ${appName}`, false);
+        }
+    },
+
+    ShowComponent: async (MantraAPI, componentName ) => {
+        let entitiesConfig = global.Mantra.MantraConfig.getEntitiesConfiguration();
+        let mantraDB = MantraDB(entitiesConfig);
+
+        const exists = await mantraDB.ExistsComponentByName( componentName );
+
+        if ( exists ) {
+            const cmp = await mantraDB.GetComponentByName( componentName );
+
+            MantraConsole.info(`${cmp.name} - ${cmp.version} - ${cmp.enabled ? 'enabled':'disabled'}`, false);
+            MantraConsole.info(`Located at ${cmp.location}`, false);
+            
+            // Show component hooks            
+            const componentHooks = global.Mantra.Bootstrap.getHooksByComponent( componentName );
+            if ( componentHooks.length ) {
+                MantraConsole.info('Hooks registered by component:');
+                console.log(componentHooks);
+            } else {
+                MantraConsole.info('No hooks registered by component');
+            }
+        } else {
+            MantraConsole.warning(`Component of name ${componentName} doesn't exist or it is not installed`);
+        }
+    },
+
+    ShowApis: async (MantraAPI, componentName) => {
+        const apis = global.Mantra.Bootstrap.getHooksByName( CoreConstants.API_HOOK );
+        let apiNames = [];
+
+        if ( apis.length == 0 ) {
+            MantraConsole.info("No apis detected");
+            return;        
+        }
+
+        for( const api of apis ) {
+            if ( componentName == undefined || api.Component == componentName ) {
+                apiNames.push(`${api.Component}.${api.APIName}`)
+            }
+        }
+
+        apiNames = apiNames.sort();
+        let i = 0;
+        for( const apiName of apiNames ) {
+            MantraConsole.info( `(${++i}) ${apiName}`, false );
+        }
+    },
+
+    ShowViews: async (MantraAPI, componentName) => {
+        const views = global.Mantra.Bootstrap.getHooksByName( CoreConstants.VIEW_HOOK );
+        let viewNames = [];
+
+        if ( views.length == 0 ) {
+            MantraConsole.info("No views detected");
+        } else{
+            for( const view of views ) {
+                if ( componentName == undefined || view.Component == componentName ) {
+                    viewNames.push(`${view.Component}.${view.Command}. Route: '/${view.Component}/${view.Command}'`)
+                }
+            }
+    
+            viewNames = viewNames.sort();
+
+            let i = 0;
+            for( const viewName of viewNames ) {
+                MantraConsole.info( `(${++i}) ${viewName}`, false );
+            }
+        }
+    },
+
+    ShowEventsSubscribers: async (MantraAPI, componentName) => {
+        const events = global.Mantra.Bootstrap.getHooksByName( CoreConstants.EVENT_HOOK );
+        let eventNames = [];
+
+        if ( events.length == 0 ) {
+            MantraConsole.info("No events subscribers detected");
+        } else{
+            for( const event of events ) {
+                if ( componentName == undefined || event.Component == componentName ) {
+                    eventNames.push(`${event.Component} subscribed to '${event.EventName}'` )
+                }
+            }
+    
+            eventNames = eventNames.sort();
+
+            let i = 0;
+            for( const eventName of eventNames ) {
+                MantraConsole.info( `(${++i}) ${eventName}`, false );
+            }
+        }
+    },
+
+    ShowBlocks: async (MantraAPI, componentName) => {
+        const blockHooks = global.Mantra.Bootstrap.getHooksByName( CoreConstants.BLOCK_HOOK );
+        let blockNames = [];
+
+        if ( blockHooks.length == 0 ) {
+            MantraConsole.info("No blocks detected");
+            return;        
+        }
+
+        for( const blockHook of blockHooks ) {
+            if ( componentName == undefined || blockHook.Component == componentName ) {
+                blockNames.push(`${blockHook.Component}: ${blockHook.BlockName}`)
+            }
+        }
+
+        blockNames = blockNames.sort();
+        let i = 0;
+        for( const blockName of blockNames ) {
+            MantraConsole.info( `(${++i}) ${blockName}`, false );
+        }
+    },
+
+    ShowAccessConditions: async (MantraAPI, componentName) => {
+        const acHooks = global.Mantra.Bootstrap.getHooksByName( CoreConstants.ACCESSCONDITION_HOOK );
+        let acNames = [];
+
+        if ( acHooks.length == 0 ) {
+            MantraConsole.info("No access conditions defined");
+            return;        
+        }
+
+        for( const acHook of acHooks ) {
+            if ( componentName == undefined || acHook.Component == componentName ) {
+                acNames.push(`${acHook.Component}: ${acHook.Name}`)
+            }
+        }
+
+        acNames = acNames.sort();
+        let i = 0;
+        for( const acName of acNames ) {
+            MantraConsole.info( `(${++i}) ${acName}`, false );
+        }
+    },
+
+    ShowMiddlewares: async (MantraAPI, componentName ) => {
+        let middlewareHooks = global.Mantra.Bootstrap.getHooksByName( CoreConstants.MIDDLEWARE_HOOK );
+        let middlewareNames = [];
+
+        if ( middlewareHooks.length == 0 ) {
+            MantraConsole.info("No middlewares detected");
+            return;        
+        }
+
+        middlewareHooks.forEach( (m) => {
+            if ( m.Weight == null ) m.Weight = 0;
+        });
+
+        middlewareHooks = MantraAPI.Utils.Underscore.sortBy( middlewareHooks, "Weight" );
+
+        for( const middlewareHook of middlewareHooks ) {
+            if ( componentName == undefined || middlewareHook.Component == componentName ) {
+                middlewareNames.push(`Weight: ${middlewareHook.Weight} - ${middlewareHook.Component}: ${middlewareHook.MiddlewareHandler.name}`)
+            }
+        }
+
+        let i = 0;
+        for( const middlewareName of middlewareNames ) {
+            MantraConsole.info( `(${++i}) ${middlewareName}`, false );
+        }
+    },
+
+    ShowPosts: async (MantraAPI, componentName) => {
+        const posts = global.Mantra.Bootstrap.getHooksByName( CoreConstants.POST_HOOK );
+        let postNames = [];
+
+        if ( posts.length == 0 ) {
+            MantraConsole.info("No posts detected");
+        } else{
+            for( const post of posts ) {
+                if ( componentName == undefined || post.Component == componentName ) {
+                    postNames.push(`${post.Component}.${post.Command}. Route: '/${post.Component}/${post.Command}'`)
+                }
+            }
+    
+            postNames = postNames.sort();
+
+            let i = 0;
+            for( const postName of postNames ) {
+                MantraConsole.info( `(${++i}) ${postName}`, false );
+            }
+        }
+    },
+
+    CheckHealth: async (MantraAPI) => {
+        await global.Mantra.Bootstrap.callOnCheckHealthComponents(MantraAPI);
+    },
+
+    ShowComponentsToUpdate: async (MantraAPI) => {
+        try {
+            const componentsToUpdate = await GetComponentsToUpdate();
+    
+            if ( componentsToUpdate.length > 0 ) {
+                for( let cmp of componentsToUpdate ) {
+                    MantraConsole.info(`Component '${cmp.componentEntity.name}' should be updated from version ${cmp.componentEntity.version} to version ${cmp.componentLoaded.config.version}` );
+                }
+                MantraConsole.info("Run 'mantra update' to update the components.");
+            } else {
+                MantraConsole.info("All components are updated");
+            }        
+        }
+        catch(error) {
+            MantraConsole.error(error.message);
+        }    
+    }
+}
+
+async function InstallComponent( MantraAPI, componentName ) {
+    try {
+        // Check if component has Node dependencies
+        if (await NpmInstaller.hasComponentNpmDependencies(global.Mantra.MantraConfig, componentName)) {
+            MantraConsole.info( 'Component has Node dependencies. Npm installing for the component...');
+            await NpmInstaller.runNpmInstallForComponent(global.Mantra.MantraConfig, componentName, false );
+        }
+        //
+
+        let ci = ComponentInstaller( global.Mantra.MantraConfig );
+        await ci.InstallComponent( componentName );
+
+        MantraConsole.info("Component installed with success");
+
+        return true;
+    }
+    catch(error) {
+        MantraConsole.error(error.message);
+        return false;
+    }
+}
+
+async function UninstallComponent( MantraAPI, componentName ) {
+    try {
+        let ci = ComponentInstaller(global.Mantra.MantraConfig);
+        await ci.UninstallComponent( componentName );
+
+        MantraConsole.info("Component uninstalled with success");
+        
+        return true;
+    }
+    catch(error) {
+        MantraConsole.error(error.message);
+        return false;
+    }
+}
+
+async function EnableComponent( MantraAPI, componentName ) {
+    try {        
+        let ci = ComponentInstaller(global.Mantra.MantraConfig);
+        await ci.EnableComponent( componentName );
+
+        MantraConsole.info("Component enabled with success");
+    }
+    catch(error) {
+        MantraConsole.error(error.message);
+    }
+}
+
+async function DisableComponent( MantraAPI, componentName ) {
+    try {
+        let ci = ComponentInstaller(global.Mantra.MantraConfig);
+        await ci.DisableComponent( componentName );
+
+        MantraConsole.info("Component disabled with success");
+    }
+    catch(error) {
+        MantraConsole.error(error.message);
+    }
+}
+
+async function UpdateSystem(MantraAPI) {
+    try {
+        let ci = ComponentInstaller(global.Mantra.MantraConfig);
+        let componentsToUpdate = await ci.GetComponentsToUpdate();
+
+        if ( componentsToUpdate.length > 0 ) {
+            for( let cmp of componentsToUpdate ) {
+                MantraConsole.info(`Component '${cmp.componentEntity.name}' should be updated from version ${cmp.componentEntity.version} to version ${cmp.componentLoaded.config.version}` );
+                let answer = await MantraConsole.question( 'Update component [Y]/N? ' );
+                
+                if ( answer == "Y" || answer == "" ) {
+                    await UpdateComponent( MantraAPI, ci, cmp );
+                }            
+            }
+        } else {
+            MantraConsole.info("All components are updated");
+        }        
+    }
+    catch(error) {
+        MantraConsole.error(error.message);
+    }    
+}
+
+async function UpdateComponent( MantraAPI, componentInstaller, cmp ) {
+    try {
+        // Call onUpdate of the component
+        if (cmp.componentLoaded.component.Install && cmp.componentLoaded.component.Install.onUpdate) {
+            await cmp.componentLoaded.component.Install.onUpdate(MantraAPI, cmp.componentEntity.version, cmp.componentLoaded.config.version);
+        } else {
+            MantraConsole.warning("Component doesn't expose installer property");
+        }
+
+        // Update component version in system
+        await componentInstaller.UpdateComponentVersion( cmp.componentEntity.name, cmp.componentLoaded.config.version);
+
+        MantraConsole.info("Component updated with success!");
+    } catch(err) {
+        MantraConsole.error(`Exception when updating component ${cmp.componentEntity.name}`);
+        MantraConsole.error(err);
+    }
+}
+
+async function UpdateComponentsLocations(MantraAPI) {
+    try {
+        let mc = global.Mantra.MantraConfig; 
+        
+        let entitiesConfig = global.Mantra.MantraConfig.getEntitiesConfiguration();
+        let mantraDB = MantraDB(entitiesConfig);
+        
+        let cmpInstalledAndEnabled = await mantraDB.GetComponentsInstalledAndEnabled();
+        
+        await global.Mantra.ComponentsLoader.updateComponentsLocations( mc.getComponentsLocations(), cmpInstalledAndEnabled, mantraDB );
+        
+        MantraConsole.info("Components locations has been updated with success");
+    } catch(err) {
+        MantraConsole.error(`Exception when updating components locations`);
+        MantraConsole.error(err);
+    }
+}
+
+async function CreateNewComponent (MantraAPI) {
+    const mc = global.Mantra.MantraConfig;
+    let componentInfo = {};
+    
+    componentInfo.name = await MantraConsole.question('New component name: ', false);
+    componentInfo.description = await MantraConsole.question('Description: ', false);
+
+    if ( mc.ComponentsLocations.length > 1 ) {
+        componentInfo.location = mc.ComponentsLocations[ await MantraConsole.questionWithOpts( 'Choose location: ', mc.ComponentsLocations ) ];
+    } else {
+        componentInfo.location = mc.ComponentsLocations[0];
+    }
+
+    componentInfo.template = "basecomponent";
+
+    await global.gimport("componentbuilder").buildComponent(componentInfo);
+
+    MantraConsole.info(`Component '${componentInfo.name} 'created!`, false);
+    MantraConsole.info(`To install new component, run: $ mantra install-component ${componentInfo.name}`, false);
+}
+
+async function GetComponentsToUpdate() {
+    let ci = ComponentInstaller(global.Mantra.MantraConfig);
+    return ci.GetComponentsToUpdate();
+}

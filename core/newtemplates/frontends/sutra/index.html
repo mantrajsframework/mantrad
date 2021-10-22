@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <base href="/">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="description" content="{{global-sitename}} - para autores y lectores">
+    <meta name="keyword" content="Libros,Publicación,Autores">
+    <title>{{seo-title}}</title>
+    <meta property="og:title" content="{{seo-title}}" />
+    <meta property="og:url" content="{{{seo-url}}}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/logos/img/hub-de-libros-fullsize.png" />
+    <meta property="og:description" content="{{global-sitename}} - Para autores y lectores" />
+    <meta property="description" content="{{global-sitename}} - Para autores y lectores" />
+    
+    <link rel="manifest" href="manifest.json">
+    <link rel="canonical" href="https://www.hubdelibros.com/">
+    <link rel="icon" type="image/ico" href="/img/{{miid}}favicon.ico" sizes="any" />
+    <link href="/css/{{miid}}flag-icon.min.css" rel="stylesheet">
+    <link href="/css/{{miid}}font-awesome.min.css" rel="stylesheet">
+    <link href="/css/{{miid}}font-awesome-brands.min.css" rel="stylesheet">
+    <link href="/vendors/pace-progress/css/{{miid}}pace.min.css" rel="stylesheet">
+    {{{mantra-css-files}}}
+    <script src="/vendors/{{miid}}jquery.min.js"></script>
+  </head>
+  <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">    
+    <header class="app-header navbar">
+      <a class="navbar-brand" href="/">
+        <img loading="lazy" class="hdlnodots navbar-brand-fulls d-none d-sm-block" src="/swr/resize:w(120)/-/logos/img/hub-de-libros-fullsize.png" alt="Hub de Libros logo">
+        <img loading="lazy" class="hdlnodots navbar-brand-fulls d-block d-sm-none" src="/swr/resize:w(120)/-/logos/img/hub-de-libros-bag-fullsize.png" alt="Hub de Libros logo">        
+      </a>
+      <ul class="nav navbar-nav ml-auto mt-1">
+        {{{authorfullnameblock}}}
+        {{{usernameblock}}}        
+        {{{usermessagesblock}}}
+        {{{notloggedmenu}}}
+        {{{usermenu}}}        
+      </ul>
+    </header>
+    <div style="margin-top:55px" class="maincontent container-fluid">
+      {{{topicsmenu}}}      
+      {{{mantra-content-view}}}      
+    </div>
+    <div class="container-fluid px-0"> 
+      {{{hdlfooter}}}
+      {{{cookieswarningblock}}}
+    </div>
+    {{{popupmessage}}}
+    
+    {{{mantra-js-files}}}
+    {{{googleanalytics-gasnippet}}}
+    <script src="/vendors/{{miid}}popper.min.js"></script>
+    <script src="/vendors/{{miid}}bootstrap.min.js"></script>
+    <script src="/vendors/{{miid}}pace.min.js"></script>
+    <script src="/vendors/{{miid}}perfect-scrollbar.min.js"></script>
+  </body>
+</html>

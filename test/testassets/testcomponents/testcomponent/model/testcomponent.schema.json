@@ -1,0 +1,13 @@
+{
+    "entities" : [
+        {
+            "name" : "testcomponent",
+            "fields": [
+                { "name" : "fieldsample1", "type" : "string" },
+                { "name" : "fieldsample2", "type" : "boolean", "default": false },
+                { "name" : "created", "type" : "datetime"}
+            ],
+            "indexes": [ ["fieldsample1"] ]
+        }
+    ]
+}

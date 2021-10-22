@@ -1,0 +1,20 @@
+{
+    "entities": [
+        {   
+            "name": "mantrainstance",
+            "fields": [
+                { "name": "dataname", "type": "string" },
+                { "name": "datavalue", "type": "string" }
+            ] 
+        },
+        {   
+            "name": "components",
+            "fields": [
+                { "name": "name", "type": "string" },
+                { "name": "version", "type": "string" },
+                { "name": "location", "type": "string" },
+                { "name": "enabled", "type": "boolean" }
+            ] 
+        }   
+    ]
+}

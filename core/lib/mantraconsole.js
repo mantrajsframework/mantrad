@@ -1,0 +1,76 @@
+"use strict";
+
+const ReadLine = require("readline").createInterface(process.stdin, process.stdout);
+const Moment = require("moment");
+const Chalk = require("chalk");
+
+module.exports = {
+    rawInfo(msg) { console.log(msg); },
+
+    info(msg, withDate) {
+        ShowMessage( msg, 'green', withDate );
+    },
+
+    warning(msg, withDate) {
+        ShowMessage( msg, 'orange', withDate );
+    },
+
+    error(msg, withDate) {
+        ShowMessage( msg, 'red', withDate );
+    },
+
+    async question(msg, allowEmpty) {        
+        const ae = typeof allowEmpty == 'boolean' ? allowEmpty : true;        
+        let answer = await Question(msg);
+
+        while( !ae && answer == "" ) {
+            answer = await Question(msg);
+        }
+
+        return answer;
+    },
+    
+    newline() {
+        console.log('');
+    },
+
+    async questionWithOpts( msg, opts ) {
+        let i = 0;
+
+        for( const opt of opts ) {
+            console.log( Chalk.keyword('white')(`${++i}) ${opt}`) );
+        }
+
+        let optSelected = parseInt( await Question(msg) );
+
+        while( !(optSelected > 0 && optSelected < opts.length+1) ) {
+            console.log( Chalk.keyword('orange')(`Selecte between ${1} and ${opts.length}`) );
+
+            optSelected = parseInt( await Question(msg) );
+        }
+
+        return optSelected-1;
+    }
+}
+
+function ShowMessage( msg, color, withDate) {
+    let showDate = typeof withDate == 'undefined' ? true : withDate;
+
+    if (showDate) {
+        console.log( Chalk.keyword(color)(FormatWithDateTime(msg)) );
+    } else {
+        console.log( Chalk.keyword(color)(msg) );
+    }
+}
+
+function FormatWithDateTime(msg) {
+    return `${Moment(Date.now()).format("DD-MM-YYYY HH:mm:ss")} - ${msg}`;
+}
+
+async function Question(msg) {
+    return new Promise( (resolve,reject) => {        
+        ReadLine.question(msg, (answer) => {
+            resolve(answer);
+        } );
+    })
+}
