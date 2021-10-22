@@ -5,12 +5,12 @@ A Mantra project follows some design and software architecture principles define
 # Install with NPM
 
 ```
-$ npm install -g mantra
+$ npm install -g mantrad
 ```
 
 To check if it is successfully installed:
 ```
-$ mantra version
+$ mantrad version
 ```
 
 # Mantra Microkernel Framework. What it is?
