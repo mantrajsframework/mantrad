@@ -22,7 +22,7 @@ if ( !NodeVersionChecker.CheckNodeVersion( CoreConstants.NODESUPPORTEDVERSIONS )
 
 /*
  * Starts a mantra application with
- * $ mantra <command> [0..n params]
+ * $ mantrad <command> [0..n params]
  */
 (async () => {
     const args = getArgs();

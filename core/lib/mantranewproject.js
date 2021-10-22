@@ -32,7 +32,7 @@ module.exports = {
         // 6) completed
         MantraConsole.info("Mantra project created with success");
         MantraConsole.info("To complete installation, run:");
-        MantraConsole.info(`$ cd ${project.projectname} && mantra install`);
+        MantraConsole.info(`$ cd ${project.projectname} && mantrad install`);
     }
 }
 

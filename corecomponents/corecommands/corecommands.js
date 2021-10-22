@@ -7,23 +7,23 @@ class CoreCommandsStarter {
         MantraAPI.Hooks("corecommands")
             .Command([{
                 Name: "install-component",
-                Description: "Install a new component. Use: mantra install-component <component name>",
+                Description: "Install a new component. Use: mantrad install-component <component name>",
                 Handler: CoreCommandsHandlers.InstallComponent
             }, {
                 Name: "uninstall-component",
-                Description: "Uninstall component. Use: mantra uninstall-component <component name>",
+                Description: "Uninstall component. Use: mantrad uninstall-component <component name>",
                 Handler: CoreCommandsHandlers.UinstallComponent
             }, {
                 Name: "enable-component",
-                Description: "Enable a component. Use: mantra enable-component <component name>",
+                Description: "Enable a component. Use: mantrad enable-component <component name>",
                 Handler: CoreCommandsHandlers.EnableComponent
             }, {
                 Name: "disable-component",
-                Description: "Disable a component. Use: mantra disable-component <component name>",
+                Description: "Disable a component. Use: mantrad disable-component <component name>",
                 Handler: CoreCommandsHandlers.DisableComponent
             }, {
                 Name: "update-components-locations",
-                Description: "Updates components locations after moving some component to a new location. Use: mantra update-components-locations",
+                Description: "Updates components locations after moving some component to a new location. Use: mantrad update-components-locations",
                 Handler:CoreCommandsHandlers.UpdateComponentsLocations
             }, {
                 Name: "show-components-to-update",
@@ -35,47 +35,47 @@ class CoreCommandsStarter {
                 Handler: CoreCommandsHandlers.UpdateSystem
             }, {
                 Name: "new-component",
-                Description: "Creates the skeleton for a new component. Use: mantra new-component",
+                Description: "Creates the skeleton for a new component. Use: mantrad new-component",
                 Handler: CoreCommandsHandlers.NewComponent
             }, {
                 Name: "show-components",
-                Description: "Show all components. Use: mantra show-components",
+                Description: "Show all components. Use: mantrad show-components",
                 Handler: CoreCommandsHandlers.ShowComponents
             }, {
                 Name: "show-component",
-                Description: "Show component info. Use: mantra show-components <component name>",
+                Description: "Show component info. Use: mantrad show-components <component name>",
                 Handler: CoreCommandsHandlers.ShowComponent
             }, {
                 Name: "show-apis",
-                Description: "Show apis defined by components. Use mantra show-apis <component name, optional>",
+                Description: "Show apis defined by components. Use mantrad show-apis <component name, optional>",
                 Handler: CoreCommandsHandlers.ShowApis
             }, {
                 Name: "show-blocks",
-                Description: "Show blocks defined by components. Use mantra show-blocks <component name, optional>",
+                Description: "Show blocks defined by components. Use mantrad show-blocks <component name, optional>",
                 Handler: CoreCommandsHandlers.ShowBlocks
             }, {
                 Name: "show-accessconditions",
-                Description: "Show access conditions defined by components. User mantra show-accessconditions <component name, optional>",
+                Description: "Show access conditions defined by components. User mantrad show-accessconditions <component name, optional>",
                 Handler: CoreCommandsHandlers.ShowAccessConditions
             }, {
                 Name: "show-apps",
-                Description: "Show apps defined in configuration file. Use mantra show-apps",
+                Description: "Show apps defined in configuration file. Use mantrad show-apps",
                 Handler: CoreCommandsHandlers.ShowApps
             }, {
                 Name: "show-posts",
-                Description: "Show http posts defined by components. Use mantra show-posts <component name, optional>",
+                Description: "Show http posts defined by components. Use mantrad show-posts <component name, optional>",
                 Handler: CoreCommandsHandlers.ShowPosts
             }, {
                 Name: "show-views",
-                Description: "Show views defined by components. Use mantra show-blocks <component name, optional>",
+                Description: "Show views defined by components. Use mantrad show-blocks <component name, optional>",
                 Handler: CoreCommandsHandlers.ShowViews
             }, {
                 Name: "show-events-subscribers",
-                Description: "Show events subscribers defined by components. Use mantra show-event-subscribers <component name, optional>",
+                Description: "Show events subscribers defined by components. Use mantrad show-event-subscribers <component name, optional>",
                 Handler: CoreCommandsHandlers.ShowEventsSubscribers
             },{
                 Name: "show-middlewares",
-                Description: "Show components middlewares in order of calling. Use mantra show-middlewares <component name, optional>",
+                Description: "Show components middlewares in order of calling. Use mantrad show-middlewares <component name, optional>",
                 Handler: CoreCommandsHandlers.ShowMiddlewares
             }, {
                 Name: "check-health",

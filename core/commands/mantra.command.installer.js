@@ -33,11 +33,11 @@ async function Perform(MantraAPI, siteName) {
                 }
                 
                 MantraConsole.newline();
-                MantraConsole.info("Running mantra npm-install command", false);
+                MantraConsole.info("Running mantrad npm-install command", false);
                 MantraConsole.info(`If you already run this command, you can skip it.`, false)
 
                 await NpmInstaller.runNpmInstall(MantraConfig);
-                MantraConsole.info("mantra npm-install completed. Completing the installation...", false);
+                MantraConsole.info("mantrad npm-install completed. Completing the installation...", false);
             }
             
             await InstallMantraAsync();
@@ -46,7 +46,7 @@ async function Perform(MantraAPI, siteName) {
             MantraConsole.info("Run apps with:", false);
 
             for( let app of Object.keys(MantraConfig.Apps) ) {
-                MantraConsole.info(`$ mantra startapp ${app}`, false)
+                MantraConsole.info(`$ mantrad startapp ${app}`, false)
             }
         }
 
