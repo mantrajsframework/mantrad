@@ -2,15 +2,12 @@
   "name": "mantrad",
   "version": "1.0.16",
   "description": "Mantra Framework (www.mantrajs.com)",
-  "main": "mantra.js",
+  "main": "mantrad.js",
   "homepage": "https://github.com/mantrajsframework/mantrad",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/mantrajsframework/mantrad.git"
-  },
-  "engines": {
-    "node": ">=12 <15"
   },
   "os": ["linux"],
   "scripts": {},
@@ -40,6 +37,6 @@
     "mocha": "^8.3.2"
   },
   "bin": {
-    "mantra": "./mantrad.js"
+    "mantrad": "./mantrad.js"
   }
 }
