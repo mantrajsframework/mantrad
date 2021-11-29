@@ -9,7 +9,9 @@
     "type": "git",
     "url": "https://github.com/mantrajsframework/mantrad.git"
   },
-  "os": ["linux"],
+  "os": [
+    "linux"
+  ],
   "scripts": {},
   "author": "Rafael Gómez Blanes (www.rafablanes.com)",
   "dependencies": {
