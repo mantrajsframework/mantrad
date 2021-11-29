@@ -673,7 +673,7 @@ class Bootstrap {
         }
 
         if ( componentsToUpdate ) {
-            MantraConsole.info("Run 'mantra update' to update components", false);
+            MantraConsole.info("Run 'mantrad update' to update components", false);
         }
 
         return componentsToUpdate;
