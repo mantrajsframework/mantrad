@@ -45,7 +45,7 @@ module.exports = {
     MANTRA_INSTANCE_ID: "miid",
     MANTRA_JS_BLOCK: "mantra-js-files",
 
-    NODESUPPORTEDVERSIONS: [12, 13, 14, 15, 16],
+    NODESUPPORTEDVERSIONS: [12, 13, 14, 15, 16, 17],
     
     IsCoreComponent: (coreComponent) => {
         return CORE_COMPONENTS.includes(coreComponent);
