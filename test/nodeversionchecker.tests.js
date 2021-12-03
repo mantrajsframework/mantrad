@@ -25,5 +25,4 @@ describe( 'nodeversionchecker tests', () => {
 
         assert.isTrue(isRight);
     });
-
 });
