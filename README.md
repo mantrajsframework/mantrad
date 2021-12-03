@@ -16,7 +16,7 @@ To check if it is successfully installed:
 $ mantrad version
 ```
 
-# Mantra Hello Worlds
+# Mantra "Hello World"
 
 Run your first Mantra project with [Mantra Hello World](/docs/24-mantra-hello-world.md) sample step by step.
 
