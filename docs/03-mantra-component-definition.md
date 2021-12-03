@@ -1,6 +1,6 @@
 # Component definition
 
-A Mantra components is a standard NodeJS module which defines a configuration file named *mantra.json*.
+A Mantra components is a standard Node.js module which defines a configuration file named *mantra.json*.
 
 This json file is quite simple:
 
@@ -34,13 +34,13 @@ As an example, for *mycomponents* folder, Mantra will look up *main* component:
 + ---
 ```
 
-Mantra, in this case, expects to find a js file with the name of the folder (main.js), which is a NodeJS module with the following properties.
+Mantra, in this case, expects to find a js file with the name of the folder (main.js), which is a Node.js module with the following properties.
 
 This module should exposed two properties:
 * Start: defines some properties described below.
 * Install (optional): used by Mantra when the component is installed or uninstalled
   
-Following the example, main.js is a NodeJS module which exposes some Mantra properties:
+Following the example, main.js is a Node.js module which exposes some Mantra properties:
 
 ```js mantra.js file
 "use strict";

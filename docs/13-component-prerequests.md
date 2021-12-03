@@ -37,7 +37,7 @@ In this case, is function handler for this prerequest is the function ResourcesP
 Is useful to identify the prerequest with the prefix of the component which implements it.
 
 ## Brief method to define a prerequest
-As with views, blocks and other Mantra assets, you can define the prerequests in a NodeJS module within the component named as "prerequest.[component name].js".
+As with views, blocks and other Mantra assets, you can define the prerequests in a Node.js module within the component named as "prerequest.[component name].js".
 
 Here an example:
 

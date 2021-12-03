@@ -1,6 +1,6 @@
 #  MantraAPI Utils Reference
 
-MantraAPI.Util returns an object with some useful methods used internally by Mantra framework but that it can be used by any component. Most of them are based on "fs" and "fs-extra" NodeJS modules:
+MantraAPI.Util returns an object with some useful methods used internally by Mantra framework but that it can be used by any component. Most of them are based on "fs" and "fs-extra" Node.js modules:
 
 * [MantraAPI.Utils.CopyFile](#mantraapi.utils.copyfile)
   

@@ -8,7 +8,7 @@ $ mantra install-component mycomponent
 
 When running this, Mantra will look for folder components (indicated in the property *"ComponentsLocations"* in mantraconfig.json file) with the name "mycomponent".
 
-The component should define a mantra.json file and a NodeJS module with the file mycomponent.js name as indicated in [Component Definition section](/docs/04-component-definition.md).
+The component should define a mantra.json file and a Node.js module with the file mycomponent.js name as indicated in [Component Definition section](/docs/04-component-definition.md).
 
 If the component defines *Install* property, then the optional method *onInstall* will be invoked.
 

@@ -27,7 +27,7 @@ This is defition, when "sytem.cleanup" event is launched, then AnalyticsEventHan
 
 ## Brief method to subscribe to events
 
-Similary to views, blocks and other Mantra assets, you can define the subscription to events in a NodeJS module within any component with the name of "event.[component name].js", like this:
+Similary to views, blocks and other Mantra assets, you can define the subscription to events in a Node.js module within any component with the name of "event.[component name].js", like this:
 
 ```js
 "use strict";
