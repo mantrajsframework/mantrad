@@ -20,7 +20,7 @@ $ mantrad version
 
 Run your first Mantra project with [Mantra Hello World](/docs/24-mantra-hello-world.md) sample step by step.
 
-# Mantra Framework. What it is?
+# Mantra. What it is?
 
 Mantra is a Node.js framework for *lean*, scalable and high performance projects, based on small and highly decoupled components.
 

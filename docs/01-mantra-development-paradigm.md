@@ -14,7 +14,7 @@ These are the base principles:
 
 * The system is based on *components*.
 * A component is the minimal coding block.
-* Mantra Framework acts as the *glue* between them (following microkernel architecture).
+* Mantra acts as the *glue* between them (following microkernel architecture).
 * Data persistance is transparent based on simple json models.
 * Data models are extremely simple.
 * A component can define: APIs, views, blocks, events, templates, middlewares, post and get routes, *prerequests* and *access conditions*, cron handlers and commands lines interfaces.

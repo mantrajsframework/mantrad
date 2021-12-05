@@ -321,6 +321,6 @@ In mantra-demos GitHub project, you can find several working Mantra applications
 
 Usually, mantraconfig.json file is environment specific (development, production, etc.).
 
-Mantra framework always looksup "mantraconfig.json" file, so, to have multiple versions of this file according to the environment, is recommendable to have that file as a link to real configuration files using command *ls*.
+Mantra always looksup "mantraconfig.json" file, so, to have multiple versions of this file according to the environment, is recommendable to have that file as a link to real configuration files using command *ls*.
 
 By doing so, you can have "dev.mantraconfig.json" and "prod.mantraconfig.json" files with differents configurations an "mantraconfig.json" file as a link to one of them according to the environment.

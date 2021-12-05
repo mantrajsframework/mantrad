@@ -1,6 +1,6 @@
 # Component assets
 
-Mantra framework intends to split the functionality of a complex and scalable application in several and small Mantra components.
+Mantra intends to split the functionality of a complex and scalable application in several and small Mantra components.
 
 To do that, some specific assets and functionality has their own space in the component that the framework will *glue* in during the run time of the application.
 
