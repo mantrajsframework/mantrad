@@ -40,6 +40,8 @@ These are the Mantra core commands:
 
 * [show-views](#show-views)
 
+* [show-commands](#show-commands)
+
 * [show-component](#show-component)
 
 * [show-components](#show-components)
@@ -147,6 +149,14 @@ $ mantra show-views [component name, optional]
 ```
 
 Shows the list of all views definitions for all components. If [component name] is indicated, then only shows all view definitions for that component.
+
+## show-commands
+
+```
+$ mantra show-commands [component name, optional]
+```
+
+Show all commands defined by components, included default commands. If component name is indicated, then only commands defined by it will be shown.
 
 ## show-component
 
