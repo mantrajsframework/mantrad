@@ -24,7 +24,7 @@ Select project type
 2) HTML 5 boilerplate 8.0.0
 3) Bare (Bootstrap 4 Starter Template)
 4) HTML5UP - Twenty
-5) Sutra - HTML5 + Bootstrap 4 mantra default template
+
 Select project type: 4
 27-04-2021 12:11:57 - Mantra project created with success
 27-04-2021 12:11:57 - To complete installation, run:

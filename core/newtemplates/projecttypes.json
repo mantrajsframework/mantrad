@@ -21,11 +21,5 @@
         "configtemplate": "base.mantraconfig.json",
         "hasfrontend": true,
         "frontend": "html5up-twenty"
-    },
-    {
-        "name": "Sutra - HTML5 + Bootstrap 4 mantra default template",
-        "configtemplate": "base.mantraconfig.json",
-        "hasfrontend": true,
-        "frontend": "sutra"
     }
 ]
