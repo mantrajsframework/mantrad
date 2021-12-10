@@ -52,6 +52,8 @@ These are the Mantra core commands:
 
 * [show-posts](#show-posts)
   
+* [startapp](#startapp)
+
 * [uninstall-component](#uninstall-component)
 
 * [update](#update)
@@ -197,6 +199,14 @@ $ mantra show-posts [component name]
 ```
 
 Shows the list of all http posts definitions for all components. If [component name] is indicated, then only shows all post definitions for that component.
+
+## startapp
+
+```
+$ mantra startapp [application name, optional]
+```
+
+Starts the application indicated by its name in Apps section in [/docs/35-mantraconfig-json-file](mantraconfig.json file). If the application name is not indicated, then the first application of the App section will be started by default.
 
 ## uninstall-component
 
