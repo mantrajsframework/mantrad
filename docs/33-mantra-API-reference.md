@@ -961,13 +961,13 @@ The method will response a json object with the property "success" to false:
 AddJs( resource )
 ```
 
-Adds to the current request a javascript file placed at "js" folder. The resource is indicated with "componentname.filename" format.
+Adds to the current request a javascript file placed at "js" folder. The resource is indicated with "componentname.filename" format or an array of "componentname.filename" strings.
 
 All js files added with AddJs() in the same request, will be rendered at "mantra-js-files" Mustache tag indicated in html root document.
 
 By using AddJs(), compacting all js files involved in the same request can be done efficiently by Mantra and at run-time when enabling this feature in core properties.
 
-See [Adapting Root Html Document to Mantra](/docs/adapting-root-html-document-to-mantra.md) for more infor about Mantra Mustache tags.
+See [Adapting Root Html Document to Mantra](/22-docs/adapting-root-html-document-to-mantra.md) for more infor about Mantra Mustache tags.
 
 ## MantraAPI.AddCss
 
@@ -975,7 +975,7 @@ See [Adapting Root Html Document to Mantra](/docs/adapting-root-html-document-to
 AddCss( resource )
 ```
 
-Adds to the current request a css file placed at "css" folder. The resource is indicated with "componentname.filename" format.
+Adds to the current request a css file placed at "css" folder. The resource is indicated with "componentname.filename" format or an array of "componentname.filename" strings.
 
 All css files added with AddCss() in the same request, will be rendered at "mantra-css-files" Mustache tag indicated in html root document.
 
