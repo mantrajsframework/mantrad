@@ -47,16 +47,17 @@ class MantraStartup {
     }
 
     async startApp(config, args) {
-        if ( !config.Apps[args.arg1] ) {
+        if ( !isValidAppName(config, args)  ) {
             MantraConsole.error( `Unable to locate app with name '${args.arg1}'. Check config file` );
             process.exit();
         }
 
-        config.setApp( args.arg1 );
+        const appToStart = getAppToStart(config, args);
+        config.setApp( appToStart );
 
         MantraConsole.info(`Starting Mantra App ${getMantraVersion()}`);
         await MantraServer.startServer(config);
-        MantraConsole.info(`Mantra "${args.arg1}" application started`);
+        MantraConsole.info(`Mantra "${appToStart}" application started`);
     }
 
     GetCommands(MantraAPI) {
@@ -99,7 +100,7 @@ function getDefaultCommands() {
     let cmds = [];
 
     cmds['startapp'] = {
-        Description: "Starts an application according to config file. Usage: startapp <site name> <app name for that site>"
+        Description: "Starts an application according to config file. Usage: startapp <app name for that site, optional. If not present, then first app in config file will be started>"
     }
 
     cmds['new-project'] = {
@@ -107,7 +108,7 @@ function getDefaultCommands() {
     }
 
     cmds['install'] = {
-        Description: "Install a site according to config file. Usage: install <site name>"
+        Description: "Install the project according to config file. Usage: install"
     }
 
     cmds['version'] = {
@@ -140,6 +141,15 @@ function showCommands(cmds) {
 
 function getMantraVersion() {
     return( require(Path.join(__dirname,"package.json") ).version );
+}
+
+function getAppToStart(config, args) {
+    if ( !args.arg1 ) return Object.keys(config.Apps)[0];
+    else return args.arg1;
+}
+
+function isValidAppName(config, args) {
+    return !args.arg1 || config.Apps[args.arg1];
 }
 
 module.exports = () => new MantraStartup();

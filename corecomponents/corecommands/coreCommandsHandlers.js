@@ -88,6 +88,7 @@ module.exports = {
 
     ShowApps: async( MantraAPI ) => {
         const apps = Object.keys(global.Mantra.MantraConfig.Apps).sort();
+        const defaultApp = Object.keys(global.Mantra.MantraConfig.Apps)[0];
 
         MantraConsole.info( 'Your app(s):', false);
 
@@ -98,7 +99,11 @@ module.exports = {
         MantraConsole.info('To run your app(s):', false);
 
         for( const appName of apps ) {
-            MantraConsole.info( `$ mantrad startapp ${appName}`, false);
+            if ( appName == defaultApp ) {
+                MantraConsole.info( `Default: $ mantrad startapp ${appName} or $ mantrad startapp`, false);
+            } else {
+                MantraConsole.info( `$ mantrad startapp ${appName}`, false);
+            }
         }
     },
 
