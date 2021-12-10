@@ -95,10 +95,10 @@ module.exports = {
             MantraConsole.info( `* ${appName}`, false)
         }
 
-        MantraConsole.info('Tu run your app(s):', false);
+        MantraConsole.info('To run your app(s):', false);
 
         for( const appName of apps ) {
-            MantraConsole.info( `$ mantra startapp ${appName}`, false);
+            MantraConsole.info( `$ mantrad startapp ${appName}`, false);
         }
     },
 
@@ -282,6 +282,32 @@ module.exports = {
             let i = 0;
             for( const postName of postNames ) {
                 MantraConsole.info( `(${++i}) ${postName}`, false );
+            }
+        }
+    },
+
+    ShowCommands: async (MantraAPI, componentName) => {
+        const Chalk = require("chalk");
+        const commands = global.Mantra.Bootstrap.getHooksByName( CoreConstants.COMMAND_HOOK );
+        let commandsToShow = [];
+
+        if ( commands.length == 0 ) {
+            MantraConsole.info("No commands detected");
+        } else {
+            const Chalk = require("chalk");
+            
+            for (const command of commands ) {
+                if ( componentName == undefined || command.Component == componentName ) {
+                    commandsToShow.push( {
+                        Command: command.Name,
+                        Description: command.Description,
+                        Component: (!command.Component || command.Component == "corecommands" ) ? "mantra" : command.Component
+                    })
+                }    
+            }
+            
+            for( const command of MantraAPI.Utils.Underscore.sortBy( commandsToShow, "Component" ) ) {
+                MantraConsole.rawInfo(`${Chalk.white(command.Command)} (${Chalk.green(command.Component)}) : ${Chalk.yellow(command.Description)}`);
             }
         }
     },

@@ -78,6 +78,10 @@ class CoreCommandsStarter {
                 Description: "Show components middlewares in order of calling. Use mantrad show-middlewares <component name, optional>",
                 Handler: CoreCommandsHandlers.ShowMiddlewares
             }, {
+                Name: "show-commands",
+                Description: "Show commands defined by components. Use mantrad show-commands <component name, optional>",
+                Handler: CoreCommandsHandlers.ShowCommands
+            }, {
                 Name: "check-health",
                 Description: "Check system status and health",
                 Handler: CoreCommandsHandlers.CheckHealth

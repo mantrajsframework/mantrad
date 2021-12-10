@@ -7,6 +7,7 @@ MantraAPI.PostAsync = function( component, command, data ) {
         
         $.ajax( {
             method: "POST",
+            type: "POST",
             url: url, 
             data: { mantraPostData: dataToSend }
         })
