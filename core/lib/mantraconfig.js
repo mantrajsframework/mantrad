@@ -35,6 +35,7 @@ module.exports = {
 
         MantraConfig.Location = fullPathToSite;
         MantraConfig.FrontendLocation = path.join( MantraConfig.Location, "ui", FRONTEND_FOLDER );
+        MantraConfig.FrontendName = MantraConfig.Location;
         MantraConfig.SiteComponentsLocation = path.join( MantraConfig.Location, SITECOMPONENTS_FOLDER );
         MantraConfig.SiteTemplatesLocation = path.join( MantraConfig.Location, "ui", SITETEMPLATES_FOLDER );
         MantraConfig.RootDirectory = path.dirname( fullPathToConfigFile ) + "/";
@@ -96,7 +97,8 @@ module.exports = {
             }
         
             if (appConfig.FrontendLocation) {
-                MantraConfig.FrontendLocation = path.join( MantraConfig.Location, "ui", appConfig.FrontendLocation ); 
+                MantraConfig.FrontendLocation = path.join( MantraConfig.Location, "ui", appConfig.FrontendLocation );
+                MantraConfig.FrontendName = appConfig.FrontendLocation; 
             }
             
             if ( appConfig.LandingView ) {
@@ -137,6 +139,7 @@ module.exports = {
         if (appConfig.FrontendLocation) {
             MantraConfig.FrontendLocation = Path.join( MantraConfig.Location, "ui", appConfig.FrontendLocation ); 
             config.FrontendLocation = MantraConfig.FrontendLocation;    
+            MantraConfig.FrontendName = appConfig.FrontendLocation; 
         }
         
         if ( appConfig.LandingView ) {

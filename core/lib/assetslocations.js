@@ -5,8 +5,8 @@ const VarCache = global.gimport("varcache");
 const MantraConsole = global.gimport("mantraconsole");
 
 const LOCATIONS = {
-    BLOCKS_LOCATIONS: ['templates.blocks', 'component.ui/blocks', 'component.blocks'],
-    VIEWS_LOCATIONS: ['templates.views', 'component.ui/views', 'component.views'],
+    BLOCKS_LOCATIONS: ['frontendtemplates.blocks', 'templates.blocks', 'component.ui/blocks', 'component.blocks'],
+    VIEWS_LOCATIONS: ['frontendtemplates.views', 'templates.views', 'component.ui/views', 'component.views'],
     TEMPLATES_LOCATIONS: ['component.ui/templates', 'component.templates'],
     JS_LOCATIONS: ['component.ui/js', 'component.js'],
     CSS_LOCATIONS: ['component.ui/css', 'component.css']
@@ -181,6 +181,9 @@ function GetLocationFullPath( MantraAPI, location, component, file ) {
             }
             case 'templates': {
                 return Path.join(global.Mantra.MantraConfig.SiteTemplatesLocation, component, base[1], file);
+            }
+            case 'frontendtemplates': {
+                return Path.join(global.Mantra.MantraConfig.SiteTemplatesLocation, global.Mantra.MantraConfig.FrontendName, component, base[1], file);
             }
             default:
                 MantraConsole.error( `Unkown location type of ${base[0]}` );
