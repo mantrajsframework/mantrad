@@ -1,6 +1,6 @@
 Mantra is a framework based on [Node.js](https://nodejs.org/) to develop scalable projects with highly decoupled components and projects following *lean* methodology with fast and high evolution.
 
-A Mantra project follows some design and software architecture principles defined in [Mantra Paradigm Development Principles](/docs/mantra-development-paradigm.md).
+A Mantra project follows some design and software architecture principles defined in [Mantra Paradigm Development Principles](/docs/01-mantra-development-paradigm.md).
 
 # Install with NPM
 
@@ -20,7 +20,7 @@ $ mantrad version
 
 Run your first Mantra project with [Mantra Hello World](/docs/24-mantra-hello-world.md) sample step by step.
 
-# Mantra. What it is?
+# What it is?
 
 Mantra is a Node.js framework for *lean*, scalable and high performance projects, based on small and highly decoupled components.
 
