@@ -90,20 +90,23 @@ module.exports = {
         const apps = Object.keys(global.Mantra.MantraConfig.Apps).sort();
         const defaultApp = Object.keys(global.Mantra.MantraConfig.Apps)[0];
 
-        MantraConsole.info( 'Your app(s):', false);
-
-        for( const appName of apps ) {
-            MantraConsole.info( `* ${appName}`, false)
-        }
-
-        MantraConsole.info('To run your app(s):', false);
-
-        for( const appName of apps ) {
-            if ( appName == defaultApp ) {
-                MantraConsole.info( `Default: $ mantrad startapp ${appName} or $ mantrad startapp`, false);
-            } else {
+        if ( apps.length == 0 ) {
+            MantraConsole.info( 'No apps defined yet at mantraconfig.json file');
+        } else {
+            MantraConsole.info( 'Your app(s):', false);
+    
+            for( const appName of apps ) {
+                MantraConsole.info( `* ${appName}`, false)
+            }
+    
+            MantraConsole.info('To run your app(s):', false);
+    
+            for( const appName of apps ) {
                 MantraConsole.info( `$ mantrad startapp ${appName}`, false);
             }
+
+            MantraConsole.info( `Default application: ${defaultApp}, run it with:`, false );
+            MantraConsole.info( '$ mantrad startapp', false); 
         }
     },
 
