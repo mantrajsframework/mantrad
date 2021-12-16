@@ -257,9 +257,14 @@ class MantraAPI {
      *    htmlContainerFile: main container for the view, optional, by default index.html
      */
     async RenderView( view, htmlContainerFile ) {
-        let parts = this.Utils.ParseComponentPath( view );
+        const parts = this.Utils.ParseComponentPath( view );
 
-        return this.SendHtml( await this.RenderFullViewHtml( parts.component, parts.asset, htmlContainerFile ? htmlContainerFile : "index.html") );
+        if ( parts.component && global.Mantra.ComponentsLoader.existsComponentByName(parts.component) ) {
+            return this.SendHtml( await this.RenderFullViewHtml( parts.component, parts.asset, htmlContainerFile ? htmlContainerFile : "index.html") );
+        } else {
+            this.LogError( `View '${view}' not valid` );
+            if ( parts.component ) this.LogError( `Component '${parts.component}' doesn't exist or it is not enabled`);
+        }
     }
 
     ExistsBlock( componentName, blockName) {
