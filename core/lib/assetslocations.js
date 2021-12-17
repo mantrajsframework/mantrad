@@ -34,23 +34,13 @@ class AssetsLocationsAPI {
     }
 
     async GetTemplateLocation( componentName, templateName ) {
-        let locations = [];
-        
+        let locations = [ Path.join( global.Mantra.MantraConfig.SiteTemplatesLocation, global.Mantra.MantraConfig.FrontendName ),
+            Path.join( global.Mantra.MantraConfig.SiteTemplatesLocation, componentName ),
+            Path.join( global.Mantra.MantraConfig.SiteTemplatesLocation ) ];
+
         // Templates can be defined without the existence of a component
         if ( global.Mantra.ComponentsLoader.existsComponentByName(componentName) ) {
-            locations = [ Path.join( global.Mantra.MantraConfig.SiteTemplatesLocation, global.Mantra.MantraConfig.FrontendName, componentName ),
-                          Path.join( global.Mantra.MantraConfig.SiteTemplatesLocation, componentName ) ];
-
             locations = locations.concat(LOCATIONS.TEMPLATES_LOCATIONS);
-
-            const asset = await this.GetAsset( 
-                locations,
-                `${componentName}.${templateName}`, "html" );
-    
-            return asset.exists ? asset.fullpath : "";
-        } else {
-            locations = [ Path.join( global.Mantra.MantraConfig.SiteTemplatesLocation, global.Mantra.MantraConfig.FrontendName ),
-                          Path.join( global.Mantra.MantraConfig.SiteTemplatesLocation ) ];
         }
 
         const asset = await this.GetAsset( 
