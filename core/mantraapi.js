@@ -577,16 +577,15 @@ class MantraAPI {
      * path: <componentname>.<schemaname>
      */
     async LoadSchema( schema ) {
-        let parts = this.Utils.ParseComponentPath(schema);
+        const parts = this.Utils.ParseComponentPath(schema);
 
         return this.componentSchemaCache.GetSchema( this, parts.component, parts.asset );
     }
 
     async GetSchemaByVersion( componentName, version ) {
-        let componentLocation = this.GetComponentLocation(componentName);
-    
-        let schema = `${componentName}.${version}`;
-        let pathToVersionModel = path.join( componentLocation, "model", `${schema}.schema.json` );
+        const componentLocation = this.GetComponentLocation(componentName);
+        const schema = `${componentName}.${version}`;
+        const pathToVersionModel = path.join( componentLocation, "model", `${schema}.schema.json` );
     
         if ( this.Utils.FileExistsSync( pathToVersionModel ) ) {
             return require(pathToVersionModel);
@@ -1002,7 +1001,7 @@ class MantraAPI {
     }
 
     async getHtmlBlock( blockName ) {        
-        let htmlBlocks = await this.bootstrap.getHtmlBlocks(this, [blockName], this.req, this.res );
+        const htmlBlocks = await this.bootstrap.getHtmlBlocks(this, [blockName], this.req, this.res );
         
         return htmlBlocks[blockName] ? htmlBlocks[blockName].blockHtml : ""; 
     }
