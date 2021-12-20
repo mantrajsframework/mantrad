@@ -1,6 +1,7 @@
 "use strict";
 
 const Path = require("path");
+const { DefaultDeserializer } = require("v8");
 
 const MantraConsole = global.gimport("mantraconsole");
 const MantraNewProject = global.gimport("mantranewproject");
@@ -23,8 +24,14 @@ class MantraStartup {
 
     async showDefaultHelp() {
         MantraConsole.info(`Mantra default commands:`);
-
-        showCommands(getDefaultCommands());
+        const defaultCommands = getDefaultCommands();
+        
+        // Remove commands not available when no mantraconfig.json is detected
+        delete defaultCommands["startapp"];
+        delete defaultCommands["npm-install"];
+        delete defaultCommands["install"];
+        
+        showCommands(defaultCommands);
     }
 
     async showVersion() {
