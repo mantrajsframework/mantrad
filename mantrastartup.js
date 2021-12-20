@@ -1,9 +1,9 @@
 "use strict";
 
 const Path = require("path");
-const { DefaultDeserializer } = require("v8");
 
 const MantraConsole = global.gimport("mantraconsole");
+const CoreConstants = global.gimport("coreconstants");
 const MantraNewProject = global.gimport("mantranewproject");
 const MantraServer = global.gimport("mantraserver");
 const MantraUtils = global.gimport("mantrautils");
@@ -20,6 +20,7 @@ class MantraStartup {
         MantraConsole.info(`Component commands & Mantra default commands:`);
 
         showCommands(cmds);
+        showWebsiteMessageInfo();
     }
 
     async showDefaultHelp() {
@@ -30,12 +31,14 @@ class MantraStartup {
         delete defaultCommands["startapp"];
         delete defaultCommands["npm-install"];
         delete defaultCommands["install"];
-        
+
         showCommands(defaultCommands);
+        showWebsiteMessageInfo();
     }
 
     async showVersion() {
-        MantraConsole.info(`Mantra version: ${getMantraVersion()}`);
+        MantraConsole.info(`Mantra version: ${getMantraVersion()}`, false);
+        showWebsiteMessageInfo();
     }
 
     async performCommand(config, args) {
@@ -157,6 +160,10 @@ function getAppToStart(config, args) {
 
 function isValidAppName(config, args) {
     return !args.arg1 || config.Apps[args.arg1];
+}
+
+function showWebsiteMessageInfo() {
+    MantraConsole.info( `More info at ${CoreConstants.MANTRAWEBSITE} site`, false );
 }
 
 module.exports = () => new MantraStartup();

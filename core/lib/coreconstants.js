@@ -46,7 +46,8 @@ module.exports = {
     MANTRA_JS_BLOCK: "mantra-js-files",
 
     NODESUPPORTEDVERSIONS: [12, 13, 14, 15, 16, 17],
-    
+    MANTRAWEBSITE: "www.mantrajs.com",
+       
     IsCoreComponent: (coreComponent) => {
         return CORE_COMPONENTS.includes(coreComponent);
     }
