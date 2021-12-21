@@ -1,6 +1,8 @@
-Mantra is a framework based on [Node.js](https://nodejs.org/) to develop scalable projects with highly decoupled components and projects following *lean* methodology with fast and high evolution.
+Mantra is a framework based on [Node.js](https://nodejs.org/) to develop scalable and progressive projects with highly decoupled components and projects following *lean* methodology with fast and high evolution.
 
-A Mantra project follows some design and software architecture principles defined in [Mantra Paradigm Development Principles](/docs/01-mantra-development-paradigm.md).
+Mantra is the core for building platforms, startups applications, enterprise systems or, virtually, any other kind of projects.
+
+A Mantra project follows some design and software architecture principles defined in [Mantra Paradigm Development Principles](/docs/01-mantra-development-paradigm.md). With them, technical debt is minimized and testeability of components are extremely high.
 
 # Install with NPM
 
@@ -36,16 +38,9 @@ Mantra depends on:
 * [Express](https://expressjs.com/) as core web server.
 * [Mustache](https://github.com/janl/mustache.js) template redering mecanism for views.
 
-Mantra works and has been tested with Node.js 12.x, 13.x, 14.x, 15.x, 16.x and 17.x.
+Mantra works and has been tested in Linux environments with Node.js 12.x, 13.x, 14.x, 15.x, 16.x and 17.x.
 
 Future versions will support more data providers and rendering engines.
-
-# Test
-To test Mantra code project, go to Mantra installation folder and use mocha:
-
-```
-$ mocha
-```
 
 # What kind of applications can be built with Mantra?
 You can use Mantra for building many different kinds of applications:
