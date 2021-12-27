@@ -179,7 +179,7 @@ function lookupViewFile( MantraAPI, resourceModule, componentName ) {
 
 function lookupBlockFile( MantraAPI, resourceModule, componentName ) {
     for( const blockName of Object.keys(resourceModule) ) {
-        if ( !blockName.endsWith("_prerequest") && !blockName.endsWith("_accesscondition") ) {
+        if ( !blockName.endsWith("_prerequest") && !blockName.endsWith("_accesscondition") && !blockName.endsWith("_isstatic") ) {
             MantraAPI.Hooks(componentName)
                 .Block( {
                     BlockName: blockName,
@@ -187,7 +187,8 @@ function lookupBlockFile( MantraAPI, resourceModule, componentName ) {
                     Js: extraResource(resourceModule, blockName, "js"),
                     Css: extraResource(resourceModule, blockName, "css"),
                     PreRequest: extraResource(resourceModule, blockName, "prerequest"),
-                    AccessCondition: extraResource(resourceModule, blockName, "accesscondition")
+                    AccessCondition: extraResource(resourceModule, blockName, "accesscondition"),
+                    IsStatic: extraResource(resourceModule, blockName, "isstatic")
                 } );
          }
     }   

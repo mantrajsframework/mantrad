@@ -14,6 +14,7 @@ const CoreConstants = global.gimport("coreconstants");
 const MantraConsole = global.gimport("mantraconsole");
 const MantraDB = global.gimport("mantradb");
 const MantraUtils = global.gimport("mantrautils");
+const StaticBlocksCache = global.gimport("varcache")();
 
 let singleBootstrap;
 
@@ -475,40 +476,39 @@ class Bootstrap {
                 }
 
                 if ( shouldRender ) {
-                    let pathToBlockFile = await MantraAPI.GetAssetsLocations().GetBlockLocation( b.Component, b.BlockName );
-
-                    if ( pathToBlockFile != "" ) {
+                    if ( b.IsStatic == true && StaticBlocksCache.Exists( getStaticBlockCacheKey(b)) ) {
+                        blocks[b.BlockName] = StaticBlocksCache.Get(`blockstaticcache${b.Component}${b.BlockName}`);
+                    } else {
+                        const pathToBlockFile = await MantraAPI.GetAssetsLocations().GetBlockLocation( b.Component, b.BlockName );
                         let newBlock = {
                             blockName: b.BlockName,
                             componentName: b.Component,
-                            pathToBlockFile: pathToBlockFile,
-                            blockHtml: await MantraAPI.Invoke("static.getfile", { fullPathToFile: pathToBlockFile } ),
                             Css: b.Css,
                             Js: b.Js
                         }                   
-
-                        if ( b.RenderHandler ) {
-                            newBlock.blockHtml = await b.RenderHandler( MantraAPI, newBlock.blockHtml, b.BlockName );
-                        }
-            
-                        blocks[b.BlockName] = newBlock;        
-                    } else {
-                        if ( b.RenderHandler ) {
-                            let newBlock = {
-                                blockName: b.BlockName,
-                                componentName: b.Component,
-                                pathToBlockFile: "",
-                                blockHtml: "",
-                                Css: b.Css,
-                                Js: b.Js
-                            }                   
     
-                            newBlock.blockHtml = await b.RenderHandler( MantraAPI, newBlock.blockHtml, b.BlockName );                
-                            blocks[b.BlockName] = newBlock;            
+                        if ( pathToBlockFile != "" ) {
+                            newBlock.pathToBlockFile = pathToBlockFile;
+                            newBlock.blockHtml = await MantraAPI.Invoke("static.getfile", { fullPathToFile: pathToBlockFile } );
+    
+                            if ( b.RenderHandler ) {
+                                newBlock.blockHtml = await b.RenderHandler( MantraAPI, newBlock.blockHtml, b.BlockName );                            
+                            }
+                
+                            blocks[b.BlockName] = newBlock;        
+                            checkIfAddToBlockCache( b, newBlock );
                         } else {
-                            await MantraAPI.LogError(`Block file for ${b.BlockName} doesn't exist or it is not accesible`);
-                        }
-                    }                
+                            if ( b.RenderHandler ) {
+                                newBlock.pathToBlockFile = "";
+                                newBlock.blockHtml = await b.RenderHandler( MantraAPI, newBlock.blockHtml, b.BlockName );                
+    
+                                blocks[b.BlockName] = newBlock;            
+                                checkIfAddToBlockCache( b, newBlock );
+                            } else {
+                                await MantraAPI.LogError(`Block file for ${b.BlockName} doesn't exist or it is not accesible`);
+                            }
+                        }                    
+                    }
                 } else {
                     blocks[b.BlockName] = "";
                 }
@@ -724,6 +724,16 @@ function loadDefaultComponentsConfigurations() {
             
             MantraConsole.warning( `Inhering default configuration for component '${cmpName}'` );
         }
+    }
+}
+
+function getStaticBlockCacheKey(block) {
+    return `blockstaticcache${block.Component}${block.BlockName}`;
+}
+
+function checkIfAddToBlockCache( block, newBlock ) {
+    if ( block.IsStatic == true ) {
+        StaticBlocksCache.Add( getStaticBlockCacheKey(block), newBlock);
     }
 }
 

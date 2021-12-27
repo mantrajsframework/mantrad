@@ -94,6 +94,7 @@ class MantraRegister {
             this.checkOptionalPropertyType( "AccessCondition", CoreConstants.BLOCK_HOOK, blockData, ['string', 'object'] );
             this.checkOptionalPropertyType( "PreRequest", CoreConstants.BLOCK_HOOK, blockData, ['string', 'object'] );
             this.checkOptionalPropertyType( "RenderHandler", CoreConstants.BLOCK_HOOK, blockData, ['function'] );
+            this.checkOptionalPropertyType( "IsStatic", CoreConstants.BLOCK_HOOK, blockData, ['boolean'] );
         }
         
         return this.R( CoreConstants.BLOCK_HOOK, data );
