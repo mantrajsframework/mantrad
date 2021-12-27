@@ -2,8 +2,8 @@
 
 Each component of a Mantra project should be installed specifically with the command *install-component*:
 
-```
-$ mantra install-component mycomponent
+```bash
+$ mantrad install-component mycomponent
 ```
 
 When running this, Mantra will look for folder components (indicated in the property *"ComponentsLocations"* in mantraconfig.json file) with the name "mycomponent".
@@ -18,8 +18,8 @@ If the component defines *Install* property, then the optional method *onInstall
 
 To uninstall a Mantra component for the current project, you should use *uninstall-component* command:
 
-```
-$ mantra uninstall-component mycomponent
+```bash
+$ mantrad uninstall-component mycomponent
 ```
 
 As indicated in [Component Definition section](/docs/04-component-definition.md), if the component defines *Install* property, then the optional method *onUninstall* will be invoked.

@@ -503,7 +503,7 @@ async function CreateNewComponent (MantraAPI) {
     await global.gimport("componentbuilder").buildComponent(componentInfo);
 
     MantraConsole.info(`Component '${componentInfo.name} 'created!`, false);
-    MantraConsole.info(`To install new component, run: $ mantra install-component ${componentInfo.name}`, false);
+    MantraConsole.info(`To install new component, run: $ mantrad install-component ${componentInfo.name}`, false);
 }
 
 async function GetComponentsToUpdate() {

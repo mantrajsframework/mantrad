@@ -10,8 +10,8 @@ A single project can define one or more applications, according to mantraconfig.
 
 Mantra looks up that file to start one of the applications with *startapp* command, such as:
 
-```
-$ mantra startapp myapp
+```bash
+$ mantrad startapp myapp
 ```
 
 Any Mantra project can contain any number of frontends and components.

@@ -16,7 +16,8 @@ MantraAPI.Hooks(["component name"])
         Js: [array with js files to include | js file to include (optional)],
         Css: [array with css files to include | css file to include (optional)],
         PreRequest: [array with pre requests to call before calling view handler (optional)],
-        AccessCondition: [array with access conditions handlers to call before calling view handler (optional)]
+        AccessCondition: [array with access conditions handlers to call before calling view handler (optional)],
+        IsStatic: [boolean indicating if then render handler should be called once (optional)]
     }]);
 ```
 
@@ -61,10 +62,11 @@ To avoid typing the hook regitering call in *onStart* method, you can describe t
 In this case, the module should define a number of properties named as the following:
 * "<block_name>_accescondition" (optional): string or array of strings, defines the AccessCondition property for the block.
 * "<block_name>_prerequest" (optional): defines de PreRequest property for the block.
-* "<block_name>_js (optional): string or array of strings, defines the js file or files for the block.
-* "<block_name>_css (optional): string or array of strings, defines the css file or files for the block.
+* "<block_name>_js" (optional): string or array of strings, defines the js file or files for the block.
+* "<block_name>_css" (optional): string or array of strings, defines the css file or files for the block.
 * "<block_name>": property with the block function handler to be called by the framework when the block should be rendered.
-  
+* "<block_name>_isstatic" (optional): boolean indicating if the render handler should be called once, for static content that just need to be calculated once.
+
 Here there's an example:
 
 ```js

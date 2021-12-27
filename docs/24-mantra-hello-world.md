@@ -4,13 +4,13 @@ Mantra has a number of commands to create new projects and components.
 
 To create a new project as an example, run "new-project" command:
 
-```
-$ mantra new-project
+```bash
+$ mantrad new-project
 ```
 
 Follow the instruccions:
 
-```
+```bash
 27-04-2021 12:11:26 - New project with Mantra version: 1.0.15
 Project name: helloworldmantra
 Project app name: coreapp
@@ -55,13 +55,13 @@ Install Mantra Framework and its components [Y]/N? Y
 27-04-2021 12:13:29 - Installing site components
 Mantra application installed with success
 Run apps with:
-$ mantra startapp coreapp
+$ mantrad startapp coreapp
 ```
 
 Finally, run the application defined in the steps above with the command "startapp":
 
-```
-$ mantra startapp coreapp
+```bash
+$ mantrad startapp coreapp
 ```
 
 Then you get:
@@ -123,8 +123,8 @@ Explanation:
 
 Now, let's create the base of a new component inside this project using the command "new-component":
 
-```
-$ mantra new-component
+```bash
+$ mantrad new-component
 ```
 
 Will ask you the name for the component:
@@ -137,13 +137,13 @@ Will ask you the name for the component:
 New component name: myfirstcomponent
 Description: First component for Hello World Mantra project
 Component 'myfirstcomponent 'created!
-To install new component, run: $ mantra install-component myfirstcomponent
+To install new component, run: $ mantrad install-component myfirstcomponent
 ```
 
 Now, you should install the component and enable it:
 
-```
-$ mantra install-component myfirstcomponent
+```bash
+$ mantrad install-component myfirstcomponent
 ```
 
 Then you have:
@@ -159,8 +159,8 @@ Install component myfirstcomponent [Y]/N? Y
 
 Finally, you must enable the component with "enable-component command":
 
-```
-$ mantra enable-component myfirstcomponent
+```bash
+$ mantrad enable-component myfirstcomponent
 ```
 
 Then you got:

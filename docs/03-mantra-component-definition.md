@@ -91,8 +91,8 @@ If returns false, Mantra will log the situation and the application will not be 
 
 This method is called when *check-health* Mantra command is performed:
 
-```
-$ mantra check-health
+```bash
+$ mantrad check-health
 ```
 
 This this command, Mantra looks for all components which implements *onCheckHealth* and calls them.
@@ -119,8 +119,8 @@ Usefull to perform some system level tasks if needed.
 
 Called when the command *install-component* is used:
 
-```
-$ mantra install-component <my component name>
+```bash
+$ mantrad install-component <my component name>
 ```
 
 It should perform some installing operations, like instantiate model entities.
@@ -133,8 +133,8 @@ This method is intended for some kind of initialization of the component. Is cal
 
 Called when the command *uninstall-component* is used:
 
-```
-$ mantra uninstall-component <my component name>
+```bash
+$ mantrad uninstall-component <my component name>
 ```
 
 It should perform some uninstalling operations, like removing model entities.
@@ -143,8 +143,8 @@ It should perform some uninstalling operations, like removing model entities.
 
 Called when the command *update-components* is used:
 
-```
-$ mantra update
+```bash
+$ mantrad update
 ```
 
 It should perform some updating operations, like updating model entities.

@@ -31,8 +31,8 @@ Then, this component should be updated.
 
 To update the component, "update" command is used:
 
-```
-$ mantra update
+```bash
+$ mantrad update
 ```
 
 By running this command, Mantra will look for components to be updated.

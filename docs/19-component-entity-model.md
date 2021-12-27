@@ -42,8 +42,8 @@ Due to Mantra paradigm, models should be simple, like this example.
 
 The model is created when the component is install when you use *install-component* command:
 
-```
-$ mantra install-component mycomponent
+```bash
+$ mantrad install-component mycomponent
 ```
 
 Mantra will look for *onInstall* method of the component as defined in [Component Definition](/docs/04-component-definition.md).
@@ -56,8 +56,8 @@ Similarly to installing a model, uninstalling it follows de same process.
 
 By running the Mantra command *uninstall-component*, the model will be removed:
 
-```
-$ mantra uninstall-component mycomponent
+```bash
+$ mantrad uninstall-component mycomponent
 ```
 
 Mantra will look for *onUninstall* method of the component as defined in [Component Definition](/docs/04-component-definition.md).

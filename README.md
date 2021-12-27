@@ -8,13 +8,13 @@ A Mantra project follows some design and software architecture principles define
 
 *mantrad* is the command line interface (cli) to manage Mantra applications. Install it with:
 
-```
+```bash
 $ npm install -g mantrad
 ```
 
 To check if it is successfully installed:
 
-```
+```bash
 $ mantrad version
 ```
 

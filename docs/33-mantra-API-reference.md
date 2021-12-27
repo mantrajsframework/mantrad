@@ -646,8 +646,8 @@ Updates a new schema for component. This method is complex and involves changes 
 
 It should be called from an onUpdate() method of the [component definition](/docs/mantra-component-definition.md). onUpdate() is called by Mantra when running 'update' command and if it detects changes in "version" property of mantra.json file of the component.
 
-```
-$ mantra update
+```bash
+$ mantrad update
 ```
 
 As with any othe important updatet in any software system, it is *Recommended* to make database backup before calling this method.

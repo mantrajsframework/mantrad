@@ -204,8 +204,8 @@ The name of the application is the name of the properties under "Apps" (in the c
 
 By doing so, you can start an specific Mantra application with:
 
-```
-$ mantra startapp app-one
+```bash
+$ mantrad startapp app-one
 ```
 
 The properties than can be used to overwrite root ones, are the following:

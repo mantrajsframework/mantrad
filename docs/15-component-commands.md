@@ -26,8 +26,8 @@ MantraAPI.Hooks( "search" )
 
 With this, you can run the command from the bash just with:
 
-```
-$ mantra remove-search-indexes
+```bash
+$ mantrad remove-search-indexes
 ```
 
 You can see all commands defined in the project (apart from core commands) with:
@@ -50,8 +50,8 @@ async (MantraAPI, <list of params> ) => {
 
 Optionally, you can set any number of parameters when running the command that Mantra will send to the function command handler as parameters:
 
-```
-$ mantra books-show-book 9iIdss2a2
+```bash
+$ mantrad books-show-book 9iIdss2a2
 ```
 
 When running this, the parameter "9iIdss2a2" will be set as parameter of the function handler:

@@ -62,8 +62,8 @@ These are the Mantra core commands:
   
 ## check-health
 
-```
-$ mantra check-health
+```bash
+$ mantrad check-health
 ```
 
 By running this command, Mantra will invoke all Start.onCheckHealth() methods implemented in the components modules.
@@ -72,8 +72,8 @@ This method is optional, and it is intended to implement some kind of checking a
 
 ## disable-component
 
-```
-$ mantra disable-component [component name]
+```bash
+$ mantrad disable-component [component name]
 ```
 
 Disables a component given its name.
@@ -82,8 +82,8 @@ If a component it is not enable, then will not be loaded when starting any appli
 
 ## enable-component
 
-```
-$ mantra enable-component [component name]
+```bash
+$ mantrad enable-component [component name]
 ```
 
 Enables a component given its name.
@@ -92,8 +92,8 @@ Mantra only loads all enabled components when starting any applications of the p
 
 ## install-component
 
-```
-$ mantra install-component [component name]
+```bash
+$ mantrad install-component [component name]
 ```
 
 Installs a new component in the project.
@@ -104,8 +104,8 @@ This method will call Install.onInstall() (optional) method of the component so 
 
 ## new-component
 
-```
-$ mantra [name of the new component] 
+```bash
+$ mantrad [name of the new component] 
 ```
 
 Launches a cli wizard to create the skeleton of a new component in the project.
@@ -114,104 +114,104 @@ Launches a cli wizard to create the skeleton of a new component in the project.
 
 ## show-accessconditions
 
-```
-$ mantra show-accessconditions [component name, optional]
+```bash
+$ mantrad show-accessconditions [component name, optional]
 ```
 
 Shows the list of all access conditions definitions for all components. If [component name] is indicated, then only shows the access conditions defined by that component.
 
 ## show-apis
 
-```
-$ mantra show-apis [component name, optional]
+```bash
+$ mantrad show-apis [component name, optional]
 ```
 
 Shows the list of all api definitions for all components. If [component name] is indicated, then only shows all api definitions for that component.
 
 ## show-blocks
 
-```
-$ mantra show-blocks [component name, optional]
+```bash
+$ mantrad show-blocks [component name, optional]
 ```
 
 Shows the list of all blocks definitions for all components. If [component name] is indicated, then only shows all block definitions for that component.
 
 ## show-events-subscribers
 
-```
-$ mantra show-events-subscribers [component name, optional]
+```bash
+$ mantrad show-events-subscribers [component name, optional]
 ```
 
 Shows the list of all events subsribers definitions for all components. If [component name] is indicated, then only shows all event subscriber definitions for that component.
 
 ## show-views
 
-```
-$ mantra show-views [component name, optional]
+```bash
+$ mantrad show-views [component name, optional]
 ```
 
 Shows the list of all views definitions for all components. If [component name] is indicated, then only shows all view definitions for that component.
 
 ## show-commands
 
-```
-$ mantra show-commands [component name, optional]
+```bash
+$ mantrad show-commands [component name, optional]
 ```
 
 Show all commands defined by components, included default commands. If component name is indicated, then only commands defined by it will be shown.
 
 ## show-component
 
-```
-$ mantra show-component [component name]
+```bash
+$ mantrad show-component [component name]
 ```
 
 Shows a json object with all hooks registration for the component.
 
 ## show-components
 
-```
-$ mantra show-components
+```bash
+$ mantrad show-components
 ```
 
 Shows a list with all components installed in the project.
 
 ## show-components-to-update
 
-```
-$ mantra show-components-to-update
+```bash
+$ mantrad show-components-to-update
 ```
 
 Shows the components that should be updated because its version has changed.
 
 ## show-middlewares
 
-```
-$ mantra show-middlewares [component name]
+```bash
+$ mantrad show-middlewares [component name]
 ```
 
 Shows the list of all middlewares definitions for all components. If [component name] is indicated, then only shows all middleware definitions for that component.
 
 ## show-posts
 
-```
-$ mantra show-posts [component name]
+```bash
+$ mantrad show-posts [component name]
 ```
 
 Shows the list of all http posts definitions for all components. If [component name] is indicated, then only shows all post definitions for that component.
 
 ## startapp
 
-```
-$ mantra startapp [application name, optional]
+```bash
+$ mantrad startapp [application name, optional]
 ```
 
 Starts the application indicated by its name in Apps section in [/docs/35-mantraconfig-json-file](mantraconfig.json file). If the application name is not indicated, then the first application of the App section will be started by default.
 
 ## uninstall-component
 
-```
-$ mantra uninstall-component [component name]
+```bash
+$ mantrad uninstall-component [component name]
 ```
 
 Uninstalls a component in the project.
@@ -220,8 +220,8 @@ This method will call Install.onUninstall() (optional) method of the component s
 
 ## update
 
-```
-$ mantra update
+```bash
+$ mantrad update
 ```
 
 Iterates by all components and check their versions in their mantra.json file.
@@ -230,8 +230,8 @@ If they indicate a different version than the version installed, then thec comma
 
 ## update-components-locations
 
-```
-$ mantra update-components-locations
+```bash
+$ mantrad update-components-locations
 ```
 
 When installing a component, Mantra saves in core database their folder locations.
