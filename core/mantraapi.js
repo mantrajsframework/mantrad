@@ -985,18 +985,22 @@ class MantraAPI {
 
     async addNewLog( type, description, data = "", key = "", counter = 0) {
         const logApi = this.Config("core.logapi");
-        const logData = {
-            type: type,
-            key: key,
-            counter: counter,
-            description: description,
-            data: data ? data : ""
-        }
 
-        if ( logApi && logApi !== "" ) {
-            return this.Invoke(logApi, logData );
+        if ( global.Mantra.Initialized && logApi && logApi !== "" ) {
+            const logData = {
+                type: type,
+                key: key,
+                counter: counter,
+                description: description,
+                data: data ? data : ""
+            }
+    
+            return this.Invoke( logApi, logData );
         } else {
-            console.log( `Mantra log: ${logData}`);
+            console.log( `Mantra log of type ${type}` );
+            console.log( "Description: ", description);
+            if ( data !== "" ) console.log("Data:", JSON.stringify(data, null, 4));
+            if ( key !== "") console.log(`Key: ${key}` );
         }
     }
 

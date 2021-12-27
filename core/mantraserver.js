@@ -23,7 +23,8 @@ class MantraServer {
                     mantraApiObj.Extend = global.Mantra.Bootstrap.GetApiExtendObject();
 
                     return mantraApiObj;
-                }
+                },
+                Initialized: false // Indicates if the project has been initialized
             }
         }
     }
@@ -37,7 +38,7 @@ class MantraServer {
      */
     async initialize( mantraConfig ) {            
         this.initGlobal( mantraConfig );
-        
+
         let api = global.Mantra.MantraAPIFactory();
         let coreConfig = api.GetComponentConfig("core");
         const mc = global.Mantra.MantraConfig;
@@ -70,8 +71,10 @@ class MantraServer {
         await api.EmitEvent( "system.startup", {} );
 
         if ( isViewOrPostServiceActive(mc) && coreConfig.compressresponses && coreConfig.compressresponses == true ) {
-            await api.LogInfo( 'Compression enabled in server' );
+            await MantraConsole.info( 'Compression enabled in server' );
         }
+
+        global.Mantra.Initialized = true;
     }
     
     /*
