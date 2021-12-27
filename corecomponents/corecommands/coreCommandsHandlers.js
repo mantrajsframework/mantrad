@@ -8,51 +8,75 @@ const NpmInstaller = global.gimport("npminstaller");
 
 module.exports = {
     InstallComponent: async (MantraAPI, componentName) => {
-        let answer = await MantraConsole.question(`Install component ${componentName} [Y]/N? `);
+        if ( await ExistComponentInProject(componentName) ) {
+            MantraConsole.warning( `Component '${componentName}' is already installed.` );
+        } else {
+            const answer = await MantraConsole.question(`Install component ${componentName} [Y]/N? `);
 
-        if ( answer == "Y" || answer == "" ) {
-            const installed = await InstallComponent(MantraAPI, componentName);
-            
-            if ( installed ) {
-                MantraConsole.info( `Remember to add the component name to 'DefaultComponents' at ${CoreConstants.MANTRACONFIGFILE} if will be a default component.`, false );
+            if ( answer == "Y" || answer == "" ) {
+                const installed = await InstallComponent(MantraAPI, componentName);
+                
+                if ( installed ) {
+                    MantraConsole.info( `Remember to add the component name to 'DefaultComponents' at ${CoreConstants.MANTRACONFIGFILE} if will be a default component.`, false );
+                }
             }
-        } else { 
-            global.gimport("fatalending").exit();
-        }
+        } 
+        
+        global.gimport("fatalending").exit();
     },
 
     UinstallComponent: async (MantraAPI, componentName) => {
-        const answer = await MantraConsole.question(`Uninstall component ${componentName} [Y]/N? `);
+        if ( !( await ExistComponentInProject(componentName) ) ) {
+            MantraConsole.warning( `Component '${componentName}' it is not installed in this project.` );
+        } else {
+            const answer = await MantraConsole.question(`Uninstall component ${componentName} [Y]/N? `);
     
-        if ( answer == "Y" || answer == "" ) {
-            const uninstalled = await UninstallComponent(MantraAPI, componentName);
-
-            if ( !uninstalled ) {
-                MantraConsole.info( `Remember to remove component name from 'DefaultComponents' at ${CoreConstants.MANTRACONFIGFILE} if will no longer be a default component.`, false );
+            if ( answer == "Y" || answer == "" ) {
+                const uninstalled = await UninstallComponent(MantraAPI, componentName);
+    
+                if ( !uninstalled ) {
+                    MantraConsole.info( `Remember to remove component name from 'DefaultComponents' at ${CoreConstants.MANTRACONFIGFILE} if will no longer be a default component.`, false );
+                }
             }
-        } else { 
-            global.gimport("fatalending").exit();
         }
+        
+        global.gimport("fatalending").exit();
     },
 
     EnableComponent: async (MantraAPI, componentName) => {
-        let answer = await MantraConsole.question(`Enable component ${componentName} [Y]/N? `);
-    
-        if ( answer == "Y" || answer == "" ) {
-            await EnableComponent(MantraAPI, componentName);
-        } else { 
-            global.gimport("fatalending").exit();
+        if ( !( await ExistComponentInProject(componentName) ) ) {
+            MantraConsole.warning( `Component '${componentName}' it is not installed in this project.` );
+        } else {
+            if ( (await IsComponentEnabled(componentName) ) ) {
+                MantraConsole.warning( `Component '${componentName}' it already enabled.` );
+            } else {
+                const answer = await MantraConsole.question(`Enable component ${componentName} [Y]/N? `);
+        
+                if ( answer == "Y" || answer == "" ) {
+                    await EnableComponent(MantraAPI, componentName);
+                }      
+            }
         }
+      
+        global.gimport("fatalending").exit();
     },
 
     DisableComponent: async (MantraAPI, componentName) => {
-        let answer = await MantraConsole.question(`Disable component ${componentName} [Y]/N? `);
+        if (!( await ExistComponentInProject(componentName) ) ) {
+            MantraConsole.warning(`Component '${componentName}' it is not installed in this project.`);
+        } else {
+            if ( !(await IsComponentEnabled(componentName) ) ) {
+                MantraConsole.warning( `Component '${componentName}' it already disabled.` );
+            } else {
+                const answer = await MantraConsole.question(`Disable component ${componentName} [Y]/N? `);
     
-        if ( answer == "Y" || answer == "" ) {
-            await DisableComponent(MantraAPI, componentName);
-        } else { 
-            global.gimport("fatalending").exit();
+                if (answer == "Y" || answer == "") {
+                    await DisableComponent(MantraAPI, componentName);
+                }
+            }
         }
+     
+        global.gimport("fatalending").exit();
     },
 
     UpdateSystem: async (MantraAPI) => {
@@ -72,10 +96,7 @@ module.exports = {
     },
     
     ShowComponents: async (MantraAPI) => {
-        let entitiesConfig = global.Mantra.MantraConfig.getEntitiesConfiguration();
-        let mantraDB = MantraDB(entitiesConfig);
-    
-        let components = await mantraDB.GetAllComponents();
+        let components = await GetComponentsInstalled();
 
         components = MantraAPI.Utils.Underscore.sortBy(components, "name");
 
@@ -488,4 +509,31 @@ async function CreateNewComponent (MantraAPI) {
 async function GetComponentsToUpdate() {
     let ci = ComponentInstaller(global.Mantra.MantraConfig);
     return ci.GetComponentsToUpdate();
+}
+
+async function ExistComponentInProject( componentName ) {
+    const components = await GetComponentsInstalled();
+
+    for( const component of components ) {
+        if ( component.name == componentName ) return true;
+    }
+
+    return false;
+}
+
+async function GetComponentsInstalled() {
+    const entitiesConfig = global.Mantra.MantraConfig.getEntitiesConfiguration();
+    const mantraDB = MantraDB(entitiesConfig);
+    
+    return mantraDB.GetAllComponents();
+}
+
+async function IsComponentEnabled(componentName) {
+    const components = await GetComponentsInstalled();
+
+     for( const component of components ) {
+        if ( component.name == componentName ) return component.enabled;
+    }
+
+    return false;
 }
