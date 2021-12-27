@@ -28,21 +28,7 @@ if ( !NodeVersionChecker.CheckNodeVersion( CoreConstants.NODESUPPORTEDVERSIONS )
     const args = getArgs();
     const existsMantraConfigFile = await MantraConfig.ExistsConfigFile(getFullPathToConfigFile());
 
-    if ( existsMantraConfigFile && !MantraConfig.IsJsonFileValid(getFullPathToConfigFile()) ) {
-        global.gimport("fatalending").exitByError(`${CoreConstants.MANTRACONFIGFILE} json file format invalid. Check format and properties according to documentation`);
-    }
-
-    if ( !args.hasArgs && !existsMantraConfigFile ) {
-        await MantraStartup.showDefaultHelp();
-        MantraConsole.info(`No detected Mantra config file (${CoreConstants.MANTRACONFIGFILE})`, false);
-        global.gimport("fatalending").exit();
-    }
-    
-    if ( !args.hasArgs && existsMantraConfigFile ) {
-        const config = await loadMantraConfig();
-        await MantraStartup.showHelp( config );
-        global.gimport("fatalending").exit();
-    }
+    await checkMainGuards();
 
     switch( args.command ) {
         case '--help':
@@ -61,7 +47,7 @@ if ( !NodeVersionChecker.CheckNodeVersion( CoreConstants.NODESUPPORTEDVERSIONS )
             const config = await loadMantraConfig();
 
             await MantraStartup.startApp(config, args);
-        }
+    }
         break;
         case 'install': {
             const config = await loadMantraConfig();
@@ -94,7 +80,7 @@ if ( !NodeVersionChecker.CheckNodeVersion( CoreConstants.NODESUPPORTEDVERSIONS )
     
                 await MantraStartup.performCommand(config, args);
             } else {
-                MantraConsole.warning( `Unknown command of ${args.command}`, false);
+                MantraConsole.info(`No detected in this folder Mantra config file (${CoreConstants.MANTRACONFIGFILE}).`, false);
             }
             
             global.gimport("fatalending").exit();
@@ -123,5 +109,28 @@ if ( !NodeVersionChecker.CheckNodeVersion( CoreConstants.NODESUPPORTEDVERSIONS )
         }
 
         return args;
+    }
+
+    async function checkMainGuards() {
+        if ( existsMantraConfigFile && !MantraConfig.IsJsonFileValid(getFullPathToConfigFile()) ) {
+            global.gimport("fatalending").exitByError(`${CoreConstants.MANTRACONFIGFILE} json file format invalid. Check format and properties according to documentation`);
+        }
+    
+        if ( !args.hasArgs && !existsMantraConfigFile ) {
+            await MantraStartup.showDefaultHelp();
+            MantraConsole.info(`No detected Mantra config file (${CoreConstants.MANTRACONFIGFILE})`, false);
+            global.gimport("fatalending").exit();
+        }
+        
+        if ( !args.hasArgs && existsMantraConfigFile ) {
+            const config = await loadMantraConfig();
+            await MantraStartup.showHelp( config );
+            global.gimport("fatalending").exit();
+        }
+    
+        if ( !existsMantraConfigFile && ["startapp", "install", "npm-install"].indexOf(args.command) != -1 ) {
+            MantraConsole.info(`No detected in this folder Mantra config file (${CoreConstants.MANTRACONFIGFILE}).`, false);
+            global.gimport("fatalending").exit();
+        }
     }
 })();
