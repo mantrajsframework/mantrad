@@ -40,7 +40,7 @@ class MantraServer {
         this.initGlobal( mantraConfig );
 
         let api = global.Mantra.MantraAPIFactory();
-        let coreConfig = api.GetComponentConfig("core");
+        const coreConfig = api.GetComponentConfig("core");
         const mc = global.Mantra.MantraConfig;
         
         if ( isViewOrPostServiceActive(mc) ) {
@@ -86,7 +86,7 @@ class MantraServer {
 
         if ( isViewOrPostServiceActive(mc) ) {
             return App.listen( mc.Port, () => {
-                MantraConsole.info( `App server running & listening in port ${mc.Port}`)
+                MantraConsole.info( `App server running & listening at port ${mc.Port}`)
             });
         }
     }
