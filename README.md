@@ -12,7 +12,15 @@ A Mantra project follows some design and software architecture principles define
 $ npm install -g mantrad
 ```
 
-To check if it is successfully installed:
+Or clone it and install globally with:
+
+```bash
+$ git clone https://github.com/mantrajsframework/mantrad
+$ cd mantrad
+$ npm install . -g
+```
+
+Check current version with:
 
 ```bash
 $ mantrad version
