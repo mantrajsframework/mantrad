@@ -77,7 +77,7 @@ Then you get:
 27-04-2021 12:14:50 - Service: activating get...
 27-04-2021 12:14:50 - Service: activating post...
 27-04-2021 12:14:50 - Mantra "coreapp" application started
-27-04-2021 12:14:50 - App server running & listening in port 8080
+27-04-2021 12:14:50 - App server running & listening at port 8080
 ```
 
 Open a browser and go to http://localhost:8080
