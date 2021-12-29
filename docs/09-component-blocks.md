@@ -35,7 +35,7 @@ MantraAPI.Hooks("contact")
 
 With this, component "contact" registers a block with the name "contact-block" that will be handled by the function ContactBlockHandlers.Contact.
 
-In any view o html document cotaining "&lcub;&lcub;&lcub;contact-block}}}", Mantra will render the content of the file /blocks/contact-block.html".
+In any view o html document cotaining "&lcub;&lcub;&lcub;contact-block&rcub;&rcub;&rcub;", Mantra will render the content of the file /blocks/contact-block.html".
 
 ## Using *pre requests*
 As described in (TODO: link to the document), pre request are special handlers that manages the request of a view before Mantra call the view of block function handler.
