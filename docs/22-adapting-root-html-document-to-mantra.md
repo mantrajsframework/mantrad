@@ -16,11 +16,11 @@ Here there's a minimal example:
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        {{{mantra-css-files}}}
+        &lcub;&lcub;&lcub;mantra-css-files&rcub;&rcub;&rcub;
     </head>
     <body>
-        {{{mantra-content-view}}}
-        {{{mantra-js-files}}}
+        &lcub;&lcub;&lcub;mantra-content-view&rcub;&rcub;&rcub;
+        &lcub;&lcub;&lcub;mantra-js-files&rcub;&rcub;&rcub;
     </body>
 </html>
 ```
