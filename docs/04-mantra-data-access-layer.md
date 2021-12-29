@@ -2,7 +2,7 @@
 
 One of the nice features of Mantra applications (and Mantra Development Paradigm), consists of the total abstraction of the data access needs and data repositories of components.
 
-*Remember*: Mantra uses [RedEntities](https://github.com/gomezbl/redentities) as object mapper, currently supporting MySql flavours, PostgreSql and Sqlite.
+*Remember*: Mantra uses [RedEntities](https://github.com/mantrajsframework/redentities) as object mapper, currently supporting MySql flavours, PostgreSql and Sqlite.
 
 As a general rule, the data repository (this is, databases) of a component, should not be accesible *outside* the component. If the data managed by a component and defined in its entity model are needed by other components (as usual), then that data should be exposed using the API defined by the component.
 

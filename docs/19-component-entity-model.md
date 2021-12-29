@@ -6,7 +6,7 @@ According to Mantra paradigm, the tasks associated to instantiate, access and ma
 
 Thus, given the component should implement functionality as granular as possible too, then the models should be quite small, no more than a few numbers of entitites.
 
-In current version of Mantra, [RedEntities](https://github.com/gomezbl/redentities) object mapper is used as data mapper, supporing some flavours of MySql databases and Sqlite databases.
+In current version of Mantra, [RedEntities](https://github.com/mantrajsframework/redentities) object mapper is used as data mapper, supporing some flavours of MySql databases and Sqlite databases.
 
 *Remember:* in the same project, each component can instantiate its own data models in differents databases, given the system high scalability.
 

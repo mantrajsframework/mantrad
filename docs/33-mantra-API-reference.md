@@ -580,7 +580,7 @@ This method installs the schema of a component.
 
 This schema (or database model), should be placed at /<compoponent name>/model/<component name>.schema.json.
 
-The method loads that file and uses [RedEntities](https://github.com/gomezbl/redentities) to create the database.
+The method loads that file and uses [RedEntities](https://github.com/mantrajsframework/redentities) to create the database.
 
 The database type for the component should be indicated in "Entities" propery of mantraconfig.json.
 
@@ -625,7 +625,7 @@ Param:
   
 As with InstallSchema() method, the schema (or database model), should be placed at /<compoponent name>/model/<component name>.schema.json.
 
-The method loads that file and uses [RedEntities](https://github.com/gomezbl/redentities) to uninstall (remove) the database.
+The method loads that file and uses [RedEntities](https://github.com/mantrajsframework/redentities) to uninstall (remove) the database.
 
 The database type for the component should be indicated in "Entities" propery of mantraconfig.json.
 
@@ -729,7 +729,7 @@ ComponentEntities( componentName )
 
 Returns a RedEntities instance configured with the schema of the component. The instance is returned initialized with the model schema of the component. 
 
-Refer to [RedEntities](https://github.com/gomezbl/redentities) with the API of this library.
+Refer to [RedEntities](https://github.com/mantrajsframework/redentities) with the API of this library.
 
 ## MantraAPI.ComponentEntitiesFromSchema
 
@@ -739,7 +739,7 @@ ComponentEntitiesFromSchema( componentName, schema )
 
 Creates a new RedEntities instance intialized with a specific schema for the given component.
 
-Refer to [RedEntities](https://github.com/gomezbl/redentities) with the API of this library.
+Refer to [RedEntities](https://github.com/mantrajsframework/redentities) with the API of this library.
 
 Params:
 * componentName: <name of the component>
@@ -757,7 +757,7 @@ Returns a RedEntities instance initialized with a specific schema for the given 
 
 Because the creation of RedEntities object is quite heavy, this object is cached internally, unlike ComponentEntitiesFromSchema() method.
 
-Refer to [RedEntities](https://github.com/gomezbl/redentities) with the API of this library.
+Refer to [RedEntities](https://github.com/mantrajsframework/redentities) with the API of this library.
 
 Params:
 * componentName: <name of the component>

@@ -42,7 +42,7 @@ The framework intends to define simple components with very specific functionali
 
 Mantra depends on:
 
-* [RedEntities](https://github.com/gomezbl/redentities) as object mapper for data repositories.
+* [RedEntities](https://github.com/mantrajsframework/redentities) as object mapper for data repositories.
 * [Express](https://expressjs.com/) as core web server.
 * [Mustache](https://github.com/janl/mustache.js) template redering mecanism for views.
 
@@ -65,7 +65,7 @@ In the same Mantra project can live together all applications needed to run it: 
 
 # Mantra application samples
 
-In adition to the documentation, the best way to learn how to write Mantra projects is reading samples. You can find multiple samples at [Mantra Demos](https://github.com/gomezbl/mantra-demos) repository.
+In adition to the documentation, the best way to learn how to write Mantra projects is reading samples. You can find multiple samples at [Mantra Demos](https://github.com/mantrajsframework) repository or listed at [Mantra site demos section](http://www.mantrajs.com/mantrademos/showall).
 
 # Documentation
 
