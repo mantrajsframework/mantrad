@@ -59,6 +59,10 @@ async function lookupAnonymousBlocksFromFolder(MantraAPI, componentName, blocksF
 
 async function lookupHookFromFile( MantraAPI, fullPathToFile, componentName ) {
     switch( lookupFileType( Path.basename(fullPathToFile), componentName ) ) {
+        case CoreConstants.HOOKTYPES_ACCESSCONDITION: {
+            lookupAccessConditionFile( MantraAPI, require(fullPathToFile), componentName );
+        }
+        break;
         case CoreConstants.HOOKTYPES_API: {
             lookupApiFile( MantraAPI, require(fullPathToFile), componentName );
         }
@@ -102,6 +106,9 @@ function lookupFileType( fileName, componentName ) {
 
     if (resource && resource.component == componentName ) {
         switch( resource.resourcetype ) {
+            case CoreConstants.ACCESSCONDITION_HOOK: {
+                return CoreConstants.HOOKTYPES_ACCESSCONDITION;
+            }
             case CoreConstants.API_HOOK: {
                 return CoreConstants.HOOKTYPES_API;
             }
@@ -201,6 +208,16 @@ function lookupEventFile( MantraAPI, resourceModule, componentName ) {
                 EventName: eventName.replace("_","."),
                 EventHandler: resourceModule[eventName]
             } );
+    }   
+}
+
+function lookupAccessConditionFile( MantraAPI, resourceModule, componentName ) {
+    for (const prName of Object.keys(resourceModule)) {
+        MantraAPI.Hooks(componentName)
+            .AccessCondition({
+                Name: `${componentName}.${prName}`,
+                Handler: resourceModule[prName]
+            });
     }   
 }
 

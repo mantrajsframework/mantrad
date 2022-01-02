@@ -37,6 +37,7 @@ module.exports = {
     HOOKTYPES_POST: 6,
     HOOKTYPES_PREREQUEST: 7,
     HOOKTYPES_VIEW: 8,
+    HOOKTYPES_ACCESSCONDITION: 9,
     HOOKTYPES_UNKNOWN: 100,
     
     MANTRA_CONTENT_BLOCK: "mantra-content-view",
