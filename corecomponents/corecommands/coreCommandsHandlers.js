@@ -43,6 +43,28 @@ module.exports = {
         global.gimport("fatalending").exit();
     },
 
+    GzipComponent: async (Mantra, componentName) => {
+        if ( !( await ExistComponentInProject(componentName) ) ) {
+            MantraConsole.warning( `Component '${componentName}' it is not installed in this project.` );
+        } else {
+            const ExecCommand = global.gimport("execcommand");
+            const version = Mantra.GetComponentVersion(componentName);
+            const componentRootLocation = Mantra.GetComponentLocation(componentName).replace(componentName, "");
+            const fileToGenerate = `${componentName}@${version}.tar.gz`;
+            const currentFolder = process.cwd();
+
+            let command = `cd ${componentRootLocation}`;
+            command += ` && tar -zcf ${fileToGenerate} ${componentName}`;
+            command += ` && cd ${currentFolder}`;
+            command += ` && mv ${componentRootLocation}${fileToGenerate} .`;
+
+            await ExecCommand.exec( command );
+            MantraConsole.info( `Component file ${fileToGenerate} generated successfully`, false);
+        }
+
+        global.gimport("fatalending").exit();
+    },
+
     EnableComponent: async (MantraAPI, componentName) => {
         if ( !( await ExistComponentInProject(componentName) ) ) {
             MantraConsole.warning( `Component '${componentName}' it is not installed in this project.` );

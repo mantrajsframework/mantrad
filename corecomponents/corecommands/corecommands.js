@@ -22,6 +22,11 @@ class CoreCommandsStarter {
                 Description: "Disable a component. Use: mantrad disable-component <component name>",
                 Handler: CoreCommandsHandlers.DisableComponent
             }, {
+                Name: "gzip-component",
+                Description: "Gzip a component. Use: mantrad gpzip-component <component name>",
+                Handler: CoreCommandsHandlers.GzipComponent
+
+            }, {
                 Name: "update-components-locations",
                 Description: "Updates components locations after moving some component to a new location. Use: mantrad update-components-locations",
                 Handler:CoreCommandsHandlers.UpdateComponentsLocations

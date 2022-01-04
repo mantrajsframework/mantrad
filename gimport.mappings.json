@@ -13,6 +13,7 @@
     "componentinstaller" : "./core/componentinstaller.js",
     "coreconstants": "./core/lib/coreconstants.js",
     "depsfactory": "./core/lib/depsfactory.js",
+    "execcommand": "./core/lib/execcommand.js",
     "fatalending": "./core/lib/fatalending.js",
     "mantraapi" : "./core/mantraapi.js",
     "mantraapiutils" : "./core/lib/mantraapiutils.js",
