@@ -63,6 +63,10 @@ async function lookupHookFromFile( MantraAPI, fullPathToFile, componentName ) {
             lookupAccessConditionFile( MantraAPI, require(fullPathToFile), componentName );
         }
         break;
+        case CoreConstants.HOOKTYPES_COMMAND: {
+            lookupCommandFile( MantraAPI, require(fullPathToFile), componentName );
+        }
+        break;
         case CoreConstants.HOOKTYPES_API: {
             lookupApiFile( MantraAPI, require(fullPathToFile), componentName );
         }
@@ -108,6 +112,9 @@ function lookupFileType( fileName, componentName ) {
         switch( resource.resourcetype ) {
             case CoreConstants.ACCESSCONDITION_HOOK: {
                 return CoreConstants.HOOKTYPES_ACCESSCONDITION;
+            }
+            case CoreConstants.COMMAND_HOOK: {
+                return CoreConstants.HOOKTYPES_COMMAND;
             }
             case CoreConstants.API_HOOK: {
                 return CoreConstants.HOOKTYPES_API;
@@ -182,6 +189,19 @@ function lookupViewFile( MantraAPI, resourceModule, componentName ) {
         MantraAPI.Hooks(componentName)
             .View( attributes );
     }
+}
+
+function lookupCommandFile( MantraAPI, resourceModule, componentName ) {
+    for( const commandName of Object.keys(resourceModule) ) {
+        if ( !commandName.endsWith("_description") ) {
+            MantraAPI.Hooks(componentName)
+                .Command( {
+                    Name: commandName,
+                    Description: extraResource(resourceModule, commandName, "description"),
+                    Handler: resourceModule[commandName]
+                });
+        }
+    }   
 }
 
 function lookupBlockFile( MantraAPI, resourceModule, componentName ) {
