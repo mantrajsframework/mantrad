@@ -20,6 +20,8 @@ module.exports = {
                     MantraConsole.info( `Remember to add the component name to 'DefaultComponents' at ${CoreConstants.MANTRACONFIGFILE} if will be a default component.`, false );
                 }
             }
+
+            await EnableComponentImpl( MantraAPI, componentName );
         } 
         
         global.gimport("fatalending").exit();
@@ -66,20 +68,8 @@ module.exports = {
     },
 
     EnableComponent: async (MantraAPI, componentName) => {
-        if ( !( await ExistComponentInProject(componentName) ) ) {
-            MantraConsole.warning( `Component '${componentName}' it is not installed in this project.` );
-        } else {
-            if ( (await IsComponentEnabled(componentName) ) ) {
-                MantraConsole.warning( `Component '${componentName}' it already enabled.` );
-            } else {
-                const answer = await MantraConsole.question(`Enable component ${componentName} [Y]/N? `);
+        await EnableComponentImpl(MantraAPI, componentName);
         
-                if ( answer == "Y" || answer == "" ) {
-                    await EnableComponent(MantraAPI, componentName);
-                }      
-            }
-        }
-      
         global.gimport("fatalending").exit();
     },
 
@@ -558,4 +548,20 @@ async function IsComponentEnabled(componentName) {
     }
 
     return false;
+}
+
+async function EnableComponentImpl(Mantra, componentName) {
+    if ( !( await ExistComponentInProject(componentName) ) ) {
+        MantraConsole.warning( `Component '${componentName}' it is not installed in this project.` );
+    } else {
+        if ( (await IsComponentEnabled(componentName) ) ) {
+            MantraConsole.warning( `Component '${componentName}' it already enabled.` );
+        } else {
+            const answer = await MantraConsole.question(`Enable component ${componentName} [Y]/N? `);
+    
+            if ( answer == "Y" || answer == "" ) {
+                await EnableComponent(Mantra, componentName);
+            }      
+        }
+    }
 }
