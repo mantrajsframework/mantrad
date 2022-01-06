@@ -446,6 +446,10 @@ class Bootstrap {
         return get != undefined; 
     }
 
+    ExistsAccessCondition( name ) {
+        return this.indexedAccessConditions[name] !== undefined;
+    }
+
     GetAccessCondition( name ) {
         return this.indexedAccessConditions[name];
     }

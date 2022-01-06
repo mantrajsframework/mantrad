@@ -1,5 +1,7 @@
 "use strict";
 
+const MantraConsole = global.gimport("mantraconsole");
+
 module.exports = {
     /*
      * Checks access conditions for the current state of a request
@@ -29,13 +31,17 @@ module.exports = {
                 default: throw Error( `Unkown type or ${t} for access condition ${ac}`);
             }
 
-            const accessConditionToInvoke = global.Mantra.Bootstrap.GetAccessCondition( acName );
-            goOn = await accessConditionToInvoke.Handler( req, res );
-
-            if ( !goOn ) {
-                return { allowed: false, 
-                         accessConditionFalse: accessConditionToInvoke, 
-                         redirect: ac.Redirect ? ac.Redirect : "/" };
+            if (global.Mantra.Bootstrap.ExistsAccessCondition( acName )) {
+                const accessConditionToInvoke = global.Mantra.Bootstrap.GetAccessCondition( acName );
+                goOn = await accessConditionToInvoke.Handler( req, res );
+    
+                if ( !goOn ) {
+                    return { allowed: false, 
+                             accessConditionFalse: accessConditionToInvoke, 
+                             redirect: ac.Redirect ? ac.Redirect : "/" };
+                }
+            } else {
+                MantraConsole.error( `Unable to call no existing access condition of name '${acName}'`);
             }
         }    
 
