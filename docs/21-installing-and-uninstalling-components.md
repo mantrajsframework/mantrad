@@ -23,3 +23,13 @@ $ mantrad uninstall-component mycomponent
 ```
 
 As indicated in [Component Definition section](/docs/04-component-definition.md), if the component defines *Install* property, then the optional method *onUninstall* will be invoked.
+
+# Reinstalling a component
+
+You can perform the uninstalling and installing actions at once when needed, for example, when you need to install changes in a component model during development.
+
+To do that, you can use resintall-command:
+
+```bash
+$ mantrad reinstall-component mycomponent
+```

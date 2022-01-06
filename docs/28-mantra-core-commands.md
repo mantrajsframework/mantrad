@@ -30,6 +30,8 @@ These are the Mantra core commands:
 
 * [new-component](#new-component)
 
+* [reinstall-component](#reinstall-component)
+
 * [show-apis](#show-apis)
 
 * [show-accessconditions](#show-accessconditions)
@@ -111,6 +113,18 @@ $ mantrad [name of the new component]
 Launches a cli wizard to create the skeleton of a new component in the project.
 
 *Remember*: all new components added to the project, if they are going to be considered as "default" components, their names should be included in "DefaultComponents" properties of mantraconfig.json file.
+
+## reinstall-component
+
+```bash
+$ mantrad reinstall-component [component name]
+```
+
+Uninstall an existing component and, if success, install it again.
+
+During the uninstalling, this method will call Install.onUninstall() method (optional) to perform uninstalling actions. In the same way, during the installation, this method will call Install.onInstall() (optional) method of the component so that it can perform some kind of installing work (like creating models instance in the databases).
+
+*Remember*: once the component is intalled, it should be enabled with "enable-component" command.
 
 ## show-accessconditions
 
