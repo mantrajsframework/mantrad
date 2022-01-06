@@ -25,6 +25,10 @@ class CoreCommandsStarter {
                 Name: "gzip-component",
                 Description: "Gzip a component. Use: mantrad gpzip-component <component name>",
                 Handler: CoreCommandsHandlers.GzipComponent
+            }, {
+                Name: "reinstall-component",
+                Description: "Uninstall and install a component. Use: mantrad reinstall-component <component name>",
+                Handler: CoreCommandsHandlers.ReinstallComponent
 
             }, {
                 Name: "update-components-locations",

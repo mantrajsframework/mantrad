@@ -8,40 +8,32 @@ const NpmInstaller = global.gimport("npminstaller");
 
 module.exports = {
     InstallComponent: async (MantraAPI, componentName) => {
-        if ( await ExistComponentInProject(componentName) ) {
-            MantraConsole.warning( `Component '${componentName}' is already installed.` );
-        } else {
-            const answer = await MantraConsole.question(`Install component ${componentName} [Y]/N? `);
-
-            if ( answer == "Y" || answer == "" ) {
-                const installed = await InstallComponent(MantraAPI, componentName);
-                
-                if ( installed ) {
-                    MantraConsole.info( `Remember to add the component name to 'DefaultComponents' at ${CoreConstants.MANTRACONFIGFILE} if will be a default component.`, false );
-                }
-            }
-
-            await EnableComponentImpl( MantraAPI, componentName );
-        } 
+        await InstallComponentImpl(MantraAPI, componentName, true);
         
         global.gimport("fatalending").exit();
     },
 
     UinstallComponent: async (MantraAPI, componentName) => {
-        if ( !( await ExistComponentInProject(componentName) ) ) {
-            MantraConsole.warning( `Component '${componentName}' it is not installed in this project.` );
-        } else {
-            const answer = await MantraConsole.question(`Uninstall component ${componentName} [Y]/N? `);
-    
-            if ( answer == "Y" || answer == "" ) {
-                const uninstalled = await UninstallComponent(MantraAPI, componentName);
-    
-                if ( !uninstalled ) {
-                    MantraConsole.info( `Remember to remove component name from 'DefaultComponents' at ${CoreConstants.MANTRACONFIGFILE} if will no longer be a default component.`, false );
-                }
-            }
-        }
+        await UninstallComponentImpl(MantraAPI, componentName, true);
         
+        global.gimport("fatalending").exit();
+    },
+
+    ReinstallComponent: async (Mantra, componentName) => {
+        MantraConsole.info( "Remember: reinstalling a component involves remove its current model data repository.")
+
+        const answer = await MantraConsole.question(`Reinstall component ${componentName} [Y]/N? `);
+
+        if ( answer == "Y" || answer == "" ) {
+            const uninstalled = await UninstallComponentImpl(Mantra, componentName, false);
+    
+            if ( uninstalled ) {
+                await InstallComponentImpl(Mantra, componentName, false);
+            }
+    
+            MantraConsole.info( `Component ${componentName} re-installed with success`);
+        }
+
         global.gimport("fatalending").exit();
     },
 
@@ -564,4 +556,56 @@ async function EnableComponentImpl(Mantra, componentName) {
             }      
         }
     }
+}
+
+async function InstallComponentImpl( Mantra, componentName, askQuestion ) {
+    let installed = false;
+
+    if ( await ExistComponentInProject(componentName) ) {
+        MantraConsole.warning( `Component '${componentName}' is already installed.` );
+    } else {
+        let answer = "Y";
+       
+        if (askQuestion) {
+            answer = await MantraConsole.question(`Install component ${componentName} [Y]/N? `);
+        }
+
+        if (answer == "Y" || answer == "") {
+            installed = await InstallComponent(Mantra, componentName);
+
+            if (installed) {
+                MantraConsole.info(`Remember to add the component name to 'DefaultComponents' at ${CoreConstants.MANTRACONFIGFILE} if will be a default component.`, false);
+            }
+        }
+
+        if ( installed ) {
+            await EnableComponentImpl( Mantra, componentName );
+        }
+    }
+    
+    return installed;
+}
+
+async function UninstallComponentImpl( Mantra, componentName, askQuestion ) {
+    let uninstalled = false;
+
+    if ( !( await ExistComponentInProject(componentName) ) ) {
+        MantraConsole.warning( `Component '${componentName}' it is not installed in this project.` );
+    } else {
+        let answer = "Y";
+
+        if ( askQuestion ) {
+            answer = await MantraConsole.question(`Uninstall component ${componentName} [Y]/N? `);
+        }
+
+        if ( answer == "Y" || answer == "" ) {
+            uninstalled = await UninstallComponent(Mantra, componentName);
+
+            if ( uninstalled ) {
+                MantraConsole.info( `Remember to remove component name from 'DefaultComponents' at ${CoreConstants.MANTRACONFIGFILE} if will no longer be a default component.`, false );
+            }
+        }
+    }
+
+    return uninstalled;
 }
