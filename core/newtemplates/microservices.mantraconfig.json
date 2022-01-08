@@ -1,42 +1,42 @@
 {
-    "CurrentVersion": "1",
-    "DefaultSite": "{{sitename}}",
-    "ComponentsLocations": [
-      "{{sitename}}/components"
-    ],
-    "Sites": {
-      "{{sitename}}": {
-        "Apps": {
-          "{{appname}}": {
-            "Port": 8080,
-            "ActiveServices": ["middleware","post","get"]    
-          }
-        },
-        "Port": 8080,
-        "ComponentsConfig": {
-          "core": {
-            "croncleanupevent": "* */5 * * * *",
-            "cronbackupevent": "0 */5 * * * *",
-            "minifyhtml": false,
-            "compressresponses": false,
-            "baseurl": "http://localhost:8080/"
-          },
-          "logs": {
-            "logToConsole": "true",
-            "daystoremoveoldlogs": 1
-          },
-          "static": {
-            "cached": false
-          }
-        },
-        "Entities": {
-          "default": {{{provider}}}
-        },
-        "Components": [],
-        "InactiveComponents": [],
-        "GlobalTemplateVars": {
-          "global-sitename": "{{projectName}}"
-        }
-      }
+  "CurrentVersion": "1",
+  "DefaultSite": "{{sitename}}",
+  "ComponentsLocations": [
+    "{{sitename}}/components"
+  ],
+  "Apps": {
+    "{{appname}}": {
+      "Port": 8080,
+      "ActiveServices": [
+        "middleware",
+        "post",
+        "get"
+      ]
     }
-  }
+  },
+  "Port": 8080,
+  "ComponentsConfig": {
+    "core": {
+      "croncleanupevent": "* */5 * * * *",
+      "cronbackupevent": "0 */5 * * * *",
+      "minifyhtml": false,
+      "compressresponses": false,
+      "baseurl": "http://localhost:8080/"
+    },
+    "logs": {
+      "logToConsole": "true",
+      "daystoremoveoldlogs": 1
+    },
+    "static": {
+      "cached": false
+    }
+  },
+  "Entities": {
+    "default": {{{provider}}}
+  },
+ "Components": [],
+   "InactiveComponents": [],
+   "GlobalTemplateVars": {
+     "global-sitename": "{{projectName}}"
+   }
+}
