@@ -27,7 +27,7 @@ module.exports = {
     
         if (answer == "Y" || answer == "") {    
             for (const component of components) {
-                const componentPath = Path.join( process.cwd(), component.path, component.filename );
+                const componentPath = Path.join( component.path, component.filename );
                 await execNpmInstall( component, componentPath );
             }
         }
@@ -116,11 +116,11 @@ function ExecShellCommand(cmd) {
 }
 
 async function getComponentsWithPackageFile(api, mantraConfig) {
-    const components = ComponentsLoader.getComponentsLocations(mantraConfig.ComponentsLocations);
+    const components = ComponentsLoader.getComponentsLocations(mantraConfig.getComponentsLocations());
     let npmComponents = [];
 
     for (const component of components) {
-        const componentPath = Path.join(process.cwd(), component.path, component.filename);
+        const componentPath = Path.join(component.path, component.filename);
 
         if (await existsPackageFile( api, componentPath )) {
             npmComponents.push( component );

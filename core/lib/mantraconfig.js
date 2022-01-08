@@ -7,7 +7,6 @@ const CoreConstants = require("./coreconstants");
 let MantraUtils = global.gimport("mantrautils");
 
 const FRONTEND_FOLDER = "frontend";
-const SITECOMPONENTS_FOLDER = "components";
 const SITETEMPLATES_FOLDER = "templates";
 
 module.exports = {
@@ -36,7 +35,6 @@ module.exports = {
         MantraConfig.Location = fullPathToSite;
         MantraConfig.FrontendLocation = path.join( MantraConfig.Location, "ui", FRONTEND_FOLDER );
         MantraConfig.FrontendName = MantraConfig.Location;
-        MantraConfig.SiteComponentsLocation = path.join( MantraConfig.Location, SITECOMPONENTS_FOLDER );
         MantraConfig.SiteTemplatesLocation = path.join( MantraConfig.Location, "ui", SITETEMPLATES_FOLDER );
         MantraConfig.RootDirectory = path.dirname( fullPathToConfigFile ) + "/";
         MantraConfig.InstanceId = ShortId.generate();
@@ -50,9 +48,7 @@ module.exports = {
                 }        
             }
 
-            folders.push( fullPathToCoreComponents, 
-                          MantraConfig.SiteComponentsLocation, 
-                          path.join( fullPathToSite, "node_modules") );
+            folders.push( fullPathToCoreComponents );
 
             return folders;
         },
