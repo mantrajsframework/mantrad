@@ -1,6 +1,7 @@
 "use strict";
 
 const CoreCommandsHandlers = require("./coreCommandsHandlers");
+const CoreConstants = global.gimport("coreconstants");
 
 class CoreCommandsStarter {
     async onStart(MantraAPI) {
@@ -29,6 +30,11 @@ class CoreCommandsStarter {
                 Name: "reinstall-component",
                 Description: "Uninstall and install a component. Use: mantrad reinstall-component <component name>",
                 Handler: CoreCommandsHandlers.ReinstallComponent
+
+            }, {
+                Name: "download-component",
+                Description: `Download a component from ${CoreConstants.MANTRAWEBSITE} site. Use: mantrad download-component <component name>|<component name@version>`,
+                Handler: CoreCommandsHandlers.DownloadComponent
 
             }, {
                 Name: "update-components-locations",

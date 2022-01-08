@@ -37,6 +37,20 @@ module.exports = {
         global.gimport("fatalending").exit();
     },
 
+    DownloadComponent: async (Mantra, componentName) => {
+        console.log(componentName);
+        const credentials = await GetUserCredentialsToDownloadComponent();
+        const dataPayload = {
+            userMail: credentials.userMail,
+            licenseKey: credentials.licenseKey,
+            componentNameRequested: componentName
+        }
+
+        console.log(dataPayload);
+
+        global.gimport("fatalending").exit();
+    },
+
     GzipComponent: async (Mantra, componentName) => {
         if ( !( await ExistComponentInProject(componentName) ) ) {
             MantraConsole.warning( `Component '${componentName}' it is not installed in this project.` );
@@ -608,3 +622,14 @@ async function UninstallComponentImpl( Mantra, componentName, askQuestion ) {
 
     return uninstalled;
 }
+
+async function GetUserCredentialsToDownloadComponent() {
+    const userMail = await MantraConsole.question(`Your user mail at ${CoreConstants.MANTRAWEBSITE}: `);
+    const licenseKey = await MantraConsole.question('Your license key: ');
+
+    return {
+        userMail: userMail,
+        licenseKey: licenseKey
+    }
+}
+        
