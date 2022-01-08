@@ -57,7 +57,7 @@ class ComponentInstaller {
             throw Error("Component doesn't exist");
         } else {
             let cmp = global.Mantra.ComponentsLoader.loadComponent( this.mantraConfig.getComponentsLocations(), componentName );
-    
+
             await this.mantraDB.RemoveComponentByName( componentName );
     
             if ( cmp.component.Install && cmp.component.Install.onUninstall ) {

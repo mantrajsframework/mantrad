@@ -34,7 +34,7 @@ module.exports = {
     },
 
     runNpmInstallForComponent: async (mantraConfig, componentName, ask = true ) => {
-        if ( !(ComponentsLoader.existsComponentLocation( componentName, mantraConfig.ComponentsLocations )) ) {
+        if ( !(ComponentsLoader.existsComponentLocation( componentName, mantraConfig.getComponentsLocations() )) ) {
             MantraConsole.warning( `Component '${componentName}' not found in components locations: ${mantraConfig.ComponentsLocations}` );
             return;
         }
@@ -48,8 +48,8 @@ module.exports = {
         MantraServer.initGlobal(mantraConfig);
         const api = global.Mantra.MantraAPIFactory();
 
-        const component = ComponentsLoader.getComponentLocation(componentName, mantraConfig.ComponentsLocations);
-        const componentPath = Path.join( process.cwd(), component.path, component.filename );
+        const component = ComponentsLoader.getComponentLocation(componentName, mantraConfig.getComponentsLocations());
+        const componentPath = Path.join( component.path, component.filename );
         const hasNodeDependencies = await existsPackageFile(api, componentPath);
 
         if (hasNodeDependencies) {
@@ -67,15 +67,16 @@ module.exports = {
     },
 
     hasComponentNpmDependencies: async (mantraConfig, componentName) => {
-        if ( !(ComponentsLoader.existsComponentLocation( componentName, mantraConfig.ComponentsLocations )) ) {
+        const fullPathsComponentsLocations = mantraConfig.getComponentsLocations();
+
+        if ( !(ComponentsLoader.existsComponentLocation( componentName, fullPathsComponentsLocations )) ) {
             throw Error( `Component '${componentName}' not found in components locations: ${mantraConfig.ComponentsLocations}` );
         }
-
         MantraServer.initGlobal(mantraConfig);
         
         const api = global.Mantra.MantraAPIFactory();
-        const component = ComponentsLoader.getComponentLocation(componentName, mantraConfig.ComponentsLocations);
-        const componentPath = Path.join( process.cwd(), component.path, component.filename );
+        const component = ComponentsLoader.getComponentLocation(componentName, fullPathsComponentsLocations );
+        const componentPath = Path.join( component.path, component.filename );
      
         return await existsPackageFile(api, componentPath);
     }

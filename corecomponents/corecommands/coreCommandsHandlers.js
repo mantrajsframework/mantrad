@@ -368,14 +368,13 @@ module.exports = {
     }
 }
 
-async function InstallComponent( MantraAPI, componentName ) {
+async function InstallComponent( MantraAPI, componentName, askIfNpmNeeded = false ) {
     try {
         // Check if component has Node dependencies
         if (await NpmInstaller.hasComponentNpmDependencies(global.Mantra.MantraConfig, componentName)) {
             MantraConsole.info( 'Component has Node dependencies. Npm installing for the component...');
-            await NpmInstaller.runNpmInstallForComponent(global.Mantra.MantraConfig, componentName, false );
+            await NpmInstaller.runNpmInstallForComponent(global.Mantra.MantraConfig, componentName, askIfNpmNeeded );
         }
-        //
 
         let ci = ComponentInstaller( global.Mantra.MantraConfig );
         await ci.InstallComponent( componentName );
@@ -571,7 +570,7 @@ async function InstallComponentImpl( Mantra, componentName, askQuestion ) {
         }
 
         if (answer == "Y" || answer == "") {
-            installed = await InstallComponent(Mantra, componentName);
+            installed = await InstallComponent(Mantra, componentName, true);
 
             if (installed) {
                 MantraConsole.info(`Remember to add the component name to 'DefaultComponents' at ${CoreConstants.MANTRACONFIGFILE} if will be a default component.`, false);
