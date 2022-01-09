@@ -5,6 +5,7 @@ const CoreConstants = global.gimport("coreconstants");
 const MantraConsole = global.gimport("mantraconsole");
 const MantraDB = global.gimport("mantradb");
 const NpmInstaller = global.gimport("npminstaller");
+const MantrajsApiClient = global.gimport("mantrajsapiclient");
 
 module.exports = {
     InstallComponent: async (MantraAPI, componentName) => {
@@ -38,15 +39,16 @@ module.exports = {
     },
 
     DownloadComponent: async (Mantra, componentName) => {
-        console.log(componentName);
-        const credentials = await GetUserCredentialsToDownloadComponent();
-        const dataPayload = {
-            userMail: credentials.userMail,
-            licenseKey: credentials.licenseKey,
+        //const credentials = await GetUserCredentialsToDownloadComponent();
+        const data = {
+            userMail: "mantradev@mantrajs.com",
+            licenseKey: "393939399339",
             componentNameRequested: componentName
-        }
+        };
 
-        console.log(dataPayload);
+        let downloadToken = await MantrajsApiClient.GetDownloadTokenForComponent(data);
+
+        console.log(downloadToken);
 
         global.gimport("fatalending").exit();
     },
