@@ -41,9 +41,9 @@ module.exports = {
     DownloadComponent: async (Mantra, componentName) => {
         //const credentials = await GetUserCredentialsToDownloadComponent();
         const data = {
-            userMail: "mantradev@mantrajs.com",
-            licenseKey: "393939399339",
-            componentNameRequested: componentName
+            usermail: "mantradev@mantrajs.com",
+            licensekey: "393939399339",
+            componentnamerequested: componentName
         };
 
         let downloadToken = await MantrajsApiClient.GetDownloadTokenForComponent(data);

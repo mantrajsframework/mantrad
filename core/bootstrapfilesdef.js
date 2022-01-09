@@ -95,6 +95,10 @@ async function lookupHookFromFile( MantraAPI, fullPathToFile, componentName ) {
             lookupPostFile( MantraAPI, require(fullPathToFile), componentName );
         }
         break;
+        case CoreConstants.HOOKTYPES_GET: {
+            lookupGetFile( MantraAPI, require(fullPathToFile), componentName );
+        }
+        break;
         case CoreConstants.HOOKTYPES_PREREQUEST: {
             lookupPrerequestFile( MantraAPI, require(fullPathToFile), componentName );
         }
@@ -136,6 +140,9 @@ function lookupFileType( fileName, componentName ) {
             }
             case CoreConstants.POST_HOOK: {
                 return CoreConstants.HOOKTYPES_POST;
+            }
+            case CoreConstants.GET_HOOK: {
+                return CoreConstants.HOOKTYPES_GET;
             }
             case CoreConstants.MIDDLEWARE_HOOK: {
                 return CoreConstants.HOOKTYPES_MIDDLEWARE;
@@ -263,6 +270,20 @@ function lookupPostFile( MantraAPI, resourceModule, componentName ) {
                     Handler: resourceModule[postName],
                     DataValidationSchema: extraResource(resourceModule, postName, "datavalidationschema"),
                     AccessCondition: extraResource(resourceModule, postName, "accesscondition")
+                });
+        }
+    }   
+}
+
+function lookupGetFile( MantraAPI, resourceModule, componentName ) {
+    for (const getName of Object.keys(resourceModule)) {
+        if (!getName.endsWith("_accesscondition") && !getName.endsWith("_datavalidationschema")) {
+            MantraAPI.Hooks(componentName)
+                .Get({
+                    Command: getName,
+                    Handler: resourceModule[getName],
+                    DataValidationSchema: extraResource(resourceModule, getName, "datavalidationschema"),
+                    AccessCondition: extraResource(resourceModule, getName, "accesscondition")
                 });
         }
     }   

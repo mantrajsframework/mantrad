@@ -44,6 +44,8 @@ function getProtocolClient( protocol ) {
 function Post(protocolClient, postOptions, postParams) {
     return new Promise( (resolve,reject) => {
         const req = protocolClient.request(postOptions, res => {
+            console.log(`statusCode: ${res.statusCode}`);
+
             let payload = "";
           
             res.on('data', d => {
@@ -51,7 +53,11 @@ function Post(protocolClient, postOptions, postParams) {
             })
           
             res.on('end', () => {
-                resolve(JSON.parse(payload));
+                if ( res.statusCode == 200 ) {
+                    resolve(JSON.parse(payload));
+                } else {
+                    reject( `API call error with status: ${res.statusCode}`);
+                }
             })
           })
           
