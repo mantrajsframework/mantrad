@@ -30,7 +30,7 @@ function getPortFromProtocolAndHost( protocol, host ) {
     if ( protocol == 'http' && host == CoreConstants.APIMANTRAWEBSITE) return 80;
     if ( protocol == 'https' && host == CoreConstants.APIMANTRAWEBSITE) return 443;
 
-    throw new Error( `Unknown protocol and host: ${protocol} ${host}`);
+    throw new Error( `Not allowed protocol and/or host: ${protocol} ${host}`);
 }
 
 function getProtocolClient( protocol ) {
