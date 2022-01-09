@@ -80,6 +80,10 @@ module.exports = {
             MantraConfig.ActiveServicesByComponent = appConfig.ActiveServicesByComponent;
             MantraConfig.InactiveComponents = [];
         
+            if ( appConfig.ActiveComponents ) {
+                MantraConfig.ActiveComponents = appConfig.ActiveComponents;
+            }
+            
             if ( appConfig.InactiveComponents ) {
                 MantraConfig.InactiveComponents = appConfig.InactiveComponents;
             }

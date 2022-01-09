@@ -77,28 +77,35 @@ class Bootstrap {
         MantraConsole.info('Loading components...');
         const mc = global.Mantra.MantraConfig;
         const entitiesConfig = global.Mantra.MantraConfig.getEntitiesConfiguration();
-        
+        let componentsToLoad;
+
         this.MantraDB = MantraDB(entitiesConfig);
 
         if ( !(await this.MantraDB.IsDatabaseInstalled()) ) {
             global.gimport("fatalending").exitByError( "Database not installed or unreachable ");
         }
         
-        const componentsToLoad = await this.MantraDB.GetComponentsInstalledAndEnabled();
-
-        if ( mc.InactiveComponents ) {
-            for( const cmpToRemove of mc.InactiveComponents ) {
-                const index = componentsToLoad.indexOf(cmpToRemove);
-
-                if ( index > -1 ) {
-                    componentsToLoad.splice( componentsToLoad.indexOf(cmpToRemove), 1 );
+        if ( mc.ActiveComponents ) {
+            componentsToLoad = mc.ActiveComponents.concat( CoreConstants.CORE_COMPONENTS );
+        } else {
+            componentsToLoad = await this.MantraDB.GetComponentsInstalledAndEnabled();
+            
+            if ( mc.InactiveComponents ) {
+                for( const cmpToRemove of mc.InactiveComponents ) {
+                    const index = componentsToLoad.indexOf(cmpToRemove);
     
-                    MantraConsole.info(`Component deactivated: ${cmpToRemove}`);
-                } else {
-                    MantraConsole.error(`Component to deactivate '${cmpToRemove}' no existing or disabed`);
+                    if ( index > -1 ) {
+                        componentsToLoad.splice( componentsToLoad.indexOf(cmpToRemove), 1 );
+        
+                        MantraConsole.info(`Component deactivated: ${cmpToRemove}`);
+                    } else {
+                        MantraConsole.error(`Component to deactivate '${cmpToRemove}' no existing or disabed`);
+                    }
                 }
             }
         }
+
+        componentsToLoad = [...new Set(componentsToLoad)];
             
         if ( mc.SharedApiComponents ) {
             mc.ActiveServicesByComponent = mc.ActiveServicesByComponent ? mc.ActiveServicesByComponent : [];
@@ -110,7 +117,7 @@ class Bootstrap {
         }
 
         global.Mantra.ComponentsLoader.loadComponents( mc.getComponentsLocations(), componentsToLoad );
-        
+
         setActiveServicesByComponent( mc, componentsToLoad );
 
         MantraConsole.info(`${componentsToLoad.length} components loaded`);
@@ -165,36 +172,37 @@ class Bootstrap {
         if ( await this.checkComponentsAreUpdated() ) {
             global.gimport("fatalending").exit();
         }
+        
+        const isMiddleware = global.Mantra.MantraConfig.isServiceActive(CoreConstants.MIDDLEWARE_HOOK); 
+        const isView = global.Mantra.MantraConfig.isServiceActive(CoreConstants.VIEW_HOOK);
+        const isGet = global.Mantra.MantraConfig.isServiceActive(CoreConstants.GET_HOOK);
+        const isPost = global.Mantra.MantraConfig.isServiceActive(CoreConstants.POST_HOOK);
 
-        if (global.Mantra.MantraConfig.isServiceActive(CoreConstants.MIDDLEWARE_HOOK) ) {
+        if ( isMiddleware || (isGet || isPost || isView) ) {
             MantraConsole.info("Service: activating middleware...");
 
             BootstrapRegister.registerMiddlewares(app, this.getMiddlewaresOrderedByWeight() );
         }
 
-        if (global.Mantra.MantraConfig.isServiceActive(CoreConstants.VIEW_HOOK) ) {
+        if ( isView ) {
             MantraConsole.info("Service: activating view...");
 
             BootstrapRegister.registerViews( app, this.hooks[CoreConstants.VIEW_HOOK] );
         }
 
-        if (global.Mantra.MantraConfig.isServiceActive(CoreConstants.GET_HOOK) ) {
+        if ( isGet ) {
             MantraConsole.info("Service: activating get...");
 
             BootstrapRegister.registerGets( app, this.hooks[CoreConstants.GET_HOOK] );
         }
 
-        if (global.Mantra.MantraConfig.isServiceActive(CoreConstants.POST_HOOK) ) {
+        if ( isPost ) {
             MantraConsole.info("Service: activating post...");
 
             BootstrapRegister.registerPosts( app, this.hooks[CoreConstants.POST_HOOK] );
         }
         
-        if (global.Mantra.MantraConfig.isServiceActive(CoreConstants.VIEW_HOOK) ||
-            global.Mantra.MantraConfig.isServiceActive(CoreConstants.POST_HOOK) || 
-            global.Mantra.MantraConfig.isServiceActive(CoreConstants.GET_HOOK)) {
-                
-            // Catch not found
+        if ( isView || isPost || isGet ) {                
             app.use( BootstrapNotFoundMiddleware.NotFound );
         }
 
@@ -659,7 +667,7 @@ class Bootstrap {
 
     async checkComponentsAreUpdated() {
         const mantraDB = MantraDB(global.Mantra.MantraConfig.getEntitiesConfiguration());
-        const componentsEnabled = await mantraDB.GetComponentsInstalledAndEnabled();
+        const componentsEnabled = await global.Mantra.ComponentsLoader.getComponentsNamesLoaded();
         let componentsToUpdate = 0;
 
         for(const componentName of componentsEnabled) {

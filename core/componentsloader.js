@@ -61,6 +61,10 @@ class ComponentsLoader {
         return this.componentsInfo;
     }
 
+    getComponentsNamesLoaded() {
+        return Object.keys(this.componentsInfo);
+    }
+
     existsComponentByName( componentName ) {
         return this.componentsInfo[componentName] != null;
     }
