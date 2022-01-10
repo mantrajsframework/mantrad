@@ -6,6 +6,7 @@ const MantraUtils = global.gimport("mantrautils");
 module.exports = {
     Post: async (fullPath, data) => {
         const apiParts = MantraUtils.ExtractValues( fullPath, "{protocol}://{host}/{componenttocall}/{commandtocall}" );
+
         if ( apiParts == null ) throw new Error(`Unkown path or format invalid for api post: ${fullPath}`);
 
         const postParams = JSON.stringify(data);
@@ -27,8 +28,8 @@ module.exports = {
 
 function getPortFromProtocolAndHost( protocol, host ) {
     if ( protocol == 'http' && host == "localhost" ) return 3084;
-    if ( protocol == 'http' && host == CoreConstants.APIMANTRAWEBSITE) return 80;
-    if ( protocol == 'https' && host == CoreConstants.APIMANTRAWEBSITE) return 443;
+    if ( protocol == 'http' && host != "localhost" ) return 80;
+    if ( protocol == 'https') return 443;
 
     throw new Error( `Not allowed protocol and/or host: ${protocol} ${host}`);
 }
@@ -44,8 +45,6 @@ function getProtocolClient( protocol ) {
 function Post(protocolClient, postOptions, postParams) {
     return new Promise( (resolve,reject) => {
         const req = protocolClient.request(postOptions, res => {
-            console.log(`statusCode: ${res.statusCode}`);
-
             let payload = "";
           
             res.on('data', d => {

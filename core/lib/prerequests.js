@@ -16,6 +16,7 @@ module.exports = {
             resource = bootstrap.GetGet( componentName, command );
         } else return true;
 
+
         if ( resource && typeof resource.PreRequest != 'undefined' ) {
             for( const prName of resource.PreRequest ) {
                 const preRequest = bootstrap.GetPreRequest(prName);

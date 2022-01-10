@@ -51,6 +51,8 @@ module.exports = {
     NODESUPPORTEDVERSIONS: [12, 13, 14, 15, 16, 17],
     MANTRAWEBSITE: "www.mantrajs.com",
     APIMANTRAWEBSITEENDPOINT: "http://localhost",
+    MANTRASUPPORTMAIL: "support@mantrajs.com",
+    DOWNLOADEDFOLDER: "mantradownloaded",
 
     IsCoreComponent: (coreComponent) => {
         return CORE_COMPONENTS.includes(coreComponent);

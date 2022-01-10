@@ -47,30 +47,31 @@ module.exports = {
      */
     ValidatePostData: (req, res, next) => {
         if (req.method == "POST") {
-            let cp = CoreUtils.GetComponentAndCommand(req.path);
-            let postConfig = global.Mantra.Bootstrap.GetPost(cp.componentName, cp.command);
+            const cp = CoreUtils.GetComponentAndCommand(req.path);
+            const postConfig = global.Mantra.Bootstrap.GetPost(cp.componentName, cp.command);
+            let postData = "";
+            
+            if ( req.body.mantraPostData ) {
+                postData = JSON.parse(req.body.mantraPostData);
+            } else if ( req.body ) {
+                if ( typeof req.body == 'string' ) postData = JSON.parse(req.body);
+                if ( typeof req.body == 'object' ) postData = req.body;
+            }
+            
+            req.MantraPostData = postData;
 
             if (postConfig.DataValidationSchema) {
-                var v = new jsonValidator();
-                var postData = JSON.parse(req.body.mantraPostData);
-
-                let vresult = v.validate(postData, postConfig.DataValidationSchema);
+                const v = new jsonValidator();
+                const vresult = v.validate(postData, postConfig.DataValidationSchema);
 
                 if (vresult.errors.length == 0) {
-                    req.MantraPostData = postData;
                     next();
                 }
                 else {
                     res.status(500).json(vresult.errors);
                 }
             } else {
-                if (req.body.mantraPostData) {
-                    req.MantraPostData = JSON.parse(req.body.mantraPostData);
-                    next();
-                } else if (typeof req.body == "object") {
-                    req.MantraPostData = req.body;
-                    next();
-                }
+                next();
             }
         } else { next(); }
     },

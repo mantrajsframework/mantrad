@@ -263,13 +263,14 @@ function lookupPrerequestFile( MantraAPI, resourceModule, componentName ) {
 
 function lookupPostFile( MantraAPI, resourceModule, componentName ) {
     for (const postName of Object.keys(resourceModule)) {
-        if (!postName.endsWith("_accesscondition") && !postName.endsWith("_datavalidationschema")) {
+        if (!postName.endsWith("_accesscondition") && !postName.endsWith("_prerequest") && !postName.endsWith("_datavalidationschema")) {
             MantraAPI.Hooks(componentName)
                 .Post({
                     Command: postName,
                     Handler: resourceModule[postName],
                     DataValidationSchema: extraResource(resourceModule, postName, "datavalidationschema"),
-                    AccessCondition: extraResource(resourceModule, postName, "accesscondition")
+                    AccessCondition: extraResource(resourceModule, postName, "accesscondition"),
+                    PreRequest: extraResource(resourceModule, postName, "prerequest")
                 });
         }
     }   
@@ -277,13 +278,14 @@ function lookupPostFile( MantraAPI, resourceModule, componentName ) {
 
 function lookupGetFile( MantraAPI, resourceModule, componentName ) {
     for (const getName of Object.keys(resourceModule)) {
-        if (!getName.endsWith("_accesscondition") && !getName.endsWith("_datavalidationschema")) {
+        if (!getName.endsWith("_accesscondition") && !getName.endsWith("_prerequest") && !getName.endsWith("_datavalidationschema")) {
             MantraAPI.Hooks(componentName)
                 .Get({
                     Command: getName,
                     Handler: resourceModule[getName],
                     DataValidationSchema: extraResource(resourceModule, getName, "datavalidationschema"),
-                    AccessCondition: extraResource(resourceModule, getName, "accesscondition")
+                    AccessCondition: extraResource(resourceModule, getName, "accesscondition"),
+                    PreRequest: extraResource(resourceModule, getName, "prerequest")
                 });
         }
     }   
