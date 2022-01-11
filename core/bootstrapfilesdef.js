@@ -240,22 +240,25 @@ function lookupEventFile( MantraAPI, resourceModule, componentName ) {
 
 function lookupAccessConditionFile( MantraAPI, resourceModule, componentName ) {
     for (const prName of Object.keys(resourceModule)) {
-        MantraAPI.Hooks(componentName)
-            .AccessCondition({
-                Name: `${componentName}.${prName}`,
-                Handler: resourceModule[prName]
-            });
+        if ( !prName.endsWith("_oncancel")) {
+            MantraAPI.Hooks(componentName)
+                .AccessCondition({
+                    Name: `${componentName}.${prName}`,
+                    Handler: resourceModule[prName],
+                    OnCancel: extraResource(resourceModule, prName, "oncancel")
+                });
+        }
     }   
 }
 
 function lookupPrerequestFile( MantraAPI, resourceModule, componentName ) {
     for( const prName of Object.keys(resourceModule) ) {
-        if ( !prName.endsWith("_cancelrequestredirect")) {
+        if ( !prName.endsWith("_oncancel")) {
            MantraAPI.Hooks(componentName)
                 .PreRequest( {
                     Name: `${componentName}.${prName}`,
                     Handler: resourceModule[prName],
-                    CancelRequestRedirectHandler: extraResource(resourceModule, prName, "cancelrequestredirect")
+                    OnCancel: extraResource(resourceModule, prName, "oncancel")
                  });
         }
     }   

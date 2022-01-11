@@ -484,6 +484,8 @@ class Bootstrap {
                     let ac = await AccessConditions.checkAC( b.AccessCondition, req, res );
                     shouldRender = ac.allowed;
 
+                    if ( ac.onCancel ) await ac.onCancel(MantraAPI);
+
                     // Pending, if false, check if ac should be called a false callback functions
                 }
 

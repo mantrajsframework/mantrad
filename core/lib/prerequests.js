@@ -24,8 +24,8 @@ module.exports = {
                 if ( !preRequest ) throw Error(`Unable to locate PreRequest ${prName} for path ${req.path}`);
 
                 if ( !(await preRequest.Handler( res.MantraAPI, req )) ) {
-                    if ( preRequest.CancelRequestRedirectHandler ) {
-                        preRequest.CancelRequestRedirectHandler(res.MantraAPI);
+                    if ( preRequest.OnCancel ) {
+                        await preRequest.OnCancel(res.MantraAPI);
                     } else {
                         res.redirect("/");
                     }

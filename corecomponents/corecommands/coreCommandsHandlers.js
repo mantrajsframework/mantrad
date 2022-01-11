@@ -44,24 +44,26 @@ module.exports = {
         try {
             const MantrajsApiClient = global.gimport("mantrajsapiclient");
 
+            /*
             const credentials = await GetUserCredentialsToDownloadComponent();
+            
             const componentDownloadRequestData = {
                 usermail: credentials.userMail,
                 licensekey: credentials.licenseKey,
                 componentnamerequested: componentName
-            };        
+            };*/        
     
-            /*
+            
             const componentDownloadRequestData = {
                 usermail: "mantradev@mantrajs.com",
                 licensekey: "393939399339",
                 componentnamerequested: componentName
-            };*/
+            };
     
             MantraConsole.info(`Downloading...`);
     
             let apiCallResult = await MantrajsApiClient.GetDownloadTokenForComponent(componentDownloadRequestData);
-    
+            console.log(apiCallResult);
             if ( apiCallResult.success ) {
                 const destinationFolder = Path.join(process.cwd(), CoreConstants.DOWNLOADEDFOLDER);
                 await MantraUtils.EnsureDir(destinationFolder);

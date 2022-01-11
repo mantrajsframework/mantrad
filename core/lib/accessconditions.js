@@ -7,7 +7,9 @@ module.exports = {
      * Checks access conditions for the current state of a request
      * Returns an object: {
      *    allowed: <boolean indicating if all access conditions passed>
-     *    accessConditionToInvoke: <if allowed is false, access condition which return false>
+     *    accessConditionToInvoke: <if allowed is false, access condition which return false>,
+     *    redirect: <redirect property of ac or "/" by default>,
+     *    onCancel: <handler onCancel if present in ac>
      * }
      */
     async checkAC( conditions, req, res ) {
@@ -35,10 +37,13 @@ module.exports = {
                 const accessConditionToInvoke = global.Mantra.Bootstrap.GetAccessCondition( acName );
                 goOn = await accessConditionToInvoke.Handler( req, res );
     
-                if ( !goOn ) {
-                    return { allowed: false, 
-                             accessConditionFalse: accessConditionToInvoke, 
-                             redirect: ac.Redirect ? ac.Redirect : "/" };
+                if (!goOn) {
+                    return {
+                        allowed: false,
+                        accessConditionFalse: accessConditionToInvoke,
+                        redirect: ac.Redirect ? ac.Redirect : "/",
+                        onCancel: accessConditionToInvoke.OnCancel
+                    };
                 }
             } else {
                 MantraConsole.error( `Unable to call no existing access condition of name '${acName}'`);

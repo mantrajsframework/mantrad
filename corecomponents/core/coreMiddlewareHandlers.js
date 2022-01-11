@@ -78,9 +78,9 @@ module.exports = {
 
     AccessCondition: async ( req, res, next ) => {
         if ( res.MantraAPI.IsGet() ) { 
-            return AccessConditionGet( req, res, next );
+            return AccessConditionGet( res.MantraAPI, req, res, next );
         } else if ( res.MantraAPI.IsPost() ) {
-            return AccessConditionPost( req, res, next );
+            return AccessConditionPost( res.MantraAPI, req, res, next );
         } else {
             return res.status(403).end();
         }
@@ -117,7 +117,11 @@ async function AccessConditionGet( req, res, next ) {
                 // If some access condition handler has not set a redirect,
                 // then, redirect to root by default or access condition redirect
                 if ( !res.headersSent ) {
-                    res.redirect( ac.redirect );
+                    if ( ac.onCancel ) {
+                        await ac.onCancel( Mantra );
+                    } else {
+                        res.redirect( ac.redirect );
+                    }
                 }                        
             }
         } else next();
@@ -137,7 +141,11 @@ async function AccessConditionPost( req, res, next ) {
                 next();
             }
             else {
-                res.status(403).end();
+                if (ac.onCancel) {
+                    await ac.onCancel(Mantra);
+                } else {
+                    res.status(403).end();
+                }
             }
         } else next();
     }
