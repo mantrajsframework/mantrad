@@ -99,7 +99,7 @@ module.exports = {
     }    
 }
 
-async function AccessConditionGet( req, res, next ) {
+async function AccessConditionGet( Mantra, req, res, next ) {
     let cp = CoreUtils.GetComponentAndCommand(req.path);
     
     if ( cp ) {
@@ -128,7 +128,7 @@ async function AccessConditionGet( req, res, next ) {
     } else next();
 }
 
-async function AccessConditionPost( req, res, next ) {
+async function AccessConditionPost( Mantra, req, res, next ) {
     let cp = CoreUtils.GetComponentAndCommand(req.path);
     
     if ( cp ) {
