@@ -1,3 +1,8 @@
+/*
+ * This code file belongs to Mantra Framework project (www.mantrajs.com)
+ * in the scope of MIT license. More info at support@mantrajs.com. Enjoy :-)
+ */ 
+
 "use strict";
 
 const Path = require("path");
@@ -43,27 +48,24 @@ module.exports = {
     DownloadComponent: async (Mantra, componentName) => {
         try {
             const MantrajsApiClient = global.gimport("mantrajsapiclient");
-
-            /*
             const credentials = await GetUserCredentialsToDownloadComponent();
             
             const componentDownloadRequestData = {
                 usermail: credentials.userMail,
                 licensekey: credentials.licenseKey,
                 componentnamerequested: componentName
-            };*/        
+            };
     
-            
+            /*
             const componentDownloadRequestData = {
                 usermail: "mantradev@mantrajs.com",
-                licensekey: "393939399339",
+                licensekey: "2831188072c611ec936d8d1af8305d7d",
                 componentnamerequested: componentName
-            };
+            };*/
     
             MantraConsole.info(`Downloading...`);
     
-            let apiCallResult = await MantrajsApiClient.GetDownloadTokenForComponent(componentDownloadRequestData);
-            console.log(apiCallResult);
+            const apiCallResult = await MantrajsApiClient.GetDownloadTokenForComponent(componentDownloadRequestData);
             if ( apiCallResult.success ) {
                 const destinationFolder = Path.join(process.cwd(), CoreConstants.DOWNLOADEDFOLDER);
                 await MantraUtils.EnsureDir(destinationFolder);
@@ -72,7 +74,7 @@ module.exports = {
     
                 MantraConsole.info(`File ${fileNameDownloaded} downloaded with success at '${CoreConstants.DOWNLOADEDFOLDER}' folder`);
     
-                const answer = await MantraConsole.question(`Install component ${componentName} [Y]/N? `);
+                const answer = await MantraConsole.question(`Install component '${componentName}' [Y]/N? `);
     
                 if ( answer == "Y" || answer == "" ) {
                     const ExecCommand = global.gimport("execcommand");
