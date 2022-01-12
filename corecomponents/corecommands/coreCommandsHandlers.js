@@ -5,6 +5,7 @@
 
 "use strict";
 
+const Chalk = require("chalk");
 const Path = require("path");
 
 const ComponentInstaller = global.gimport("componentinstaller");
@@ -362,22 +363,42 @@ module.exports = {
 
     ShowPosts: async (MantraAPI, componentName) => {
         const posts = global.Mantra.Bootstrap.getHooksByName( CoreConstants.POST_HOOK );
-        let postNames = [];
-
+        
         if ( posts.length == 0 ) {
             MantraConsole.info("No posts detected");
         } else{
+            let postNames = [];
+            
             for( const post of posts ) {
                 if ( componentName == undefined || post.Component == componentName ) {
-                    postNames.push(`${post.Component}.${post.Command}. Route: '/${post.Component}/${post.Command}'`)
+                    postNames.push(`${Chalk.keyword("white")(post.Component + "." + post.Command)}. Route: '/${post.Component}/${post.Command}'`)
                 }
             }
     
-            postNames = postNames.sort();
-
             let i = 0;
-            for( const postName of postNames ) {
+            for( const postName of postNames.sort() ) {
                 MantraConsole.info( `(${++i}) ${postName}`, false );
+            }
+        }
+    },
+
+    ShowGets: async (MantraAPI, componentName) => {
+        const gets = global.Mantra.Bootstrap.getHooksByName( CoreConstants.GET_HOOK );
+        
+        if ( gets.length == 0 ) {
+            MantraConsole.info("No gets detected");
+        } else{
+            let getNames = [];
+
+            for( const get of gets ) {
+                if ( componentName == undefined || get.Component == componentName ) {
+                    getNames.push(`${Chalk.keyword("white")(get.Component + "." + get.Command)}. Route: '/${get.Component}/${get.Command}'`)
+                }
+            }
+    
+            let i = 0;
+            for( const getName of getNames.sort() ) {
+                MantraConsole.info( `(${++i}) ${getName}`, false );
             }
         }
     },

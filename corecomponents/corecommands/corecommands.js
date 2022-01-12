@@ -35,7 +35,6 @@ class CoreCommandsStarter {
                 Name: "reinstall-component",
                 Description: "Uninstall and install a component. Use: mantrad reinstall-component <component name>",
                 Handler: CoreCommandsHandlers.ReinstallComponent
-
             }, {
                 Name: "download-component",
                 Description: `Download a component from ${CoreConstants.MANTRAWEBSITE} site. Use: mantrad download-component <component name>|<component name@version>`,
@@ -85,6 +84,10 @@ class CoreCommandsStarter {
                 Name: "show-posts",
                 Description: "Show http posts defined by components. Use mantrad show-posts <component name, optional>",
                 Handler: CoreCommandsHandlers.ShowPosts
+            }, {
+                Name: "show-gets",
+                Description: "Show http gets defined by components. Use mantrad show-gets <component name, optional>",
+                Handler: CoreCommandsHandlers.ShowGets
             }, {
                 Name: "show-views",
                 Description: "Show views defined by components. Use mantrad show-blocks <component name, optional>",
