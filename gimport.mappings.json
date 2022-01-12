@@ -15,6 +15,7 @@
     "depsfactory": "./core/lib/depsfactory.js",
     "downloadfile": "./core/lib/downloadfile.js",
     "execcommand": "./core/lib/execcommand.js",
+    "existscommand": "./core/lib/existscommand.js",
     "fatalending": "./core/lib/fatalending.js",
     "mantraapi" : "./core/mantraapi.js",
     "mantraapiutils" : "./core/lib/mantraapiutils.js",

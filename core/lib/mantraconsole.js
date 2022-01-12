@@ -6,8 +6,8 @@
 "use strict";
 
 const ReadLine = require("readline").createInterface(process.stdin, process.stdout);
-const Moment = require("moment");
 const Chalk = require("chalk");
+const Moment = require("moment");
 
 module.exports = {
     rawInfo(msg) { console.log(msg); },

@@ -47,54 +47,61 @@ module.exports = {
     },
 
     DownloadComponent: async (Mantra, componentName) => {
-        try {
-            const MantrajsApiClient = global.gimport("mantrajsapiclient");
-            const credentials = await GetUserCredentialsToDownloadComponent();
-            
-            const componentDownloadRequestData = {
-                usermail: credentials.userMail,
-                licensekey: credentials.licenseKey,
-                componentnamerequested: componentName
-            };
-    
-            /*
-            const componentDownloadRequestData = {
-                usermail: "mantradev@mantrajs.com",
-                licensekey: "2831188072c611ec936d8d1af8305d7d",
-                componentnamerequested: componentName
-            };*/
-    
-            MantraConsole.info(`Downloading...`);
-    
-            const apiCallResult = await MantrajsApiClient.GetDownloadTokenForComponent(componentDownloadRequestData);
-            if ( apiCallResult.success ) {
-                const destinationFolder = Path.join(process.cwd(), CoreConstants.DOWNLOADEDFOLDER);
-                await MantraUtils.EnsureDir(destinationFolder);
-                const downloadToken = apiCallResult.payload.downloadtoken;
-                const fileNameDownloaded = await MantrajsApiClient.GetDownloadComponent(downloadToken, destinationFolder );
-    
-                MantraConsole.info(`File ${fileNameDownloaded} downloaded with success at '${CoreConstants.DOWNLOADEDFOLDER}' folder`);
-    
-                const answer = await MantraConsole.question(`Install component '${componentName}' [Y]/N? `);
-    
-                if ( answer == "Y" || answer == "" ) {
-                    const ExecCommand = global.gimport("execcommand");
-                    const gzFullPathFile = Path.join(destinationFolder, fileNameDownloaded);
-                    const destinationComponentFolder = Path.join(process.cwd(), await GetComponentLocation());
-                    const untarCommand = `tar -xzf ${gzFullPathFile} -C ${destinationComponentFolder}`;
-    
-                    MantraConsole.info("Uncompressing component...");
-                    await ExecCommand.exec(untarCommand);
-                    await InstallComponentImpl(Mantra, componentName, false);
+        const existsTarCommand = await ExistsTarCommandInSystem();;
+
+        if (!existsTarCommand) {
+            MantraConsole.warning(`Unable to locate in system 'tar' command to run download-component`);
+        } else {
+            try {
+                const MantrajsApiClient = global.gimport("mantrajsapiclient");
+                const credentials = await GetUserCredentialsToDownloadComponent();
+
+                const componentDownloadRequestData = {
+                    usermail: credentials.userMail,
+                    licensekey: credentials.licenseKey,
+                    componentnamerequested: componentName
+                };
+
+                /*
+                const componentDownloadRequestData = {
+                    usermail: "mantradev@mantrajs.com",
+                    licensekey: "2831188072c611ec936d8d1af8305d7d",
+                    componentnamerequested: componentName
+                };*/
+
+                MantraConsole.info(`Downloading...`);
+
+                const apiCallResult = await MantrajsApiClient.GetDownloadTokenForComponent(componentDownloadRequestData);
+
+                if (apiCallResult.success) {
+                    const destinationFolder = Path.join(process.cwd(), CoreConstants.DOWNLOADEDFOLDER);
+                    await MantraUtils.EnsureDir(destinationFolder);
+                    const downloadToken = apiCallResult.payload.downloadtoken;
+                    const fileNameDownloaded = await MantrajsApiClient.GetDownloadComponent(downloadToken, destinationFolder);
+
+                    MantraConsole.info(`File ${fileNameDownloaded} downloaded with success at '${CoreConstants.DOWNLOADEDFOLDER}' folder`);
+
+                    const answer = await MantraConsole.question(`Install component '${componentName}' [Y]/N? `);
+
+                    if (answer == "Y" || answer == "") {
+                        const ExecCommand = global.gimport("execcommand");
+                        const gzFullPathFile = Path.join(destinationFolder, fileNameDownloaded);
+                        const destinationComponentFolder = Path.join(process.cwd(), await GetComponentLocation());
+                        const untarCommand = `tar -xzf ${gzFullPathFile} -C ${destinationComponentFolder}`;
+
+                        MantraConsole.info("Uncompressing component...");
+                        await ExecCommand.exec(untarCommand);
+                        await InstallComponentImpl(Mantra, componentName, false);
+                    }
+                } else {
+                    MantraConsole.error(`${CoreConstants.MANTRAWEBSITE} says: ${apiCallResult.message} ${String.fromCodePoint(0x1F625)}`);
+                    ShowSupportMessageAfterFailure();
                 }
-            } else {
-                MantraConsole.error( `${CoreConstants.MANTRAWEBSITE} says: ${apiCallResult.message} ${String.fromCodePoint(0x1F625)}` );
-                ShowSupportMessageAfterFailure();
-            }            
-        } catch(err) {
-            if ( err.code && err.code == 'ECONNREFUSED') {
-                MantraConsole.error( `Opps... Seems that ${CoreConstants.MANTRAWEBSITE} is not working properly now ${String.fromCodePoint(0x1F625)}` );
-                ShowSupportMessageAfterFailure();
+            } catch (err) {
+                if (err.code && err.code == 'ECONNREFUSED') {
+                    MantraConsole.error(`Opps... Seems that ${CoreConstants.MANTRAWEBSITE} is not working properly now ${String.fromCodePoint(0x1F625)}`);
+                    ShowSupportMessageAfterFailure();
+                }
             }
         }
 
@@ -110,14 +117,19 @@ module.exports = {
             const componentRootLocation = Mantra.GetComponentLocation(componentName).replace(componentName, "");
             const fileToGenerate = `${componentName}@${version}.tar.gz`;
             const currentFolder = process.cwd();
+            const existsTarCommand = await ExistsTarCommandInSystem();                ;
 
-            let command = `cd ${componentRootLocation}`;
-            command += ` && tar -zcf ${fileToGenerate} ${componentName}`;
-            command += ` && cd ${currentFolder}`;
-            command += ` && mv ${componentRootLocation}${fileToGenerate} .`;
-
-            await ExecCommand.exec( command );
-            MantraConsole.info( `Component file ${fileToGenerate} generated successfully`, false);
+            if ( existsTarCommand ) {
+                let command = `cd ${componentRootLocation}`;
+                command += ` && tar -zcf ${fileToGenerate} ${componentName}`;
+                command += ` && cd ${currentFolder}`;
+                command += ` && mv ${componentRootLocation}${fileToGenerate} .`;
+    
+                await ExecCommand.exec( command );
+                MantraConsole.info( `Component file ${fileToGenerate} generated successfully`, false);
+            } else {
+                MantraConsole.warning( `Unable to locate in system 'tar' command to run gzip-component`);
+            }
         }
 
         global.gimport("fatalending").exit();
@@ -708,4 +720,10 @@ async function GetUserCredentialsToDownloadComponent() {
         
 function ShowSupportMessageAfterFailure() {
     MantraConsole.error( `If the problem persists or if you think this is something we need to fix or improve, please contact with ${CoreConstants.MANTRASUPPORTMAIL} and we'll be happy to make Mantra better.`);
+}
+
+function ExistsTarCommandInSystem() {
+    const ExistsCommand = global.gimport("existscommand");
+    
+    return ExistsCommand.CheckCommandExists("tar");
 }
