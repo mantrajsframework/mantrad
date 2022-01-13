@@ -27,6 +27,7 @@ module.exports = {
 
     GetDownloadComponent: async (downloadToken, destinationFolder) => {
         const urlToDownload = getUrlToDownloadFromToken(downloadToken);
+
         return DownloadFile.downloadFromUrl(urlToDownload, destinationFolder);
     }
 }

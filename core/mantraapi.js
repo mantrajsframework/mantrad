@@ -752,8 +752,7 @@ class MantraAPI {
     }
     
     SendError( message ) {
-        this.res.status(500);
-        this.res.send( message );
+        this.res.status(500).send(message);
     }
 
     /*

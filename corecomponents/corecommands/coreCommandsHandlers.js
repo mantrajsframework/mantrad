@@ -62,13 +62,6 @@ module.exports = {
                     componentnamerequested: componentName
                 };
 
-                /*
-                const componentDownloadRequestData = {
-                    usermail: "mantradev@mantrajs.com",
-                    licensekey: "2831188072c611ec936d8d1af8305d7d",
-                    componentnamerequested: componentName
-                };*/
-
                 MantraConsole.info(`Downloading...`);
 
                 const apiCallResult = await MantrajsApiClient.GetDownloadTokenForComponent(componentDownloadRequestData);
@@ -98,9 +91,16 @@ module.exports = {
                     ShowSupportMessageAfterFailure();
                 }
             } catch (err) {
-                if (err.code && err.code == 'ECONNREFUSED') {
-                    MantraConsole.error(`Opps... Seems that ${CoreConstants.MANTRAWEBSITE} is not working properly now ${String.fromCodePoint(0x1F625)}`);
-                    ShowSupportMessageAfterFailure();
+                const publicApiNotAvailable = err.code && err.code == 'ECONNREFUSED';
+
+                MantraConsole.error(`Opps... Seems that ${CoreConstants.MANTRAWEBSITE} is not working properly now ${String.fromCodePoint(0x1F625)}`);
+
+                ShowSupportMessageAfterFailure();
+
+                if ( publicApiNotAvailable ) {
+                    MantraConsole.error("Seems Mantra public api is not available now.");
+                } else {
+                    MantraConsole.error(err);
                 }
             }
         }
