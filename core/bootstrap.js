@@ -8,6 +8,7 @@
 const jsonValidator = require("jsonschema").Validator;
 
 const AccessConditions = global.gimport("accessconditions");
+const ActiveServices = global.gimport("activeservices");
 const BootstrapFilesDef = global.gimport("bootstrapfilesdef");
 const BootstrapRegister = global.gimport("bootstrapregister");
 const BootstrapNotFoundMiddleware = global.gimport("bootstrapnotfoundmiddleware");
@@ -112,18 +113,9 @@ class Bootstrap {
 
         componentsToLoad = [...new Set(componentsToLoad)];
             
-        if ( mc.SharedApiComponents ) {
-            mc.ActiveServicesByComponent = mc.ActiveServicesByComponent ? mc.ActiveServicesByComponent : [];
-
-            for( let sharedApiComponentName of mc.SharedApiComponents ) {
-                mc.ActiveServicesByComponent.push( `${sharedApiComponentName}/api`);
-                componentsToLoad.push(sharedApiComponentName);
-            }
-        }
-
         global.Mantra.ComponentsLoader.loadComponents( mc.getComponentsLocations(), componentsToLoad );
 
-        setActiveServicesByComponent( mc, componentsToLoad );
+        mc.ComponentActiveServices = ActiveServices.extractActiveServicesByComponent( componentsToLoad );
 
         MantraConsole.info(`${componentsToLoad.length} components loaded`);
     }
@@ -696,34 +688,6 @@ class Bootstrap {
         }
 
         return componentsToUpdate;
-    }
-}
-
-function setActiveServicesByComponent( siteConfig, cmpInstalledAndEnabled ) {
-    // Set active services by component in attribute "ComponentActiveServices" for all
-    // active and enabled component
-    siteConfig.ComponentActiveServices = [];
-    
-    if ( siteConfig.ActiveServicesByComponent ) {
-        for( let component of siteConfig.ActiveServicesByComponent ) {
-            let p = MantraUtils.ExtractValues( component, "{component}/{services}" );
-         
-            if ( p != null ) {
-                siteConfig.ComponentActiveServices[p.component] = p.services.split(",");
-    
-                if ( !(siteConfig.ComponentActiveServices[p.component].includes("api")) ) {
-                    siteConfig.ComponentActiveServices[p.component].push("api");
-                }            
-            } else {
-                MantraConsole.warning(`Bad format at ActiveServicesByComponent attribute for component ${component}`);
-            }      
-        }
-    }
-    
-    for( let component of cmpInstalledAndEnabled ) {
-        if ( !siteConfig.ComponentActiveServices[component] ) {
-            siteConfig.ComponentActiveServices[component] = ["*"]
-        }
     }
 }
 
