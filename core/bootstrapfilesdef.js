@@ -175,14 +175,19 @@ function lookupApiFile( MantraAPI, resourceModule, componentName ) {
 
 function lookupViewFile( MantraAPI, resourceModule, componentName ) {
     for( const viewName of Object.keys(resourceModule) ) {
-        if ( !viewName.endsWith("_prerequest") && !viewName.endsWith("_accesscondition") ) {
+        if ( !viewName.endsWith("_prerequest") && 
+             !viewName.endsWith("_accesscondition") &&
+             !viewName.endsWith("_css") && 
+             !viewName.endsWith("_js")) {
             if ( viewName != 'any' ) {
                 MantraAPI.Hooks(componentName)
                     .View( {
                         Command: viewName,
                         Handler: resourceModule[viewName],
                         PreRequest: extraResource(resourceModule, viewName, "prerequest"),
-                        AccessCondition: extraResource(resourceModule, viewName, "accesscondition")
+                        AccessCondition: extraResource(resourceModule, viewName, "accesscondition"),
+                        Css: extraResource(resourceModule, viewName, "css"),
+                        Js: extraResource(resourceModule, viewName, "js")
                     } );
             }
         }
@@ -196,6 +201,8 @@ function lookupViewFile( MantraAPI, resourceModule, componentName ) {
             Handler: resourceModule["any"],
             PreRequest: resourceModule['any_prerequest'] ? resourceModule['any_prerequest'] : undefined,
             AccessCondition: resourceModule['any_accesscondition'] ? resourceModule['any_accesscondition'] : undefined,
+            Css: resourceModule['any_css'] ? resourceModule['any_css'] : undefined,
+            Js: resourceModule['any_js'] ? resourceModule['any_js'] : undefined
         };
 
         MantraAPI.Hooks(componentName)
