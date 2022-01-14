@@ -855,7 +855,7 @@ class MantraAPI {
                 return this.bootstrap.Invoke(this, apiToCall, data )
             }
         else {
-            throw Error(`Unable to call API ${apiToCall}. Bad format API string or no existing API`)
+            this.LogError( `Unable to call API ${apiToCall}. Bad format API string or no existing API. Is the component and its api registered?` )
         }
     }
 
