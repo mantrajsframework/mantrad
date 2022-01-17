@@ -14,6 +14,7 @@ const MantraConsole = global.gimport("mantraconsole");
 const MantraDB = global.gimport("mantradb");
 const NpmInstaller = global.gimport("npminstaller");
 const MantraUtils = global.gimport("mantrautils");
+const CoreCommandsUtils = require("./lib/coreCommandsUtils");
 
 module.exports = {
     InstallComponent: async (MantraAPI, componentName) => {
@@ -47,14 +48,14 @@ module.exports = {
     },
 
     DownloadComponent: async (Mantra, componentName) => {
-        const existsTarCommand = await ExistsTarCommandInSystem();;
+        const existsTarCommand = await CoreCommandsUtils.ExistsTarCommandInSystem();;
 
         if (!existsTarCommand) {
             MantraConsole.warning(`Unable to locate in system 'tar' command to run download-component`);
         } else {
-            try {
+            try {                
                 const MantrajsApiClient = global.gimport("mantrajsapiclient");
-                const credentials = await GetUserCredentialsToDownloadComponent();
+                const credentials = await CoreCommandsUtils.GetUserCredentialsToDownloadComponent();
 
                 const componentDownloadRequestData = {
                     usermail: credentials.userMail,
@@ -76,7 +77,7 @@ module.exports = {
 
                     const answer = await MantraConsole.question(`Install component '${componentName}' [Y]/N? `);
 
-                    if (answer == "Y" || answer == "") {
+                    if (answer == "Y" || answer == "") {        
                         const ExecCommand = global.gimport("execcommand");
                         const gzFullPathFile = Path.join(destinationFolder, fileNameDownloaded);
                         const destinationComponentFolder = Path.join(process.cwd(), await GetComponentLocation());
@@ -109,7 +110,7 @@ module.exports = {
     },
 
     GzipComponent: async (Mantra, componentName) => {
-        if ( !( await ExistComponentInProject(componentName) ) ) {
+        if ( !( await ExistsComponentInProject(componentName) ) ) {
             MantraConsole.warning( `Component '${componentName}' it is not installed in this project.` );
         } else {
             const ExecCommand = global.gimport("execcommand");
@@ -117,7 +118,7 @@ module.exports = {
             const componentRootLocation = Mantra.GetComponentLocation(componentName).replace(componentName, "");
             const fileToGenerate = `${componentName}@${version}.tar.gz`;
             const currentFolder = process.cwd();
-            const existsTarCommand = await ExistsTarCommandInSystem();                ;
+            const existsTarCommand = await CoreCommandsUtils.ExistsTarCommandInSystem();                ;
 
             if ( existsTarCommand ) {
                 let command = `cd ${componentRootLocation}`;
@@ -142,7 +143,7 @@ module.exports = {
     },
 
     DisableComponent: async (MantraAPI, componentName) => {
-        if (!( await ExistComponentInProject(componentName) ) ) {
+        if (!( await ExistsComponentInProject(componentName) ) ) {
             MantraConsole.warning(`Component '${componentName}' it is not installed in this project.`);
         } else {
             if ( !(await IsComponentEnabled(componentName) ) ) {
@@ -633,11 +634,12 @@ async function GetComponentsToUpdate() {
     return ci.GetComponentsToUpdate();
 }
 
-async function ExistComponentInProject( componentName ) {
+async function ExistsComponentInProject( componentName ) {
     const components = await GetComponentsInstalled();
-
+    const componentNameToCheck = CoreCommandsUtils.ExtractComponentName(componentName);
+    
     for( const component of components ) {
-        if ( component.name == componentName ) return true;
+        if ( component.name == componentNameToCheck ) return true;
     }
 
     return false;
@@ -661,7 +663,7 @@ async function IsComponentEnabled(componentName) {
 }
 
 async function EnableComponentImpl(Mantra, componentName) {
-    if ( !( await ExistComponentInProject(componentName) ) ) {
+    if ( !( await ExistsComponentInProject(componentName) ) ) {
         MantraConsole.warning( `Component '${componentName}' it is not installed in this project.` );
     } else {
         if ( (await IsComponentEnabled(componentName) ) ) {
@@ -678,18 +680,20 @@ async function EnableComponentImpl(Mantra, componentName) {
 
 async function InstallComponentImpl( Mantra, componentName, askQuestion ) {
     let installed = false;
+    const componentNameToInstall = CoreCommandsUtils.ExtractComponentName(componentName);
 
-    if ( await ExistComponentInProject(componentName) ) {
-        MantraConsole.warning( `Component '${componentName}' is already installed.` );
+    if ( await ExistsComponentInProject(componentNameToInstall) ) {
+        MantraConsole.warning( `Component '${componentNameToInstall}' is already installed.` );
+        MantraConsole.warning( `If you are installing a different version, uninstall it first.` );
     } else {
         let answer = "Y";
-       
+
         if (askQuestion) {
-            answer = await MantraConsole.question(`Install component ${componentName} [Y]/N? `);
+            answer = await MantraConsole.question(`Install component ${componentNameToInstall} [Y]/N? `);
         }
 
         if (answer == "Y" || answer == "") {
-            installed = await InstallComponent(Mantra, componentName, true);
+            installed = await InstallComponent(Mantra, componentNameToInstall, true);
 
             if (installed) {
                 MantraConsole.info(`Remember to add the component name to 'DefaultComponents' at ${CoreConstants.MANTRACONFIGFILE} if will be a default component.`, false);
@@ -697,7 +701,7 @@ async function InstallComponentImpl( Mantra, componentName, askQuestion ) {
         }
 
         if ( installed ) {
-            await EnableComponentImpl( Mantra, componentName );
+            await EnableComponentImpl( Mantra, componentNameToInstall );
         }
     }
     
@@ -707,7 +711,7 @@ async function InstallComponentImpl( Mantra, componentName, askQuestion ) {
 async function UninstallComponentImpl( Mantra, componentName, askQuestion ) {
     let uninstalled = false;
 
-    if ( !( await ExistComponentInProject(componentName) ) ) {
+    if ( !( await ExistsComponentInProject(componentName) ) ) {
         MantraConsole.warning( `Component '${componentName}' it is not installed in this project.` );
     } else {
         let answer = "Y";
@@ -727,23 +731,7 @@ async function UninstallComponentImpl( Mantra, componentName, askQuestion ) {
 
     return uninstalled;
 }
-
-async function GetUserCredentialsToDownloadComponent() {
-    const userMail = await MantraConsole.question(`Your user mail at ${CoreConstants.MANTRAWEBSITE}: `);
-    const licenseKey = await MantraConsole.question('Your license key: ');
-
-    return {
-        userMail: userMail,
-        licenseKey: licenseKey
-    }
-}
         
 function ShowSupportMessageAfterFailure() {
     MantraConsole.error( `If the problem persists or if you think this is something we need to fix or improve, please contact with ${CoreConstants.MANTRASUPPORTMAIL} and we'll be happy to make Mantra better.`);
-}
-
-function ExistsTarCommandInSystem() {
-    const ExistsCommand = global.gimport("existscommand");
-    
-    return ExistsCommand.CheckCommandExists("tar");
 }
