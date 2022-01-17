@@ -43,6 +43,7 @@ module.exports = {
         MantraConfig.SiteTemplatesLocation = path.join( MantraConfig.Location, "ui", SITETEMPLATES_FOLDER );
         MantraConfig.RootDirectory = path.dirname( fullPathToConfigFile ) + "/";
         MantraConfig.InstanceId = ShortId.generate();
+        MantraConfig.Inyections = MantraConfig.Injections ? MantraConfig.Injections : [];
         
         MantraConfig.getComponentsLocations = function() {
             let folders = [];
@@ -108,7 +109,13 @@ module.exports = {
             
             if ( appConfig.LandingView ) {
                 MantraConfig.LandingView = appConfig.LandingView;
-            }    
+            }
+            
+            if( appConfig.Injections ) {
+                for( const appInjectionKey of Object.keys(appConfig.Injections) ) {
+                    MantraConfig.Injections[appInjectionKey] = appConfig.Injections[appInjectionKey];
+                }
+            }
         }
 
         MantraConfig.setApp( Object.keys(MantraConfig.Apps)[0] ); // Set first app as default
@@ -116,7 +123,7 @@ module.exports = {
         if ( MantraConfig.GlobalConfig == undefined ) {
             MantraConfig.GlobalConfig = {};
         }
-        
+
         return MantraConfig;
     },
 

@@ -646,6 +646,14 @@ class MantraAPI {
         return global.Mantra.MantraConfig.InstanceId;
     }
 
+    GetInjection(injectionKey) {
+        return global.Mantra.MantraConfig.Inyections[injectionKey];
+    }
+
+    ExistsInjection(injectionKey) {
+        return global.Mantra.MantraConfig.Inyections[injectionKey] != undefined;
+    }
+
     /*
      * Returns the db configuration name for a component from global configuration
      */
@@ -988,7 +996,7 @@ class MantraAPI {
     }
 
     async addNewLog( type, description, data = "", key = "", counter = 0) {
-        const logApi = this.Config("core.logapi");
+        const logApi = this.GetInjection( this.Config("core.logapi") );
 
         if ( global.Mantra.Initialized && logApi && logApi !== "" ) {
             const logData = {

@@ -49,7 +49,6 @@ class MantraServer {
         const mc = global.Mantra.MantraConfig;
         
         if ( isViewOrPostServiceActive(mc) ) {
-            //const bodyParser = require("body-parser");
             const Express = require("express");
             App = Express();
             

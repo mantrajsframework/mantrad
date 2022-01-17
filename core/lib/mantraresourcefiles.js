@@ -21,8 +21,10 @@ module.exports = {
                               FileName: resourceParts.asset } );                              
         }
 
-        if ( MantraAPI.GetComponentConfig("core").translatejsapi ) {
-            let jsFiles = await MantraAPI.Invoke( MantraAPI.GetComponentConfig("core").translatejsapi, resources);
+        const translateJsApi = MantraAPI.GetInjection( MantraAPI.Config("core.translatejsapi") ); 
+        
+        if ( translateJsApi ) {
+            let jsFiles = await MantraAPI.Invoke( translateJsApi, resources);
           
             jsFiles += this.GetMantraAPIScript(MantraAPI);
             
@@ -55,8 +57,10 @@ module.exports = {
                               FileName: resourceParts.asset } );
         }
 
-        if ( MantraAPI.GetComponentConfig("core").translatecssapi ) {
-            return MantraAPI.Invoke( MantraAPI.GetComponentConfig("core").translatecssapi, resources );
+        const translateCssApi = MantraAPI.GetInjection( MantraAPI.Config("core.translatecssapi") );
+
+        if ( translateCssApi ) {
+            return MantraAPI.Invoke( translateCssApi, resources );
         }
 
         let cssFilesScripts = [];
