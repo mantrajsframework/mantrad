@@ -81,6 +81,10 @@ class CoreCommandsStarter {
                 Description: "Show apps defined in configuration file. Use mantrad show-apps",
                 Handler: CoreCommandsHandlers.ShowApps
             }, {
+                Name: "show-extends",
+                Description: "Show extends defined by components. Use mantrad show-extends <extend type, optional>",
+                Handler: CoreCommandsHandlers.ShowExtends
+            }, {
                 Name: "show-posts",
                 Description: "Show http posts defined by components. Use mantrad show-posts <component name, optional>",
                 Handler: CoreCommandsHandlers.ShowPosts

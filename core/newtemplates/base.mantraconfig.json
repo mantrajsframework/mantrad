@@ -8,12 +8,14 @@
          "Port": 8080
       }
    },
+   "Injections": {
+
+   },
    "Port": 8080,
    "ComponentsConfig": {
       "core": {
          "croncleanupevent": "* */5 * * * *",
          "cronbackupevent": "0 */5 * * * *",
-         "minifyhtml": false,
          "compressresponses": false,
          "baseurl": "http://localhost:8080/"
       },

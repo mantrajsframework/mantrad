@@ -416,15 +416,12 @@ module.exports = {
     },
 
     ShowCommands: async (MantraAPI, componentName) => {
-        const Chalk = require("chalk");
         const commands = global.Mantra.Bootstrap.getHooksByName( CoreConstants.COMMAND_HOOK );
         let commandsToShow = [];
 
         if ( commands.length == 0 ) {
             MantraConsole.info("No commands detected");
         } else {
-            const Chalk = require("chalk");
-            
             for (const command of commands ) {
                 if ( componentName == undefined || command.Component == componentName ) {
                     commandsToShow.push( {
@@ -437,6 +434,29 @@ module.exports = {
             
             for( const command of MantraAPI.Utils.Underscore.sortBy( commandsToShow, "Component" ) ) {
                 MantraConsole.rawInfo(`${Chalk.white(command.Command)} (${Chalk.green(command.Component)}) : ${Chalk.yellow(command.Description)}`);
+            }
+        }
+    },
+
+    ShowExtends: async (MantraAPI, extendType) => {
+        const extendsDefinitions = global.Mantra.Bootstrap.getHooksByName( CoreConstants.EXTEND_HOOK );
+
+        let extendsToShow = [];
+
+        for (const extendItem of extendsDefinitions ) {
+            if ( extendType == undefined || extendType == extendItem.Type ) {
+                extendsToShow.push( {
+                    Type: extendItem.Type,
+                    Component: extendItem.Component
+                });
+            }
+        }
+
+        if ( extendType && extendsToShow.length == 0 ) {
+            MantraConsole.info( `No extends found of type ${extendType}` );
+        } else {
+            for( const extendItemToShow of MantraAPI.Utils.Underscore.sortBy( extendsToShow, "Component" ) ) {
+                MantraConsole.rawInfo(`Extend type: ${Chalk.white(extendItemToShow.Type)}, defined by ${Chalk.green(extendItemToShow.Component)}`);
             }
         }
     },

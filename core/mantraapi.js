@@ -303,7 +303,14 @@ class MantraAPI {
      * Send html content over response object
      */
     async SendHtml( htmlContent ) {
-        return this.res.header("Content-Type", "text/html").end( await DepsFactory.MinifyHtml(htmlContent) );
+        const minifyApi = this.GetInjection( this.Config("core.minifyhtmlapi") );
+        let htmlToSend = htmlContent;
+
+        if ( minifyApi && minifyApi != "" ) {
+            htmlToSend = await this.Invoke( minifyApi, htmlContent );
+        }
+
+        return this.res.header("Content-Type", "text/html").end( htmlToSend );
     }
 
     /*

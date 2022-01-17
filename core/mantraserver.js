@@ -58,10 +58,6 @@ class MantraServer {
             App.use( Express.urlencoded({ limit: '5mb', extended: true }) );
             App.use( require("cookie-parser")() );
             
-            if ( coreConfig.compressresponses && coreConfig.compressresponses == true ) {
-                App.use( require("compression")() );
-            }
-
             await this.startComponents();
             await global.Mantra.Bootstrap.startServer( App, api );
         } else {
@@ -73,10 +69,6 @@ class MantraServer {
     
         api = global.Mantra.MantraAPIFactory(); // Force to create the object with all stuff already created (like Extend properties)
         await api.EmitEvent( "system.startup", {} );
-
-        if ( isViewOrPostServiceActive(mc) && coreConfig.compressresponses && coreConfig.compressresponses == true ) {
-            await MantraConsole.info( 'Compression enabled in server' );
-        }
 
         global.Mantra.Initialized = true;
     }
