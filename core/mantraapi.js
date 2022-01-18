@@ -5,7 +5,7 @@
 
 "use strict";
 
-const path = require("path");
+const Path = require("path");
 const ExtractValues = require("extract-values");
 const Crypto = require("crypto");
 
@@ -199,7 +199,7 @@ class MantraAPI {
         MantraAPIUtils.AddGlobalVars(this);
 
         if ( htmlContainerFile ) {
-            let docContainerPath = path.join( global.Mantra.MantraConfig.FrontendLocation, htmlContainerFile || CoreConstants.DEFAULT_ROOT_DOCUMENT );
+            let docContainerPath = Path.join( global.Mantra.MantraConfig.FrontendLocation, htmlContainerFile || CoreConstants.DEFAULT_ROOT_DOCUMENT );
             docContainerHtml = await this.Invoke("static.getfile", { fullPathToFile: docContainerPath } );
         
             blocks = await MantraAPIUtils.LookupBlocksFromContents( this, [docContainerHtml, htmlViewContent] );
@@ -597,12 +597,12 @@ class MantraAPI {
     async GetSchemaByVersion( componentName, version ) {
         const componentLocation = this.GetComponentLocation(componentName);
         const schema = `${componentName}.${version}`;
-        const pathToVersionModel = path.join( componentLocation, "model", `${schema}.schema.json` );
+        const pathToVersionModel = Path.join( componentLocation, "model", `${schema}.schema.json` );
     
         if ( this.Utils.FileExistsSync( pathToVersionModel ) ) {
             return require(pathToVersionModel);
         } else {
-            let defaultPathToModel = path.join( componentLocation, "model", `${componentName}.schema.json` );
+            let defaultPathToModel = Path.join( componentLocation, "model", `${componentName}.schema.json` );
             return require(defaultPathToModel);
         }
     }
@@ -948,9 +948,9 @@ class MantraAPI {
     }
 
     async ExtractResource( resource ) {
-        let localFile = path.join( global.Mantra.MantraConfig.FrontendLocation, resource );        
+        let localFile = Path.join( global.Mantra.MantraConfig.FrontendLocation, resource );        
         let isFrontendResource = await this.Utils.FileExists( localFile );
-        let extension = path.extname(resource);
+        let extension = Path.extname(resource);
 
         let result = {
             exists: false,
@@ -974,7 +974,7 @@ class MantraAPI {
             if (componentsLoader.existsComponentByName(componentResourceParts.componentName) &&
                 result.isMimeType ) {
                 let cmp = componentsLoader.getComponentByName(componentResourceParts.componentName);
-                let fullPath = path.join(cmp.pathToComponent, componentResourceParts.resource, componentResourceParts.file);
+                let fullPath = Path.join(cmp.pathToComponent, componentResourceParts.resource, componentResourceParts.file);
         
                 let exists = await this.Utils.FileExists(fullPath);
         
