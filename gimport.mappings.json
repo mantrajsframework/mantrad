@@ -18,6 +18,7 @@
     "execcommand": "./core/lib/execcommand.js",
     "existscommand": "./core/lib/existscommand.js",
     "fatalending": "./core/lib/fatalending.js",
+    "injectionsinstances": "./core/injectionsinstances.js",
     "mantraapi" : "./core/mantraapi.js",
     "mantraapiutils" : "./core/lib/mantraapiutils.js",
     "mantracomponentschemacache": "./core/mantracomponentschemacache.js",

@@ -1038,6 +1038,13 @@ Object.defineProperty( MantraAPI.prototype, "api", {
     }
 });
 
+Object.defineProperty( MantraAPI.prototype, "injection", {
+    get: function() {
+        this.injectionLazyLoad = this.injectionLazyLoad || this.bootstrap.getInjectionsInstances();
+        return this.injectionLazyLoad;
+    }
+});
+
 Object.defineProperty( MantraAPI.prototype, "dal", {
     get: function() {
         this.dalLazyLoad = this.dalLazyLoad || this.bootstrap.getComponentsRepositoryInstances();

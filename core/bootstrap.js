@@ -12,11 +12,10 @@ const ActiveServices = global.gimport("activeservices");
 const BootstrapFilesDef = global.gimport("bootstrapfilesdef");
 const BootstrapRegister = global.gimport("bootstrapregister");
 const BootstrapNotFoundMiddleware = global.gimport("bootstrapnotfoundmiddleware");
-
 const ComponentsApiInstances = global.gimport("componentsapiinstances");
 const ComponentsRepositoryInstances = global.gimport("componentsrepositoryinstances");
 const CoreConstants = global.gimport("coreconstants");
-
+const InjectionsInstances = global.gimport("injectionsinstances");
 const MantraConsole = global.gimport("mantraconsole");
 const MantraDB = global.gimport("mantradb");
 const MantraUtils = global.gimport("mantrautils");
@@ -124,6 +123,10 @@ class Bootstrap {
         return ComponentsApiInstances.GetApiInstances();
     }
 
+    getInjectionsInstances() {
+        return InjectionsInstances.GetInjectionsInstances();
+    }
+
     getComponentsRepositoryInstances() {
         return ComponentsRepositoryInstances.GetRepositoryInstances();
     }
@@ -147,7 +150,8 @@ class Bootstrap {
         
         ComponentsApiInstances.BuildApiInstances( this.hooks[CoreConstants.API_HOOK] );
         ComponentsRepositoryInstances.BuildRepositoryInstances( mantraAPI, this.hooks[CoreConstants.DAL_HOOK] );
-
+        InjectionsInstances.BuildInjectionsInstances( global.Mantra.MantraConfig.Injections, ComponentsApiInstances.GetApiInstances() );
+        
         await this.checkMantraIsInitialized( mantraAPI );
         
         this.indexHooks();
