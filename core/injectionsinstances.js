@@ -13,12 +13,15 @@ module.exports = {
     BuildInjectionsInstances: (injections, apisInstances) => {
         for( const injectionName of Object.keys(injections) ) {
             const injectionApi = injections[injectionName];
-            const apiParts = MantraUtils.ExtractValues( injectionApi, "{componentname}.{apiname}");
 
-            if ( apiParts ) {
-                injectionsInstances[injectionName] = apisInstances[apiParts.componentname][apiParts.apiname];
-            } else {
-              throw Error(`Unknown api for injection named '${injectionName}'`);  
+            if ( injectionApi != "" ) {
+                const apiParts = MantraUtils.ExtractValues( injectionApi, "{componentname}.{apiname}");
+    
+                if ( apiParts ) {
+                    injectionsInstances[injectionName] = apisInstances[apiParts.componentname][apiParts.apiname];
+                } else {
+                    throw Error(`Unknown api for injection named '${injectionName}'`);  
+                }
             }
         }
     },
