@@ -1,8 +1,7 @@
 {
   "CurrentVersion": "1",
-  "DefaultSite": "{{sitename}}",
   "ComponentsLocations": [
-    "{{sitename}}/components"
+    "components"
   ],
   "Apps": {
     "{{appname}}": {
@@ -15,19 +14,12 @@
     }
   },
   "Injections": {
-
   },
-  "Port": 8080,
   "ComponentsConfig": {
     "core": {
       "croncleanupevent": "* */5 * * * *",
       "cronbackupevent": "0 */5 * * * *",
-      "compressresponses": false,
       "baseurl": "http://localhost:8080/"
-    },
-    "logs": {
-      "logToConsole": "true",
-      "daystoremoveoldlogs": 1
     },
     "static": {
       "cached": false
@@ -36,8 +28,7 @@
   "Entities": {
     "default": {{{provider}}}
   },
- "Components": [],
-   "InactiveComponents": [],
+  "DefaultComponents": [],
    "GlobalTemplateVars": {
      "global-sitename": "{{projectName}}"
    }

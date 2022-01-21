@@ -9,19 +9,12 @@
       }
    },
    "Injections": {
-
    },
-   "Port": 8080,
    "ComponentsConfig": {
       "core": {
          "croncleanupevent": "* */5 * * * *",
          "cronbackupevent": "0 */5 * * * *",
-         "compressresponses": false,
          "baseurl": "http://localhost:8080/"
-      },
-      "logs": {
-         "logToConsole": "true",
-         "daystoremoveoldlogs": 1
       },
       "static": {
          "cached": false
@@ -31,15 +24,7 @@
       "default": {{{provider}}}
    },
    "DefaultComponents": [],
-   "ActiveServices": [
-      "middleware",
-      "view",
-      "post",
-      "get"
-   ],
-   "ActiveServicesByComponent": [],
-   "InactiveComponents": [],
-   "NotFoundRedirect": "/404.html",
+   "ActiveServices": ["cron", "get", "post", "middleware", "view" ],
    "GlobalTemplateVars": {
       "global-sitename": "{{projectName}}"
    }
