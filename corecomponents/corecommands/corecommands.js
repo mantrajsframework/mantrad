@@ -97,6 +97,10 @@ class CoreCommandsStarter {
                 Description: "Show views defined by components. Use mantrad show-blocks <component name, optional>",
                 Handler: CoreCommandsHandlers.ShowViews
             }, {
+                Name: "show-crons",
+                Description: "Show crons defined by components. Use mantrad show-crons <component name, optional>",
+                Handler: CoreCommandsHandlers.ShowCrons
+            }, {
                 Name: "show-events-subscribers",
                 Description: "Show events subscribers defined by components. Use mantrad show-event-subscribers <component name, optional>",
                 Handler: CoreCommandsHandlers.ShowEventsSubscribers

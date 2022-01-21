@@ -281,6 +281,27 @@ module.exports = {
         }
     },
 
+    ShowCrons: async (MantraAPI, componentName) => {
+        const crons = global.Mantra.Bootstrap.getHooksByName( CoreConstants.CRON_HOOK );
+        
+        if ( crons.length == 0 ) {
+            MantraConsole.info("No crons jobs definitions detected");
+        } else{
+            let cronNames = [];
+            let i = 0;
+
+            for( const cron of crons ) {
+                if ( componentName == undefined || cron.Component == componentName ) {
+                    cronNames.push(`${cron.Component}.${cron.CronHandler.name} Config: ${cron.CronConfig}`);
+                }
+            }
+    
+            for( const cronName of cronNames.sort() ) {
+                MantraConsole.info( `(${++i}) ${cronName}`, false );
+            }
+        }
+    },
+
     ShowEventsSubscribers: async (MantraAPI, componentName) => {
         const events = global.Mantra.Bootstrap.getHooksByName( CoreConstants.EVENT_HOOK );
         let eventNames = [];
