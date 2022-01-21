@@ -89,7 +89,7 @@ class MantraServer {
 }
 
 function isViewOrPostServiceActive(mantraConfig) {
-    return mantraConfig.isServiceActive("view") || mantraConfig.isServiceActive("post");
+    return mantraConfig.isServiceActive("view") || mantraConfig.isServiceActive("post") || mantraConfig.isServiceActive("get");
 }
 
 function getSecret() {
