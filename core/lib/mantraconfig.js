@@ -43,7 +43,7 @@ module.exports = {
         MantraConfig.SiteTemplatesLocation = path.join( MantraConfig.Location, "ui", SITETEMPLATES_FOLDER );
         MantraConfig.RootDirectory = path.dirname( fullPathToConfigFile ) + "/";
         MantraConfig.InstanceId = ShortId.generate();
-        MantraConfig.Inyections = MantraConfig.Injections ? MantraConfig.Injections : [];
+        MantraConfig.Injections = MantraConfig.Injections ? MantraConfig.Injections : [];
         
         MantraConfig.getComponentsLocations = function() {
             let folders = [];

@@ -654,11 +654,11 @@ class MantraAPI {
     }
 
     GetInjection(injectionKey) {
-        return global.Mantra.MantraConfig.Inyections[injectionKey];
+        return global.Mantra.MantraConfig.Injections[injectionKey];
     }
 
     ExistsInjection(injectionKey) {
-        return global.Mantra.MantraConfig.Inyections[injectionKey] != undefined;
+        return global.Mantra.MantraConfig.Injections[injectionKey] != undefined;
     }
 
     /*

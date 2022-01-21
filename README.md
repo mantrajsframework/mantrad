@@ -38,7 +38,7 @@ A Mantra application is based on multiple components that interact between them 
 
 Each component *exposes* assets (APIs, posts and gets controllers, data models, views, blocks, middlewares, cron jobs, commands, *prerequests*, access conditions, etc.). Mantra is in charge of the decoupled interaction between all of them. 
 
-The framework intends to define simple components with very specific functionality, following S.O.L.I.D. and Dependency Inyection principles, with extremely simple data models, easy updates, multiapplications within the same project and extremely well organized projects. 
+The framework intends to define simple components with very specific functionality, following S.O.L.I.D. and Dependency Injection principles, with extremely simple data models, easy updates, multiapplications within the same project and extremely well organized projects. 
 
 Mantra depends on:
 
