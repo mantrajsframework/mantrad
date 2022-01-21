@@ -157,16 +157,13 @@ class Bootstrap {
         this.indexHooks();
                 
         process.on('SIGINT', async () => {
+            MantraConsole.info("Stopping components...");
             await this.callOnStopComponents( mantraAPI );
+            MantraConsole.info("App stopped");
             process.exit();
         });
 
-        process.on('SIGTERM', async () => {
-            await this.callOnStopComponents( mantraAPI );
-            process.exit();
-        });
-
-        MantraConsole.info("Components started");
+        MantraConsole.info("Components started. Double Ctrl+C to close.");
     }
 
     async startServer( app, MantraAPI ) {        

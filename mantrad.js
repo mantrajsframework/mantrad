@@ -5,10 +5,10 @@
  * in the scope of MIT license. More info at support@mantrajs.com. Enjoy :-)
  */ 
 
-
 "use strict";
 
 const Path = require("path");
+process.stdin.resume(); // To prevent close process instantly with Ctrl+C
 
 require("gimport").init(__dirname);
 
