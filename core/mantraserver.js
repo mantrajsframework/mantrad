@@ -8,6 +8,7 @@
 const componentsLoader = new global.gimport("componentsloader");
 const mantraAPI = global.gimport("mantraapi");
 const MantraConsole = global.gimport("mantraconsole");
+const AppConditionsChecker = global.gimport("appconditionschecker");
 
 let App = undefined;
 
@@ -44,9 +45,9 @@ class MantraServer {
     async initialize( mantraConfig ) {            
         this.initGlobal( mantraConfig );
 
-        let api = global.Mantra.MantraAPIFactory();
-        const coreConfig = api.GetComponentConfig("core");
+        let Mantra = global.Mantra.MantraAPIFactory();
         const mc = global.Mantra.MantraConfig;
+
         
         if ( isViewOrPostServiceActive(mc) ) {
             const Express = require("express");
@@ -59,16 +60,17 @@ class MantraServer {
             App.use( require("cookie-parser")() );
             
             await this.startComponents();
-            await global.Mantra.Bootstrap.startServer( App, api );
+            await global.Mantra.Bootstrap.startServer( App, Mantra );
         } else {
             await this.startComponents();
         }
         
-        await global.Mantra.Bootstrap.systemStarted( api );
-        await global.Mantra.Bootstrap.checkOnStartupHealth( api );
+        await AppConditionsChecker.checkConditionsBeforeStarting( Mantra, mc );
+        await global.Mantra.Bootstrap.systemStarted( Mantra );
+        await global.Mantra.Bootstrap.checkOnStartupHealth( Mantra );
     
-        api = global.Mantra.MantraAPIFactory(); // Force to create the object with all stuff already created (like Extend properties)
-        await api.EmitEvent( "system.startup", {} );
+        Mantra = global.Mantra.MantraAPIFactory(); // Force to create the object with all stuff already created (like Extend properties)
+        await Mantra.EmitEvent( "system.startup", {} );
 
         global.Mantra.Initialized = true;
     }

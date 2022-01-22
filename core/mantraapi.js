@@ -83,7 +83,6 @@ class MantraAPI {
         return this.req;
     }
 
-
     /* 
      * Returns true if current request is a "GET"
      */
@@ -494,6 +493,22 @@ class MantraAPI {
     GetComponentVersion(componentName) {        
         if ( this.componentsLoader.existsComponentByName(componentName) ) {
             return this.componentsLoader.getComponentByName( componentName ).config.version;
+        }
+
+        throw Error(`Unkown component ${componentName}`)
+    }
+
+    /*
+     * Returns the dependencies of a component
+     * Params:
+     *    componentName: <name of the component>
+     * Exception launched if component doesn't exist
+     */
+    GetComponentDependencies(componentName) {
+        if ( this.componentsLoader.existsComponentByName(componentName) ) {
+            const dependencies = this.componentsLoader.getComponentByName( componentName ).config.dependencies;
+            
+            return dependencies ? dependencies : [];
         }
 
         throw Error(`Unkown component ${componentName}`)

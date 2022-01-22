@@ -1,6 +1,7 @@
 {
     "accessconditions": "./core/lib/accessconditions.js",
     "activeservices": "./core/lib/activeservices.js",
+    "appconditionschecker": "./core/lib/appconditionschecker.js",
     "assetslocations": "./core/lib/assetslocations.js",
     "bootstrap" : "./core/bootstrap.js",
     "bootstrapfilesdef": "./core/bootstrapfilesdef.js",
