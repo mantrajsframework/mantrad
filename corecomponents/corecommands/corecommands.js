@@ -114,8 +114,12 @@ class CoreCommandsStarter {
                 Handler: CoreCommandsHandlers.ShowCommands
             }, {
                 Name: "check-health",
-                Description: "Check system status and health",
+                Description: "Check components health",
                 Handler: CoreCommandsHandlers.CheckHealth
+            }, {
+                Name: "check-project",
+                Description: "Run a number of checks to verify the project",
+                Handler: CoreCommandsHandlers.CheckProject
             }]);
     }
 }

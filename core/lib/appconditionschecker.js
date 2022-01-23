@@ -5,29 +5,67 @@
 
 "use strict";
 
+const RedEntities = require("redentities");
+
 const MantraConsole = global.gimport("mantraconsole");
 const MantraDB = global.gimport("mantradb");
 
 module.exports = {
-    checkConditionsBeforeStarting: async (Mantra, config) => {
-        // Check if all components dependencies are installed and ready
-        const mantraDb = MantraDB(config.getEntitiesConfiguration());
-        const allComponentsInstalledAndEnabled = await mantraDb.GetComponentsInstalledAndEnabled();
+    checkConditionsBeforeStarting: async (Mantra) => {
+        const config = global.Mantra.MantraConfig;
 
-        for( let componentName of allComponentsInstalledAndEnabled ) {
-            const componentLoaded = await Mantra.ExistsComponentByName(componentName);
+        MantraConsole.info( 'Checking components dependencies...', false );
+        if ( await checkComponentsDependenciesExists( Mantra, config ) ) {
+            MantraConsole.info('Ok', false);
+        }
+ 
+        MantraConsole.info( 'Checking databases connectivity...', false );
+        if ( await checkDatabaseConnectivity( Mantra, config ) ) {
+            MantraConsole.info('Ok', false);
+        }
 
-            if ( componentLoaded ) {
-                const componentDependencies = Mantra.GetComponentDependencies(componentName);
-                
-                for( const dependencyComponentName of componentDependencies ) {
-                    const dependencyLoaded = await Mantra.ExistsComponentByName(dependencyComponentName);
+    }
+}
 
-                    if ( !dependencyLoaded ) {
-                        MantraConsole.warning(`Component '${componentName}' depends on the component '${dependencyComponentName}' but it is not installed, enabled or loaded with this application`)
-                    }
+async function checkComponentsDependenciesExists( Mantra, config ) {
+    const mantraDb = MantraDB(config.getEntitiesConfiguration());
+    const allComponentsInstalledAndEnabled = await mantraDb.GetComponentsInstalledAndEnabled();
+    let allOk = true;
+
+    for( let componentName of allComponentsInstalledAndEnabled ) {
+        const componentLoaded = await Mantra.ExistsComponentByName(componentName);
+    
+        if ( componentLoaded ) {
+            const componentDependencies = Mantra.GetComponentDependencies(componentName);
+            
+            for( const dependencyComponentName of componentDependencies ) {
+                const dependencyLoaded = await Mantra.ExistsComponentByName(dependencyComponentName);
+    
+                if ( !dependencyLoaded ) {
+                    MantraConsole.warning(`Component '${componentName}' depends on the component '${dependencyComponentName}' but it is not installed, enabled or loaded with this application`, false)
+                    allOk = false;
                 }
             }
         }
     }
+
+    return allOk;
+}
+
+async function checkDatabaseConnectivity( Mantra, config ) {
+    let allOk = true;
+
+    for( const entitiesName of Object.keys(config.Entities) ) {
+        const entityConfig = config.Entities[entitiesName];
+
+        try {
+            const entitiesInstance = RedEntities(entityConfig);
+            //console.log( await entitiesInstance.ExistsDatabase() );           
+        } catch {
+            MantraConsole.warning(`Entities access named as '${entitiesName}' not accesible`)
+        }
+
+    }
+    
+    return allOk;
 }

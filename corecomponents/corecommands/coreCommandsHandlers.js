@@ -8,6 +8,7 @@
 const Chalk = require("chalk");
 const Path = require("path");
 
+const AppConditionsChecker = global.gimport("appconditionschecker");
 const ComponentInstaller = global.gimport("componentinstaller");
 const CoreConstants = global.gimport("coreconstants");
 const MantraConsole = global.gimport("mantraconsole");
@@ -253,9 +254,8 @@ module.exports = {
         }
 
         apiNames = apiNames.sort();
-        let i = 0;
-        for( const apiName of apiNames ) {
-            MantraConsole.info( `(${++i}) ${apiName}`, false );
+        for( let i = 0; i < apiNames.length; i++ ) {
+            MantraConsole.info( `(${i+1}) ${apiNames[i]}`, false );
         }
     },
 
@@ -503,7 +503,12 @@ module.exports = {
         catch(error) {
             MantraConsole.error(error.message);
         }    
-    }
+    },
+
+    CheckProject: async (Mantra) => {
+        await AppConditionsChecker.checkConditionsBeforeStarting( Mantra );
+    },
+
 }
 
 async function InstallComponent( MantraAPI, componentName, askIfNpmNeeded = false ) {

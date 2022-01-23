@@ -44,7 +44,8 @@ module.exports = {
         MantraConfig.RootDirectory = path.dirname( fullPathToConfigFile ) + "/";
         MantraConfig.InstanceId = ShortId.generate();
         MantraConfig.Injections = MantraConfig.Injections ? MantraConfig.Injections : [];
-        
+        MantraConfig.Apps = MantraConfig.Apps ? MantraConfig.Apps : { main: {} };
+                
         MantraConfig.getComponentsLocations = function() {
             let folders = [];
             

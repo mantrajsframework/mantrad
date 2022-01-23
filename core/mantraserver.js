@@ -8,7 +8,6 @@
 const componentsLoader = new global.gimport("componentsloader");
 const mantraAPI = global.gimport("mantraapi");
 const MantraConsole = global.gimport("mantraconsole");
-const AppConditionsChecker = global.gimport("appconditionschecker");
 
 let App = undefined;
 
@@ -65,7 +64,6 @@ class MantraServer {
             await this.startComponents();
         }
         
-        await AppConditionsChecker.checkConditionsBeforeStarting( Mantra, mc );
         await global.Mantra.Bootstrap.systemStarted( Mantra );
         await global.Mantra.Bootstrap.checkOnStartupHealth( Mantra );
     
