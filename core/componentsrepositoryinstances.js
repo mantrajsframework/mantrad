@@ -5,20 +5,20 @@
 
 "use strict";
 
-let repositoryInstances = {};
+let dalInstances = {};
 
 module.exports = {
     BuildRepositoryInstances: (MantraAPI, repositories) => {
         for( let repo of repositories ) {
-            if ( !repositoryInstances[repo.Component] ) repositoryInstances[repo.Component] = {};
+            if ( !dalInstances[repo.Component] ) dalInstances[repo.Component] = {};
             
-            repositoryInstances[repo.Component][repo.Method] = repo.Handler;
+            dalInstances[repo.Component][repo.Method] = repo.Handler;
 
-            if ( !repositoryInstances[repo.Component]["model"] ) {
-                repositoryInstances[repo.Component]["model"] = MantraAPI.ComponentEntities(repo.Component);
+            if ( !dalInstances[repo.Component]["model"] ) {
+                dalInstances[repo.Component]["model"] = MantraAPI.ComponentEntities(repo.Component);
             }
         }
     },
 
-    GetRepositoryInstances: () => repositoryInstances   
+    GetRepositoryInstances: () => dalInstances   
 }

@@ -19,6 +19,7 @@ const InjectionsInstances = global.gimport("injectionsinstances");
 const MantraConsole = global.gimport("mantraconsole");
 const MantraDB = global.gimport("mantradb");
 const MantraUtils = global.gimport("mantrautils");
+const ModelsInstances = global.gimport("modelsinstances");
 const StaticBlocksCache = global.gimport("varcache")();
 
 let singleBootstrap;
@@ -131,6 +132,10 @@ class Bootstrap {
         return ComponentsRepositoryInstances.GetRepositoryInstances();
     }
 
+    getModelsInstances() {
+        return ModelsInstances.GetModelInstances();
+    }
+
     async startComponents() {
         await this.loadComponents();
         MantraConsole.info("Starting components...");
@@ -150,6 +155,7 @@ class Bootstrap {
         
         ComponentsApiInstances.BuildApiInstances( this.hooks[CoreConstants.API_HOOK] );
         ComponentsRepositoryInstances.BuildRepositoryInstances( mantraAPI, this.hooks[CoreConstants.DAL_HOOK] );
+        await ModelsInstances.BuildModelInstances( mantraAPI, components );
         InjectionsInstances.BuildInjectionsInstances( global.Mantra.MantraConfig.Injections, ComponentsApiInstances.GetApiInstances() );
         
         await this.checkMantraIsInitialized( mantraAPI );

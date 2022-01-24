@@ -6,6 +6,7 @@
 "use strict";
 
 const VarCache = global.gimport("varcache");
+const MantraUtils = global.gimport("mantrautils");
 
 let schemasByComponentNameCache = null;
 /*
@@ -34,6 +35,13 @@ class ComponentSchemaCache {
         }
 
         return schemasByComponentNameCache.Get(key);
+    }
+
+    async ExistsSchema( Mantra, componentName ) {
+        const AssetsLocations = Mantra.GetAssetsLocations();
+        const schemaLocation = AssetsLocations.GetSchemaLocation( componentName );
+
+        return MantraUtils.FileExists( schemaLocation );
     }
 }
 

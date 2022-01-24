@@ -36,6 +36,7 @@
     "mantradbconfigcache": "./core/lib/mantradbconfigcache.js",
     "mantracrypt": "./core/lib/mantracrypt.js",
     "mantrautils": "./core/lib/mantrautils.js",
+    "modelsinstances": "./core/modelsinstances.js",
     "mcinstaller" : "./core/commands/mantra.command.installer.js",
     "npminstaller": "./core/lib/npminstaller.js",
     "nodeversionchecker" : "./core/lib/nodeversionchecker.js",

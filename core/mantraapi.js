@@ -794,7 +794,6 @@ class MantraAPI {
         this.res.json( { success: true, payload: dataPayload } );
     }
 
-
     /*
      * Send a post response indicating failure
      * Params:
@@ -802,6 +801,25 @@ class MantraAPI {
      *    dataPayload: <data to be sent with the post response, optional>
      */
     PostFailed( message, dataPayload = {} ) {
+        this.res.json( { success: false, message: message, payload: dataPayload } );
+    }
+
+    /*
+     * Send a response indicating success
+     * Params:
+     *    dataPayload: <data to be sent with the response, optional>
+     */
+    SendSuccess( dataPayload = {} ) {
+        this.res.json( { success: true, payload: dataPayload } );
+    }
+
+    /*
+     * Send a response indicating failure
+     * Params:
+     *    message: <message indicating the error>
+     *    dataPayload: <data to be sent with the post response, optional>
+     */
+    SendFailure( message, dataPayload = {} ) {
         this.res.json( { success: false, message: message, payload: dataPayload } );
     }
 
@@ -1064,6 +1082,13 @@ Object.defineProperty( MantraAPI.prototype, "dal", {
     get: function() {
         this.dalLazyLoad = this.dalLazyLoad || this.bootstrap.getComponentsRepositoryInstances();
         return this.dalLazyLoad;
+    }
+});
+
+Object.defineProperty( MantraAPI.prototype, "model", {
+    get: function() {
+        this.modelLazyLoad = this.modelLazyLoad || this.bootstrap.getModelsInstances();
+        return this.modelLazyLoad;
     }
 });
 
