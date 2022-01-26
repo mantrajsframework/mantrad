@@ -29,7 +29,7 @@
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.1",
     "mustache": "^4.2.0",
-    "redentities": "^2.0.5",
+    "redentities": "^2.1.0",
     "shortid": "^2.2.16",
     "underscore": "^1.13.2"
   },
