@@ -5,6 +5,8 @@
 
 "use strict";
 
+const { nanoid } = require("nanoid");
+
 const componentsLoader = new global.gimport("componentsloader");
 const mantraAPI = global.gimport("mantraapi");
 const MantraConsole = global.gimport("mantraconsole");
@@ -93,9 +95,7 @@ function isViewOrPostServiceActive(mantraConfig) {
 }
 
 function getSecret() {
-    const ShortId = require("shortid");
-
-    return `${ShortId.generate()}-${ShortId.generate()}-${ShortId.generate()}-${ShortId.generate()}`;
+    return `${nanoid(12)}-${nanoid(12)}-${nanoid(12)}-${nanoid(12)}`;
 }
 
 module.exports = new MantraServer();

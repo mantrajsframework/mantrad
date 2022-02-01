@@ -161,6 +161,6 @@ describe( 'MantraAPI tests', () => {
         const instanceId = mantraAPI.GetInstanceId();
 
         assert.isString( instanceId );
-        assert.isTrue( instanceId.length == 9 || instanceId.length == 10 );
+        assert.isTrue( instanceId.length == 12 );
     })
 });

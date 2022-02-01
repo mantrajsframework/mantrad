@@ -6,7 +6,7 @@
 "use strict";
 
 const path = require("path");
-const ShortId = require("shortid");
+const { nanoid } = require("nanoid");
 const CoreConstants = require("./coreconstants");
 
 let MantraUtils = global.gimport("mantrautils");
@@ -42,7 +42,7 @@ module.exports = {
         MantraConfig.FrontendName = MantraConfig.Location;
         MantraConfig.SiteTemplatesLocation = path.join( MantraConfig.Location, "ui", SITETEMPLATES_FOLDER );
         MantraConfig.RootDirectory = path.dirname( fullPathToConfigFile ) + "/";
-        MantraConfig.InstanceId = ShortId.generate();
+        MantraConfig.InstanceId = nanoid(12);
         MantraConfig.Injections = MantraConfig.Injections ? MantraConfig.Injections : [];
         MantraConfig.Apps = MantraConfig.Apps ? MantraConfig.Apps : { main: {} };
         MantraConfig.ComponentsConfig = MantraConfig.ComponentsConfig ? MantraConfig.ComponentsConfig : {}; 
