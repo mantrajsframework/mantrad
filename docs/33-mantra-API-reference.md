@@ -9,7 +9,9 @@ Described below all MantraAPI methods.
 * [MantraAPI.GetAppName](#mantraapi.getappname)
 
 * [MantraAPI.GetAssetsLocations](#mantraapi.getassetslocations)
-  
+
+* [MantraAPI.GetComponentDependencies](#mantraapi.getcomponentdependencies)]
+
 * [MantraAPI.GetBaseUrl](#mantraapi.getbaseurl)
 
 * [MantraAPI.GetRequestPath](#mantraapi.getrequestpath)
@@ -126,9 +128,9 @@ Described below all MantraAPI methods.
 
 * [MantraAPI.SendError](#mantraapi.senderror)
 
-* [MantraAPI.PostSuccess](#mantraapi.postsuccess)
+* [MantraAPI.SendSuccess](#mantraapi.sendsuccess)
 
-* [MantraAPI.PostFailed](#mantraapi.postfailed)
+* [MantraAPI.SendFailure](#mantraapi.sendfailure)
 
 * [MantraAPI.AddJs](#mantraapi.addjs)
 
@@ -177,6 +179,14 @@ GetAssetsLocations()
 ```
 
 Returns the [Assets Locations](/docs/assetslocations-reference.md) instance with methods to locate assets within the project.
+
+## MantraAPI.GetComponentDependencies
+
+```js
+GetComponentDependencies( componentName )
+```
+
+Returns in an array the name of the components that a component depends on. 
 
 ## MantraAPI.GetBaseUrl
 
@@ -942,10 +952,10 @@ Ends the current request with HTTP status code status 500 (Internal Server Error
 
 More about HTTP status code [here](#https://developer.mozilla.org/en-US/docs/Web/HTTP/status).
 
-## MantraAPI.PostSuccess
+## MantraAPI.SendSuccess
 
 ```js
-PostSuccess( dataPayload = {} )
+SendSuccess( dataPayload = {} )
 ```
 
 Ends a request with a response indicating success and an optional payload.
@@ -959,10 +969,10 @@ The method will response a json object with the property "success" to true:
 { success: true, payload: dataPayload }
 ```
 
-## MantraAPI.PostFailed
+## MantraAPI.SendFailure
 
 ```js
-PostFailed( message, dataPayload = {} )
+SendFailure( message, dataPayload = {} )
 ```
 
 Ends a request with a response indicating failure and an optional payload.

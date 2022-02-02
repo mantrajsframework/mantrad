@@ -22,6 +22,8 @@ These are the Mantra core commands:
 
 * [check-health](#check-health)
 
+* [check-project](#check-project)
+
 * [disable-component](#disable-component)
 
 * [enable-component](#enable-component)
@@ -37,6 +39,8 @@ These are the Mantra core commands:
 * [show-accessconditions](#show-accessconditions)
 
 * [show-blocks](#show-blocks)
+
+* [show-crons](#show-crons)
 
 * [show-events-subscribers](#show-events-subscribers)
 
@@ -71,6 +75,23 @@ $ mantrad check-health
 By running this command, Mantra will invoke all Start.onCheckHealth() methods implemented in the components modules.
 
 This method is optional, and it is intended to implement some kind of checking about the health of the system according to the specific component functionality.
+
+## check-project
+
+```bash
+$ mantrad check-project
+```
+
+This command performs some checks to verify that the project where it is executed is fine.
+
+To improve perfomance, when running a Mantra application, Mantra performs the minimal check as it can. For this reason, run this command when something is wrong in your project.
+
+It checks things like this:
+
+* Entities providers are right.
+* All prerequests and access conditions used by views, blocks, etc. are defined.
+* Injections points to existing components APIs.
+* etc.
 
 ## disable-component
 
@@ -149,6 +170,14 @@ $ mantrad show-blocks [component name, optional]
 ```
 
 Shows the list of all blocks definitions for all components. If [component name] is indicated, then only shows all block definitions for that component.
+
+## show-crons
+
+```bash
+$ mantrad show-crons [component name, optional]
+```
+
+Shows the list of all crons jobs definitions for all components. If [component name] is indicated, then only shows all crons definitions for that component.
 
 ## show-events-subscribers
 

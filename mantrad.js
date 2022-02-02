@@ -53,7 +53,7 @@ if ( !NodeVersionChecker.CheckNodeVersion( CoreConstants.NODESUPPORTEDVERSIONS )
             const config = await loadMantraConfig();
 
             await MantraStartup.startApp(config, args);
-    }
+        }
         break;
         case 'install': {
             const config = await loadMantraConfig();
@@ -124,7 +124,6 @@ if ( !NodeVersionChecker.CheckNodeVersion( CoreConstants.NODESUPPORTEDVERSIONS )
     
         if ( !args.hasArgs && !existsMantraConfigFile ) {
             await MantraStartup.showDefaultHelp();
-            MantraConsole.info(`No detected Mantra config file (${CoreConstants.MANTRACONFIGFILE})`, false);
             global.gimport("fatalending").exit();
         }
         

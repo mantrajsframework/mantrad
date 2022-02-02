@@ -84,7 +84,17 @@ class MantraServer {
 
         if ( isViewOrPostServiceActive(mc) ) {
             return App.listen( mc.Port, () => {
-                MantraConsole.info( `App server running & listening at port ${mc.Port}`)
+                    MantraConsole.info( `App server running & listening at port ${mc.Port}`);
+            }).on('error', (err) => {
+                if ( err.code == 'EADDRINUSE' ) {
+                    MantraConsole.error( `Seems that port ${mc.Port} is already used!`);
+                } else {
+                    MantraConsole.error(`Something bad happened: ${err.code}, ${String.fromCodePoint(0x1F625)}`);
+                    MantraConsole.error('And here is the error...');
+                    MantraConsole.info(err,false);
+                    MantraConsole.error("Don't worry, you can fix it");
+                }
+                global.gimport("fatalending").exit();
             });
         }
     }
