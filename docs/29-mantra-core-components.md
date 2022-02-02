@@ -1,6 +1,6 @@
 # Mantra Core Components
 
-In current version of Mantra (1.x), some core modules are installed in any Mantra project.
+Some core modules are installed in any Mantra project.
 
 Are these ones:
 
@@ -13,8 +13,8 @@ This is the default configuration for "core" component you can overwrite in your
 "core": {
     "croncleanupevent": "*/5 * * * * *",
     "cronbackupevent": "0 */5 * * * *",
-    "minifyhtml": false,
-    "compressresponses": false,
+    "logapi": "",
+    "minifyapi": "",
     "translatejsapi": "",
     "translatecssapi": "",
     "baseurl": "http://localhost:8080/"
@@ -24,12 +24,8 @@ This is the default configuration for "core" component you can overwrite in your
 * croncleanupevent: defines a cron configuration to launch "system.cleanup".
   
 * cronbackupevent: defines a cron configuration to launc "system.backup".
-  
-* minifyhtml: if true, then html content is rendered minified. Optional.
-  
-* compressresponses: if true, then requests are reponsed compressed. [Compression module](https://www.npmjs.com/package/compression) is used. Optional.
-  
-* translatejsapi: if used, then should indicated an API name of a component (with the format "component name.api name") which will manage the process of set js files added to the render request. Optional.
+    
+* translatejsapi: if used, then should indicate an injection key indicating the API to be called which will manage the process of set js files added to the render request. Optional.
 
 This API should point to a function like this:
 
@@ -41,7 +37,7 @@ Where jsFiles is an array of all js files that should be included in the renderi
 
 The result of this function will be rendered in "mantra-js-files" Mustache tag in the html root document.
 
-* translatecssapi: if used, then should indicated an API name of a component (with the format "component name.api name") which will manage the process of set css files added to the render request. Optional.
+* translatecssapi: if used, then should indicate an injection key indicating the API to be called which will manage the process of set css files added to the render request. Optional.
 
 This API should point to a function like this:
 
@@ -53,8 +49,34 @@ Where cssFiles is an array of all css files that should be included in the rende
 
 The result of this function will be rendered in "mantra-css-files" Mustache tag in the html root document.
 
+* logapi:  if used, then should indicate an injection key indicating the API to be called which will manage how to log messages when Mantra application calls Mantra.LogInfo(), Mantra.LogWarning() and Mantra.LogError() method.
+
+This API should point to a function like this:
+
+```js
+async (Mantra, params )
+```
+
+Where params, is an object like containing these properties:
+
+* type: <type of log, value in 'info', 'error', 'warning'>
+* key: <key for the log entry, specific id for the log, optional>,
+* counter: <counter for the key used, used for order entries by concept, optional>,
+* description: <description of the log entry>
+* data: <detail data of the log, can be a string of an object>
+
+* minifyapi:  if used, then should indicate an injection key indicating the API to be called which will manage the minify process of html content. Optional.
+
+This API should point to a function like this:
+
+```js
+async (Mantra, htmlContent)
+```
+
+The method should returned the htmlContent minified.
 
 # "static" core component 
+
 Manages all cached files for static content when this property is defined to true in mantraconfig.json configuration file.
 
 The default configuration for this component is this:

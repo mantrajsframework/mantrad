@@ -100,6 +100,8 @@ Described below all MantraAPI methods.
 
 * [MantraAPI.GetExtendsByType](#mantraapi.getextendsbytype)
 
+* [MantraAPI.GetInjection](#mantraapi.getinjection)
+
 * [MantraAPI.GlobalConfig](#mantraapi.globalconfig)
 
 * [MantraAPI.AddRenderValue](#mantraapi.addrendervalue)
@@ -788,6 +790,15 @@ GetExtendsByType( type )
 Returns an array with all extends for the given type.
 
 With [Extends](/docs/mantra-extends-registering.md), any component can define its own types of *hooks* for multiple purposes.
+
+
+## MantraAPI.GetInjection
+
+```js
+GetInjection( inyectionKey )
+```
+
+Returns the value of an injection as indicated in Injections section of mantraconfig.json file.
 
 ## MantraAPI.GlobalConfig
 

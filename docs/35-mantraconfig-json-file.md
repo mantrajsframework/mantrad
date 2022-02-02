@@ -93,6 +93,9 @@ And here another version with more stuff to define:
    "DefaultComponents": [
        "mymantracomponent"
    ],
+   "Injections": {
+
+   },
    "ActiveServices": ["middleware","view","post","get"],
    "NotFoundRedirect": "/404.html",
    "GlobalTemplateVars": {
@@ -148,6 +151,24 @@ JSON object with the configuration if needed for each component.
 Each component of the project can set a number of properties to configure it according to specific needs inside the project.
 
 This properties are available with MantraAPI.GetComponentConfig("<component name>") or MantraAPI.config.<component name>.
+
+*"Injections*"
+This property can be overwritten in App sections as well.
+
+Injections consiste of an object with properties and values. These properties are considered *injections*, and their values are considered components APIs names in the Mantra standard format like "<component name>.<api name>", like in this example:
+
+```js
+"Injections": {
+   "log_injection": "logs.add",
+   "minifyhtmlapi_injection": "htmlminifier.minify",
+   "translatejsapi_injection": "resourceminifier.translatejsfiles",
+   "translatecssapi_injection": "resourceminifier.translatecssfiles"
+}
+```
+
+This is, all those values for these key properties should be Mantra components APIs that should exists.
+
+You can get specific injections with Mantra.GetInjection() method.
 
 *"Entities"*
 
