@@ -15,7 +15,7 @@ If 'get' or 'post' services are enabled, then Express server is started.
 
 In the same way, if "cron" service is enabled, then cron scheluder y launched.
 
-The services to run by Mantra in an application, is indicated with "ActiveServices" property in the application configuration file. Also, you can define which hooks will be registered in the application using "ActiveServicesByComponent" property in mantraconfig.json configuration file.
+The services to run by Mantra in an application, is indicated with "ActiveServices" property in the application configuration file. Also, you can define which hooks will be registered in the application using "ActiveServices" property in mantraconfig.json configuration file.
 
 For more details about those two properties, ses [mantraconfig.json configuration file](/docs/mantraconfig.json-file.md).
 

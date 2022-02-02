@@ -1,6 +1,6 @@
 # Component Access Condition Definition
 
-Similarly to prerequest, there's other hook with the name of "access condition", acting like a *guard* before calling views, blocks, gets of posts handlers.
+Similarly to prerequest, there's other hook with the name of "access condition", acting like a *guard* before calling views, blocks, gets or posts handlers.
 
 While prerequests are intended to *calculate* some info before calling view function handler, an access condition is intended to allow or not the view to be requested.
 

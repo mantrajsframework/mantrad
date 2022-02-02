@@ -50,7 +50,7 @@ And here another version with more stuff to define:
          "LandingView": "admin.dashboard"
       },
       "appsample3": {
-         "ActiveServicesByComponent": [
+         "ActiveComponents": [
             "admin/cron,extend",
             "books/cron,extend",
             "hdlanalytics/cron,extend",
@@ -244,18 +244,19 @@ The properties than can be used to overwrite root ones, are the following:
 * "Port"
 
 Two properties are "Apps" specific:
-*"ActiveServicesByComponent"*
 
-By default, all services (cron, views, middlewares, etc.) defined and registered by all components are active (loaded by bootstrap process when running the application).
+*"ActiveComponents"*
+
+By default, all services (cron, views, middlewares, gets and posts) defined and registered by all components are active (loaded by bootstrap process when running the application).
 
 However, for specific applications which only need some services from some specific components, can indicated exactly which ones should be loaded when starting the application.
 
-"ActiveServicesByComponents" is an array indicating with string which components and its services to be loaded in the format "<componentname>/<services to activate separated by comman>", like this sample:
+"ActiveComponents" is an array indicating with string which components and its services to be loaded in the format "<componentname>/<services to activate separated by comma>", like this sample:
 
 ```
 "Apps": {
    "hdltasks": {
-      "ActiveServicesByComponent": [
+      "ActiveComponents": [
          "admin/cron,componentextend",
          "hdlanalytics/cron,componentextend",
          "master/cron,componentextend",
@@ -283,7 +284,7 @@ This property is an array of strings indicating a number of components than shou
 
 In this case, when running "adminapp", "books", "authors" and "pdfgenerator" will not be loaded.
 
-Using *"ActiveServicesByComponent"* and *"InactiveComponents"* you can control exactly which services and components should be loaded for any specific application, if this feature is needed.
+Using *"ActiveComponents"* and *"InactiveComponents"* you can control exactly which services and components should be loaded for any specific application, if this feature is needed.
 
 # Some mantraconfig.json file samples
 

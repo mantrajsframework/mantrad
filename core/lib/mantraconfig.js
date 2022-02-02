@@ -85,7 +85,6 @@ module.exports = {
             MantraConfig.AppName = appName;
             
             // Inherit app properties in site config
-            MantraConfig.ActiveServicesByComponent = appConfig.ActiveServicesByComponent;
             MantraConfig.InactiveComponents = [];
         
             if ( appConfig.ActiveComponents ) {
@@ -133,8 +132,6 @@ module.exports = {
         let appConfig = config.Apps[appName];
     
         MantraConfig.AppName = Object.keys(MantraConfig.Apps)[0];
-        
-        MantraConfig.ActiveServicesByComponent = appConfig.ActiveServicesByComponent;
         MantraConfig.InactiveComponents = [];
         
         // Overwrite app properties in site config
