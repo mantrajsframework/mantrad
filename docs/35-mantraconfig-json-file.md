@@ -1,27 +1,45 @@
 # mantraconfig.json  file
 
-Every Mantra project consists of a mantraconfig.json and a set of components.
+Every Mantra project consists of a mantraconfig.json file and a set of components.
 
-In file mantraconfig.json, some properties are indicated, such us:
-* Locations where to find components
-* Location of frontend templates
-* Components properties if necesary
-* Properties of *core* components
-* Apps properties
-* Data persistance properties (based on RedEntities object-mapping project)
+The first task that Mantra does to start a new application of run a command, is to look for that files.
+
+Basically, this file defines the properties of the applications of the project, properties such us:
+
+* Locations where to find components.
+* Location of frontend templates.
+* Components properties if necesary.
+* Properties of *core* components.
+* Apps properties.
+* Data persistance properties (based on RedEntities object-mapping project).
+* Global vars and global templates vars.
 
 Some of root properties con be overwritten in an specific app configuration, like frontend location or port to listen, allowing multiple frontends in same project for different but related apps (final user application, admin application and so on).
 
-Given all main properties of the project in a simple file, you can have a mantraconfig.json file for development and a different file for production.
+Given all main properties of the project in a simple file, you can have a mantraconfig.json file for development and a different file for production or testing creating a simple symbolic link named "mantraconfig.json" to the real file to use in any case.
 
-This json file has these properties described below:
+Most of the properties are optional. Here you have a minimal sample:
+
+```json
+{
+  "CurrentVersion": "1",
+  "ComponentsLocations": ["components"],
+  "Entities": {
+    "default": {
+      "provider": "sqlite",
+      "databasepath": "./commandmantrademo.db"
+    }
+  },
+  "DefaultComponents": ["getapi","simplecommand"]
+}
+```
+
+And here another version with more stuff to define:
 
 ```json
 {
    "CurrentVersion": "<current version of the project>",
-   "ComponentsLocations": [
-      "basecomponents"
-   ],
+   "ComponentsLocations": ["basecomponents"],
    "Apps": {
       "appsample1": {
          "Port": 8081
@@ -40,13 +58,14 @@ This json file has these properties described below:
             "master/cron,extend",
             "tasks/cron,extend"
          ],
-         "ActiveServices": [
-            "cron"
-         ]
+         "ActiveServices": ["cron"]
       }
    },
    "Port": 8081,
    "LandingView": "landing.landing",
+   "GlobalConfig": {
+         "sitename": "Mantra Framework Site"
+   },
    "ComponentsConfig": {
       "core": {
          "croncleanupevent": "*/5 * * * * *",
@@ -58,7 +77,7 @@ This json file has these properties described below:
          "baseurl": "http://core.localhost:8081/"
       },
       "logs": {
-         "logToConsole": "true",
+         "logToConsole": true,
          "daystoremoveoldlogs": 1
       },
    },
@@ -74,12 +93,7 @@ This json file has these properties described below:
    "DefaultComponents": [
        "mymantracomponent"
    ],
-   "ActiveServices": [
-      "middleware",
-      "view",
-      "post",
-      "get"
-   ],
+   "ActiveServices": ["middleware","view","post","get"],
    "NotFoundRedirect": "/404.html",
    "GlobalTemplateVars": {
       "global-sitename": "My project name",
@@ -87,6 +101,8 @@ This json file has these properties described below:
    }
 }
 ```
+
+You add more features to this configuration file while your project gets bigger and new features and components are added.
 
 # Description of mantraconfig.json file properties
 *"CurrentVersion"* (optional)
@@ -111,6 +127,14 @@ This property can be overwritten by specific app configuration.
 In the case when Mantra application runs an user interface, this property indicated the landing view to render for landing page of the ui (http://<yoursite>/).
 
 This property can be overwritten by specific app configuration.
+
+*"GlobalConfig"*
+
+This entry indicates some global an common configuration parameters for the whole system (all applications in the sample project).
+
+It defines a json object with the properties needed to include.
+
+All those properties are accesed by Mantra.GlobalConfig( "propertyname" ).
 
 *"ComponentsConfig*"
 

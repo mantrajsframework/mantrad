@@ -100,6 +100,8 @@ Described below all MantraAPI methods.
 
 * [MantraAPI.GetExtendsByType](#mantraapi.getextendsbytype)
 
+* [MantraAPI.GlobalConfig](#mantraapi.globalconfig)
+
 * [MantraAPI.AddRenderValue](#mantraapi.addrendervalue)
 
 * [MantraAPI.AddRenderValues](#mantraapi.addrendervalues)
@@ -787,6 +789,14 @@ Returns an array with all extends for the given type.
 
 With [Extends](/docs/mantra-extends-registering.md), any component can define its own types of *hooks* for multiple purposes.
 
+## MantraAPI.GlobalConfig
+
+```js
+GlobalConfig( "propertyname" )
+```
+
+Returns the value of property indicated in GlobalConfig section of mantraconfig.json file.
+
 ## MantraAPI.AddRenderValue
 
 ```js
@@ -961,13 +971,30 @@ The method will response a json object with the property "success" to false:
 AddJs( resource )
 ```
 
-Adds to the current request a javascript file placed at "js" folder. The resource is indicated with "componentname.filename" format or an array of "componentname.filename" strings.
+Adds to the current request a javascript file placed at "js" folder. The "resource" parameter indicates which js file to include following one of these two formats options:
+
+* "componentname.filename": Mantra will look for a js file inside "/componentname/ui/js", in the folder of the component indicated in the first part of the parameter.
+* "frontend.pathtofile": in this case, "frontend" is a special key string indicating to Mantra that the file should be found in the UI assets of the current application.
 
 All js files added with AddJs() in the same request, will be rendered at "mantra-js-files" Mustache tag indicated in html root document.
 
-By using AddJs(), compacting all js files involved in the same request can be done efficiently by Mantra and at run-time when enabling this feature in core properties.
-
 See [Adapting Root Html Document to Mantra](/22-docs/adapting-root-html-document-to-mantra.md) for more infor about Mantra Mustache tags.
+
+Also, the parameter can be an array with a number of js resources to include.
+
+You can also define the js files to include in on specific view indicating "<viewname>_js": property in its definition.
+
+Some examples:
+
+```js
+Mantra.AddJs( "cookieswarning.alertck" ); // Will include /cookieswarning/ui/js/alertck.js file.
+
+Mantra.AddJs( "frontend.assets/js/popupmessages.js"; // Will include the file /assets/js/popupmessages.js that should be at the UI folder of the current application
+
+Mantra.AddJs( ["alerts.showalert", "seo.settitle"] ); // Will include those two js files.
+```
+
+Remember: files to add in the next rendering process (js and css) are not ordered in anyway.
 
 ## MantraAPI.AddCss
 
@@ -975,13 +1002,28 @@ See [Adapting Root Html Document to Mantra](/22-docs/adapting-root-html-document
 AddCss( resource )
 ```
 
-Adds to the current request a css file placed at "css" folder. The resource is indicated with "componentname.filename" format or an array of "componentname.filename" strings.
+Adds to the current request a css file placed at "css" folder. Like AddJs, the "resource" parameter indicates which css file to include following one of these two formats options:
+
+* "componentname.filename": Mantra will look for a css file inside "/componentname/ui/js", in the folder of the component indicated in the first part of the parameter.
+* "frontend.pathtofile": in this case, "frontend" is a special key string indicating to Mantra that the file should be found in the UI assets of the current application.
 
 All css files added with AddCss() in the same request, will be rendered at "mantra-css-files" Mustache tag indicated in html root document.
 
-By using AddCss(), compacting all css files involved in the same request can be done efficiently by Mantra and at run-time when enabling this feature in core properties.
-
 See [Adapting Root Html Document to Mantra](/docs/adapting-root-html-document-to-mantra.md) for more infor about Mantra Mustache tags.
+
+Also, the parameter can be an array with a number of js resources to include.
+
+You can also define the css files to include in on specific view indicating "<viewname>_css": property in its definition.
+
+Some examples:
+
+```js
+Mantra.AddCss( "cookieswarning.alertckstyle" ); // Will include /cookieswarning/ui/css/alertckstyle.css file.
+
+Mantra.AddCss( "frontend.assets/css/alertckstyle.css"; // Will include the file /assets/css/alertckstyle.css that should be at the UI folder of the current application
+
+Mantra.AddCss( ["alerts.showalertstyle", "seo.settitlestyle"] ); // Will include those two css files.
+```
 
 ## MantraAPI.ExistsComponentApi
 
@@ -990,7 +1032,8 @@ ExistsComponentApi( api )
 ```
 
 Returns true if there is registered an api path, given in the format of "component name.api name".
-   
+
+Remember: files to add in the next rendering process (js and css) are not ordered in anyway.
 
 ## MantraAPI.ExistsComponentByName
 

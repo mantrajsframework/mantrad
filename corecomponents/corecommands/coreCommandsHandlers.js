@@ -242,20 +242,19 @@ module.exports = {
         const apis = global.Mantra.Bootstrap.getHooksByName( CoreConstants.API_HOOK );
         let apiNames = [];
 
-        if ( apis.length == 0 ) {
-            MantraConsole.info("No apis detected");
-            return;        
-        }
-
         for( const api of apis ) {
             if ( componentName == undefined || api.Component == componentName ) {
                 apiNames.push(`${api.Component}.${api.APIName}`)
             }
         }
 
-        apiNames = apiNames.sort();
-        for( let i = 0; i < apiNames.length; i++ ) {
-            MantraConsole.info( `(${i+1}) ${apiNames[i]}`, false );
+        if ( apiNames.length == 0 ) {
+            MantraConsole.info("No apis detected");
+        } else {
+            apiNames = apiNames.sort();
+            for( let i = 0; i < apiNames.length; i++ ) {
+                MantraConsole.info( `(${i+1}) ${apiNames[i]}`, false );
+            }
         }
     },
 
@@ -263,39 +262,36 @@ module.exports = {
         const views = global.Mantra.Bootstrap.getHooksByName( CoreConstants.VIEW_HOOK );
         let viewNames = [];
 
-        if ( views.length == 0 ) {
-            MantraConsole.info("No views detected");
-        } else{
-            for( const view of views ) {
-                if ( componentName == undefined || view.Component == componentName ) {
-                    viewNames.push(`${view.Component}.${view.Command}. Route: '/${view.Component}/${view.Command}'`)
-                }
+        for( const view of views ) {
+            if ( componentName == undefined || view.Component == componentName ) {
+                viewNames.push(`${view.Component}.${view.Command}. Route: '/${view.Component}/${view.Command}'`)
             }
-    
-            viewNames = viewNames.sort();
+        }
 
+        if ( viewNames.length == 0 ) {
+            MantraConsole.info("No views detected");
+        } else {
             let i = 0;
-            for( const viewName of viewNames ) {
+            for( const viewName of viewNames.sort() ) {
                 MantraConsole.info( `(${++i}) ${viewName}`, false );
             }
         }
     },
 
     ShowCrons: async (MantraAPI, componentName) => {
-        const crons = global.Mantra.Bootstrap.getHooksByName( CoreConstants.CRON_HOOK );
-        
-        if ( crons.length == 0 ) {
-            MantraConsole.info("No crons jobs definitions detected");
-        } else{
-            let cronNames = [];
-            let i = 0;
+        const crons = global.Mantra.Bootstrap.getHooksByName( CoreConstants.CRON_HOOK );        
+        let cronNames = [];
+        let i = 0;
 
-            for( const cron of crons ) {
-                if ( componentName == undefined || cron.Component == componentName ) {
-                    cronNames.push(`${cron.Component}.${cron.CronHandler.name} Config: ${cron.CronConfig}`);
-                }
+        for( const cron of crons ) {
+            if ( componentName == undefined || cron.Component == componentName ) {
+                cronNames.push(`${cron.Component}.${cron.CronHandler.name} Config: ${cron.CronConfig}`);
             }
-    
+        }
+
+        if ( cronNames.length == 0 ) {
+            MantraConsole.info("No crons jobs definitions detected");   
+        } else {
             for( const cronName of cronNames.sort() ) {
                 MantraConsole.info( `(${++i}) ${cronName}`, false );
             }
@@ -306,76 +302,66 @@ module.exports = {
         const events = global.Mantra.Bootstrap.getHooksByName( CoreConstants.EVENT_HOOK );
         let eventNames = [];
 
-        if ( events.length == 0 ) {
-            MantraConsole.info("No events subscribers detected");
-        } else{
-            for( const event of events ) {
-                if ( componentName == undefined || event.Component == componentName ) {
-                    eventNames.push(`${event.Component} subscribed to '${event.EventName}'` )
-                }
+        for( const event of events ) {
+            if ( componentName == undefined || event.Component == componentName ) {
+                eventNames.push(`${event.Component} subscribed to '${event.EventName}'` )
             }
-    
-            eventNames = eventNames.sort();
+        }
 
+        if ( eventNames.length == 0 ) {
+            MantraConsole.info("No events subscribers detected");
+        } else {
             let i = 0;
-            for( const eventName of eventNames ) {
+            for( const eventName of eventNames.sort() ) {
                 MantraConsole.info( `(${++i}) ${eventName}`, false );
             }
         }
+
     },
 
     ShowBlocks: async (MantraAPI, componentName) => {
         const blockHooks = global.Mantra.Bootstrap.getHooksByName( CoreConstants.BLOCK_HOOK );
         let blockNames = [];
-
-        if ( blockHooks.length == 0 ) {
-            MantraConsole.info("No blocks detected");
-            return;        
-        }
-
+        
         for( const blockHook of blockHooks ) {
             if ( componentName == undefined || blockHook.Component == componentName ) {
                 blockNames.push(`${blockHook.Component}: ${blockHook.BlockName}`)
             }
         }
-
-        blockNames = blockNames.sort();
-        let i = 0;
-        for( const blockName of blockNames ) {
-            MantraConsole.info( `(${++i}) ${blockName}`, false );
+        
+        if ( blockNames.length == 0 ) {
+            MantraConsole.info("No blocks detected");
+        } else {
+            let i = 0;
+            for( const blockName of blockNames.sort() ) {
+                MantraConsole.info( `(${++i}) ${blockName}`, false );
+            }
         }
     },
 
     ShowAccessConditions: async (MantraAPI, componentName) => {
         const acHooks = global.Mantra.Bootstrap.getHooksByName( CoreConstants.ACCESSCONDITION_HOOK );
         let acNames = [];
-
-        if ( acHooks.length == 0 ) {
-            MantraConsole.info("No access conditions defined");
-            return;        
-        }
-
+        
         for( const acHook of acHooks ) {
             if ( componentName == undefined || acHook.Component == componentName ) {
                 acNames.push(`${acHook.Component}: ${acHook.Name}`)
             }
         }
-
-        acNames = acNames.sort();
-        let i = 0;
-        for( const acName of acNames ) {
-            MantraConsole.info( `(${++i}) ${acName}`, false );
+        
+        if ( acNames.length == 0 ) {
+            MantraConsole.info("No access conditions defined");
+        } else {
+            let i = 0;
+            for( const acName of acNames.sort() ) {
+                MantraConsole.info( `(${++i}) ${acName}`, false );
+            }
         }
     },
 
     ShowMiddlewares: async (MantraAPI, componentName ) => {
         let middlewareHooks = global.Mantra.Bootstrap.getHooksByName( CoreConstants.MIDDLEWARE_HOOK );
         let middlewareNames = [];
-
-        if ( middlewareHooks.length == 0 ) {
-            MantraConsole.info("No middlewares detected");
-            return;        
-        }
 
         middlewareHooks.forEach( (m) => {
             if ( m.Weight == null ) m.Weight = 0;
@@ -389,26 +375,29 @@ module.exports = {
             }
         }
 
-        let i = 0;
-        for( const middlewareName of middlewareNames ) {
-            MantraConsole.info( `(${++i}) ${middlewareName}`, false );
+        if ( middlewareNames.length == 0 ) {
+            MantraConsole.info("No middlewares detected");
+        } else {
+            let i = 0;
+            for( const middlewareName of middlewareNames ) {
+                MantraConsole.info( `(${++i}) ${middlewareName}`, false );
+            }
         }
     },
 
     ShowPosts: async (MantraAPI, componentName) => {
         const posts = global.Mantra.Bootstrap.getHooksByName( CoreConstants.POST_HOOK );
+        let postNames = [];
         
-        if ( posts.length == 0 ) {
-            MantraConsole.info("No posts detected");
-        } else{
-            let postNames = [];
-            
-            for( const post of posts ) {
-                if ( componentName == undefined || post.Component == componentName ) {
-                    postNames.push(`${Chalk.keyword("white")(post.Component + "." + post.Command)}. Route: '/${post.Component}/${post.Command}'`)
-                }
+        for( const post of posts ) {
+            if ( componentName == undefined || post.Component == componentName ) {
+                postNames.push(`${Chalk.keyword("white")(post.Component + "." + post.Command)}. Route: '/${post.Component}/${post.Command}'`)
             }
-    
+        }
+
+        if ( postNames.length == 0 ) {
+            MantraConsole.info("No posts detected");
+        } else {
             let i = 0;
             for( const postName of postNames.sort() ) {
                 MantraConsole.info( `(${++i}) ${postName}`, false );
@@ -417,19 +406,18 @@ module.exports = {
     },
 
     ShowGets: async (MantraAPI, componentName) => {
-        const gets = global.Mantra.Bootstrap.getHooksByName( CoreConstants.GET_HOOK );
-        
-        if ( gets.length == 0 ) {
-            MantraConsole.info("No gets detected");
-        } else{
-            let getNames = [];
+        const gets = global.Mantra.Bootstrap.getHooksByName( CoreConstants.GET_HOOK );        
+        let getNames = [];
 
-            for( const get of gets ) {
-                if ( componentName == undefined || get.Component == componentName ) {
-                    getNames.push(`${Chalk.keyword("white")(get.Component + "." + get.Command)}. Route: '/${get.Component}/${get.Command}'`)
-                }
+        for( const get of gets ) {
+            if ( componentName == undefined || get.Component == componentName ) {
+                getNames.push(`${Chalk.keyword("white")(get.Component + "." + get.Command)}. Route: '/${get.Component}/${get.Command}'`)
             }
-    
+        }
+
+        if ( getNames.length == 0 ) {
+            MantraConsole.info("No gets detected");
+        } else {
             let i = 0;
             for( const getName of getNames.sort() ) {
                 MantraConsole.info( `(${++i}) ${getName}`, false );
@@ -441,19 +429,19 @@ module.exports = {
         const commands = global.Mantra.Bootstrap.getHooksByName( CoreConstants.COMMAND_HOOK );
         let commandsToShow = [];
 
-        if ( commands.length == 0 ) {
+        for (const command of commands ) {
+            if ( componentName == undefined || command.Component == componentName ) {
+                commandsToShow.push( {
+                    Command: command.Name,
+                    Description: command.Description,
+                    Component: (!command.Component || command.Component == "corecommands" ) ? "mantra" : command.Component
+                })
+            }    
+        }
+
+        if ( commandsToShow.length == 0 ) {
             MantraConsole.info("No commands detected");
         } else {
-            for (const command of commands ) {
-                if ( componentName == undefined || command.Component == componentName ) {
-                    commandsToShow.push( {
-                        Command: command.Name,
-                        Description: command.Description,
-                        Component: (!command.Component || command.Component == "corecommands" ) ? "mantra" : command.Component
-                    })
-                }    
-            }
-            
             for( const command of MantraAPI.Utils.Underscore.sortBy( commandsToShow, "Component" ) ) {
                 MantraConsole.rawInfo(`${Chalk.white(command.Command)} (${Chalk.green(command.Component)}) : ${Chalk.yellow(command.Description)}`);
             }
