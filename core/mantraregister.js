@@ -6,7 +6,6 @@
 "use strict";
 
 const CronValidator = require("cron-validator");
-
 const CoreConstants = global.gimport("coreconstants");
 
 class MantraRegister {
@@ -138,8 +137,7 @@ class MantraRegister {
             this.checkPropertyExists( "CronHandler", CoreConstants.CRON_HOOK, cronItem );
             this.checkPropertyType( "CronConfig", CoreConstants.EVENT_HOOK, cronItem, 'string' );
             this.checkPropertyType( "CronHandler", CoreConstants.EVENT_HOOK, cronItem, 'function' );
-            this.checkCronConfiguration( cronItem );
-            
+            cronItem.CronConfig = this.checkAndTranslateCronConfiguration( cronItem.CronConfig );
         }
         
         return this.R( CoreConstants.CRON_HOOK, data );
@@ -248,25 +246,37 @@ class MantraRegister {
         }
     }
 
-    checkCronConfiguration( cronItem ) {
-        // If cron configuration is not valid, check if it is a component property
-        if ( !CronValidator.isValidCron(cronItem.CronConfig, { seconds: true }) ) {
-            // Check if it is a component configuration
+    isCronAlias( cronConfig ) {
+        return Object.keys(CoreConstants.CRONALIASES).includes(cronConfig);
+    }
+
+    checkAndTranslateCronConfiguration( cronConfig ) {
+        if ( this.isCronAlias(cronConfig) ) {
+            return CoreConstants.CRONALIASES[cronItem.CronConfig];
+        } 
+
+        if ( CronValidator.isValidCron(cronConfig, { seconds: true }) ) {
+            return cronConfig;
+        } else {
             const componentConfig = this.MantraAPI.GetComponentConfig( this.componentName );
-    
-            if ( componentConfig[cronItem.CronConfig] == null ) {
-                throw Error(`Unable to load ${cronItem.CronConfig} configuration for component ${this.componentName} when configuring cron`);
+            if ( componentConfig[cronConfig] == null ) {
+                throw Error(`Unable to load ${cronConfig} configuration for component ${this.componentName} when configuring cron`);
             }
 
-            cronItem.CronConfig = componentConfig[cronItem.CronConfig]; 
-    
-            if ( !CronValidator.isValidCron(cronItem.CronConfig, { seconds: true }) ) {
-                throw Error(`Invalid cron config of ${cronItem.CronConfig} in component ${this.componentName}`);
+            const componentConfigCronConfig = componentConfig[cronConfig]; 
+
+            if ( this.isCronAlias(componentConfigCronConfig) ) {
+                return CoreConstants.CRONALIASES[componentConfigCronConfig];
+            } 
+
+            if ( !CronValidator.isValidCron(componentConfigCronConfig, { seconds: true }) ) {
+                throw Error(`Invalid cron config of ${componentConfigCronConfig} in component ${this.componentName}`);
             }
+
+            return componentConfigCronConfig;
         }
     }
-            
-
+    
     // Check if "ComponentActiveServices allows to register this"
     // activeServices is undefined for core components
     shouldBeRegistered(hook) {

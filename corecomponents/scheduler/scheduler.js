@@ -10,12 +10,10 @@ const CronJob = require("cron").CronJob;
 let allJobs = [];
 
 class SchedulerStarter {
-    async onSystemStarted( MantraAPI ) {
-        if ( global.Mantra.MantraConfig.isServiceActive("cron") ) {
-            for( let c of MantraAPI.GetHooksByName("cron") ) {                
-                
-                console.log(c);
-                //allJobs.push( new CronJob( c.CronConfig, c.CronHandler, null, true, "Europe/Madrid" ) );
+    async onSystemStarted( Mantra ) {
+        if ( Mantra.IsServiceActive("cron") ) {
+            for( const cron of Mantra.GetHooksByName("cron") ) {                
+                allJobs.push( new CronJob( cron.CronConfig, cron.CronHandler, null, true, "Europe/Madrid" ) );
             }
         }
     }

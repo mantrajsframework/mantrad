@@ -539,4 +539,17 @@ describe( 'MantraAPI tests', () => {
 
         } catch(err) {}
     });
+
+    it( '# Check if cron config is alias', () => {
+        assert.isTrue( mantraRegister.isCronAlias( '1s' ) );
+        assert.isTrue( mantraRegister.isCronAlias( '5s' ) );
+        assert.isTrue( mantraRegister.isCronAlias( '30s' ) );
+        assert.isTrue( mantraRegister.isCronAlias( '1m' ) );
+        assert.isTrue( mantraRegister.isCronAlias( '5m' ) );
+        assert.isTrue( mantraRegister.isCronAlias( '30m' ) );
+        assert.isTrue( mantraRegister.isCronAlias( '1h' ) );
+        assert.isTrue( mantraRegister.isCronAlias( '5s' ) );
+        assert.isTrue( mantraRegister.isCronAlias( '1d' ) );
+        assert.isFalse( mantraRegister.isCronAlias( '1d-foo' ) );
+    });
 });
