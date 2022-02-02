@@ -7,31 +7,22 @@
 
 const CronJob = require("cron").CronJob;
 
-var allJobs = [];
+let allJobs = [];
 
 class SchedulerStarter {
-    async onStart( MantraAPI ) {
-    }
-
     async onSystemStarted( MantraAPI ) {
         if ( global.Mantra.MantraConfig.isServiceActive("cron") ) {
-            let cronRegistered = MantraAPI.GetHooksByName("cron");
-    
-            for( let i = 0; i < cronRegistered.length; i++ ) {
+            for( let c of MantraAPI.GetHooksByName("cron") ) {                
                 
-                let c = cronRegistered[i];
-                let newJob = new CronJob( c.CronConfig, c.CronHandler, null, true, "Europe/Madrid");
-                
-                allJobs.push( newJob );
+                console.log(c);
+                //allJobs.push( new CronJob( c.CronConfig, c.CronHandler, null, true, "Europe/Madrid" ) );
             }
         }
     }
 }
 
-var MantraComponent = {};
-
-MantraComponent.Start = new SchedulerStarter();
-
 module.exports = () => {
-    return MantraComponent;
+    return {
+        Start: new SchedulerStarter()
+    }
 }

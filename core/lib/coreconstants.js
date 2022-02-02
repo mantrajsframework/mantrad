@@ -59,6 +59,18 @@ module.exports = {
     MANTRASUPPORTMAIL: "support@mantrajs.com",
     DOWNLOADEDFOLDER: "mantradownloaded",
 
+    CRONALIASES: {
+        "1s": "*/1 * * * * *",
+        "5s": "*/5 * * * * *",
+        "30s": "*/30 * * * * *",
+        "1m": "0 */1 * * * *",
+        "5m": "0 */5 * * * *",
+        "30m": "0 */30 * * * *",
+        "1h": "0 0 */1 * * *",
+        "5h": "0 0 */5 * * *",
+        "1d": "0 0 0 */1 * *"
+    },
+
     IsCoreComponent: (coreComponent) => {
         return CORE_COMPONENTS.includes(coreComponent);
     }

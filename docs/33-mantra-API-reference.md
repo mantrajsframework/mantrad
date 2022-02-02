@@ -1,10 +1,35 @@
 # Mantra API Reference
 
-In a Mantra project, any interaction between the framework and within the components, is performed using an object of the class MantraAPI.
+## Considrerations about Mantra API object
 
-This API object is created con each request or in any other kind of a the component behaviour (like cron jobs, for instance).
+In a Mantra project, any interaction between the framework and within the components, is performed using an single instance object of the class MantraAPI, usually named as Mantra in handlers. One interaction = one instace of that object.
 
-Described below all MantraAPI methods.
+This API object is created by Mantra by each *interaction* with your project, like:
+
+* In any request for a view, get or post routes.
+* In an event handler.
+* In middlewares handlers.
+* In rendering blocks.
+* When running access conditions and prerequests.
+* etc.
+
+This is, when any component handler of any kind is called by Mantra Framework, a Mantra API object is created by the framework so that the handler doesn't need to create it.
+
+This is extremely important in Mantra Framework because, mainly, of performance: Mantra API object is heavy to create and load with initial values, and that's the reason why Mantra uses only one instance the this object in any *interaction*, and that's why API calls or DAL calls between components, should send this instance as well.
+
+This is how prerequests, for instance, can add data for the view handlers calling AddRequestData() method and share common data for the next handler call.
+
+Anyway, and despite it is not recommended (depending on the case), you can get a new instance of Mantra API object with:
+
+```js
+const Mantra = global.Mantra.MantraAPIFactory();
+```
+
+Mantra is a high performance framework because in any request or *interaction* between components, a Mantra API object is shared.
+
+## Mantra API methods reference
+
+Mantra API object is the heart of the framework, all it's represented by its methods. To develop Mantra applications, you need to master this object.
 
 * [MantraAPI.GetAppName](#mantraapi.getappname)
 

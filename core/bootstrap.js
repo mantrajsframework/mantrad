@@ -263,7 +263,7 @@ class Bootstrap {
     async callOnStartComponents( mantraAPI ) {
         // Start core components first to initialize some useful apis for the app components
         await this.iterateOverComponents( async (cmpInstance, componentName) => {
-            if ( CoreConstants.CORE_COMPONENTS.includes(componentName) ) {
+            if ( CoreConstants.CORE_COMPONENTS.includes(componentName) && cmpInstance.Start.onStart ) {
                 try {
                     await cmpInstance.Start.onStart(mantraAPI);
                 } catch(err) {
