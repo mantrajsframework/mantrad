@@ -4,9 +4,9 @@ The main purpose of a framework should be to allow the reusability and maintenab
 
 To reduce the coding block of a view function handler, "pre requests" are quite useful.
 
-They are special function handler that are called by Mantra *before* calling the view function handler.
+They are special function handlers that are called by Mantra *before* calling the views, blocks, posts and gets functions handlers.
 
-A prerequest is useful to validate the http request, collect specific data for the view or things like that.
+A prerequest is useful to validate the http request, collect specific data for the view or things like that. By doing so, you can reduce the code needed by views, blocks, posts and gets handlers and split responsabilities better, one of the principles of Mantra applications.
 
 As other kind of hooks, you can register a prerequest with the hook "Prerequest":
 
@@ -14,7 +14,8 @@ As other kind of hooks, you can register a prerequest with the hook "Prerequest"
 MantraAPI.Hooks("[component name"])
     .PreRequest([{
         Name: "[name of the prerequest]",
-        Handler: [handler for the prerequest]
+        Handler: "[handler for the prerequest]",
+        onCancel: "[handler called when the prerequest returns false, optional]"
     });
 ```
 
@@ -36,14 +37,23 @@ In this case, is function handler for this prerequest is the function ResourcesP
 
 Is useful to identify the prerequest with the prefix of the component which implements it.
 
-## Brief method to define a prerequest
-As with views, blocks and other Mantra assets, you can define the prerequests in a Node.js module within the component named as "prerequest.[component name].js".
+## Defining a prereqeust implicity
+As with views, blocks and other Mantra assets, you can define the prerequests in a Node.js module within the component named as "prerequest.[component name].js" inside /controllers folder of the component.
+
+That module can define a number of prerequests exporting their properties:
+
+* "<access condition name>": this property is the name of the prerequest and it implements de handler.
+* "<access condition name>_oncancel": optional handler to be called when the prerequest returns false.
 
 Here an example:
 
 ```js
 module.exports = {
-    getarticleidfromurl: async (MantraAPI, req ) => {
+    getarticleidfromurl: async (Mantra, req) => {
+        // ...
+    },
+ 
+    getarticleidfromurl_oncancel: async (Mantra) => {
         // ...
     }
 }
@@ -54,7 +64,7 @@ module.exports = {
 The prototype for a prerequest function handler is like this:
 
 ```js
-async (MantraAPI, req ) => {
+async ( Mantra, req ) => {
         // ...
     }
 ```
@@ -68,4 +78,34 @@ The function handler should return true or false:
 
 Usually, if the prerequest is used to retrieve or calculate some data before calling the view handler, MantraAPI.AddRequestData is used for this.
 
-*Remember*: a prerequest defined in any component can be used in any other component.
+## Adding data for the view, block, post or gets handlers.
+
+Prerequests are intended to be used to get some data to be used in the views, blocks, posts or gets handlers.
+
+To do so, Mantra expects you use Mantra.AddRequestData() and Mantra.GetRequestData() methods.
+
+For instance:
+
+```js
+module.exports = {
+    getmantrademoidfromurl: async (Mantra, req ) => {
+        const parts = Mantra.Extend.Extractvalues( req.path, "/{component}/{mantrademoid}"); // *
+           
+        if ( parts ) {
+            Mantra.AddRequestData( "mantrademoid", parts.mantrademoid );
+            return true;
+        }
+
+        return false;
+    }
+}
+```
+
+In this example, the prequests "getmantrademoidfromurl", adds the id extracted from the url to "mantrademoid" request data.
+
+# To remember
+
+* A prerequest defined in any component can be used in any other component.
+* The prerequests are called in the order they are set for the view, block, post or get handler.
+* It should implement a basic and simple operation (like get an entity from data models, etc).
+* Like access conditions, by using prerequests, the code needed for the handler of the view, block, etc., is smaller responsabilities are splitted (and reusability better). 

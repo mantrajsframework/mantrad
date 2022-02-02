@@ -61,3 +61,25 @@ async (MantraAPI, bookId) => {
     // ... 
 };
 ```
+
+## Implicit method to define a command
+
+You can also define new commands withoud registering the *hook*.
+
+You do so indicating the commands in a file named as "commands.yourcomponentname.js" inside /controllers folder of your component.
+
+In that module, Mantra expects to find these properties to define new commands:
+
+* <command name>_description: description for the command
+* <command_name>: async method handler for the command that receives the parameters if needed.
+
+As for example, consider the module /mycomponent/controllers/commands.mycomponent.js:
+
+```js
+module.exports = {
+    mk_description: "test for marketplace",
+    mk: async (Mantra, arg1, arg2, arg3, arg4 ) => {
+        ///
+    }
+}
+```

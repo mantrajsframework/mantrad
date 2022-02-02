@@ -84,8 +84,8 @@ As with views, in posts function handlers, MantraAPI object is inyected as a pro
 
 TODO: incluir aquí los enlaces a los métodos
 MantraAPI have methods to manage the response of the post request:
-* MantraAPI.PostSuccess
-* MantraAPI.PostFailed
+* MantraAPI.SendSuccess
+* MantraAPI.SendFailure
 * MantraAPI.PostUnauthorizedCode
 * MantraAPI.PostRaw
 * MantraAPI.SendStatus

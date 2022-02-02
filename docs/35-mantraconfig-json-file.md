@@ -124,9 +124,14 @@ This property can be overwritten by specific app configuration.
 
 *"LandingView" (optional)
 
-In the case when Mantra application runs an user interface, this property indicated the landing view to render for landing page of the ui (http://<yoursite>/).
+In the case when Mantra application runs an user interface, this property indicates the landing view to render for landing page of the ui (http://<yoursite>/).
 
-This property can be overwritten by specific app configuration.
+This property can be overwritten by specific app configuration in its application section.
+
+The content of this property can be:
+
+* A view of a component as a landing page, in the usual format like : <component name>.<view name>. Por instance, "landing.dashboard", rendering the view "dashboard" of a component named as "landing".
+* A local redirect, for instance "/landingpage.html", which will render /ui/landingpage.html file as landing page of the site.
 
 *"GlobalConfig"*
 
