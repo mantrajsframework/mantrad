@@ -13,7 +13,7 @@ describe( 'AssetsLocations tests', () => {
     });
 
     it( '# getBlocksLocations test', () => {
-        const blocksLocations = AssetsLocations.getBlocksLocations();
+        const blocksLocations = AssetsLocations.GetBlocksLocations();
 
         assert.isArray( blocksLocations );
         assert.isTrue( blocksLocations.length > 0 );

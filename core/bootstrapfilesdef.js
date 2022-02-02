@@ -34,28 +34,30 @@ module.exports = {
      */
     lookupAnonymousBlocks: async (MantraAPI, components) => {
         // Lookup block without explicit registration with MantraAPI.Hooks().Block()
+        const blocksFolder = MantraAPI.GetAssetsLocations().GetBlocksLocations()
+        
         for( const componentName of Object.keys(components) ) {
-            for( const blocksLocation of MantraAPI.GetAssetsLocations().getBlocksLocations() ) {
-                const blocksFolder = Path.join(  components[componentName].pathToComponent, blocksLocation );
-                
-                await lookupAnonymousBlocksFromFolder( MantraAPI, componentName, blocksFolder );
-            }
+            await lookupAnonymousBlocksFromFolder( MantraAPI, componentName, blocksFolder );
         }
     }
 }
 
 async function lookupAnonymousBlocksFromFolder(MantraAPI, componentName, blocksFolder) {        
-    if ( await MantraUtils.ExistsDirectory( blocksFolder) ) {
-        for( const blockFile of await MantraUtils.ListFiles( blocksFolder ) ) {
-            if ( blockFile.endsWith(".html") ) {
-                const blockName = Path.parse(Path.basename(blockFile)).name;
-                const blockAlreadyDefined = MantraAPI.ExistsBlock(componentName, blockName);
+    for( const blockFolder of blocksFolder ) {
+        const folderToLookFor = MantraAPI.GetAssetsLocations().TranslateLocationFromKeyWords( MantraAPI, blockFolder, componentName);
 
-                if ( !blockAlreadyDefined ) {
-                    MantraAPI.Hooks(componentName)
-                        .Block( {
-                            BlockName: blockName
-                        });
+        if ( await MantraUtils.ExistsDirectory( folderToLookFor) ) {
+            for( const blockFile of await MantraUtils.ListFiles( folderToLookFor ) ) {
+                if ( blockFile.endsWith(".html") ) {
+                    const blockName = Path.parse(Path.basename(blockFile)).name;
+                    const blockAlreadyDefined = MantraAPI.ExistsBlock(componentName, blockName);
+    
+                    if ( !blockAlreadyDefined ) {
+                        MantraAPI.Hooks(componentName)
+                            .Block( {
+                                BlockName: blockName
+                            });
+                    }
                 }
             }
         }

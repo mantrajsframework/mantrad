@@ -153,8 +153,34 @@ class AssetsLocationsAPI {
         }
     }
 
-    getBlocksLocations() {
+    GetBlocksLocations() {
         return LOCATIONS.BLOCKS_LOCATIONS;
+    }
+
+    /*
+     * Given a location with keywords like 'component', 'template' or 'frontendtemplate'
+     * returns its traslation for a specific component name
+     */
+    TranslateLocationFromKeyWords( MantraAPI, location, componentName ) {
+        let base = location.split('.');
+    
+        if (base.length == 2) {
+            switch (base[0]) {
+                case 'component': {
+                    return Path.join(MantraAPI.GetComponentLocation(componentName), base[1]);
+                }
+                case 'templates': {
+                    return Path.join(global.Mantra.MantraConfig.SiteTemplatesLocation, componentName, base[1]);
+                }
+                case 'frontendtemplates': {
+                    return Path.join(global.Mantra.MantraConfig.SiteTemplatesLocation, global.Mantra.MantraConfig.FrontendName, componentName, base[1]);
+                }
+                default:
+                    MantraConsole.error( `Unkown location type of ${base[0]}` );
+            }
+        } else {
+            return Path.join(MantraAPI.GetComponentLocation(component), location);
+        }
     }
 }
 

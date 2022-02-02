@@ -1,12 +1,36 @@
 # Component Blocks Definition
 
-A block is a piece of HTML to be inserted in a view or a root document (link index.html).
+A block is a piece of HTML to be inserted in a view or a root document (like index.html).
 
-Mantra expects to find the blocks of a component inside the folder "blocks".
+The name of the file block is considered the name of the block.
 
-Two ways to register a block.
+So, for this block file: "footer.html", the name "footer" will be considered as a block name and can be used to be inserted in any view using Mustache brackets:
 
-The first one, is using the hook of the name "Block":
+```html
+&lcub;&lcub;&lcub;footer&rcub;&rcub;&rcub;
+```
+
+The blocks of a component should be placed at "/component/ui/blocks" folder.
+
+A component can define any number of blocks, and they can be overriden by the project.
+
+Mantra will look for the blocks in the following order:
+
+* '/ui/templates/blocks/componentname' 
+* '/ui/templates/blocks'
+* '/componentname/ui/blocks'
+
+For a component named as "footer", then will consider the following folder to look for:
+
+* '/ui/templates/blocks/footer' 
+* '/ui/templates/blocks'
+* '/footer/ui/blocks'
+
+There three ways to register a block: explicity by the specific *hook*, implicity by methods definitions and anonymously.
+
+## Defining a block using the hook "Block"
+
+You can define your block using this hook, always in *onStart* method of the component:
 
 ```js
 MantraAPI.Hooks(["component name"])
@@ -43,25 +67,8 @@ In any view o html document containing:
 
 , Mantra will render the content of the file /blocks/contact-block.html".
 
-## Using *pre requests*
-As described in (TODO: link to the document), pre request are special handlers that manages the request of a view before Mantra call the view of block function handler.
 
-This pre request handlers are useful to validate query params, calculate some kind of info before calling the view function handler and the like.
-
-By using them, the code needed for the view or block function handler can be as minimal as possible.
-
-*Remember:* pre requests is pretended to be used to reduce the view or block function handler code lines to the minimun.
-
-## Using *access conditions*
-As described in (TODO: link to the document), access conditions are handlers than can register a Mantra component the check if the view or a block can be accessed or not according to any condition.
-
-A typical scenario is the access condition for preventing an anonymous user to access a specific view.
-
-In the case of blocks, if the access condition returns false, then the block will not be rendered.
-
-*Remember:* access conditions is pretended to be used to reduce the view function handler code lines to the minimun.
-
-## Brief method of defining views
+## Implicity method to define a block
 
 To avoid typing the hook regitering call in *onStart* method, you can describe the blocks of the component in a specific module which file name should be named as "block.<component name>.js".
 
@@ -88,14 +95,41 @@ module.exports = {
 
 With this example, a block with the name "actionsonarticleblock" is defined and its HTML content should be located at "/blocks/actionsonarticleblock.html".
 
+## Defining an anonymous block
+
+If your block doesn't need any rendering specific process or access conditions nor pre requests handling, then you can define the html block in the folders specificed above. Mantra will look up them as blocks as well.
+
+
+## Using *pre requests*
+
+In Mantra, *prerequests* are special handlers that manages the request of a view *before* Mantra call the view of block function handler.
+
+This prerequest handlers are useful to validate query params, calculate some kind of info before calling the view function handler and the like.
+
+By using them, the code needed for the view or block function handler can be as minimal as possible.
+
+*Remember:* prerequests are intended to be used to reduce the view or block function handler code lines to the minimun.
+
+## Using *access conditions*
+
+In Mantra *access conditions* are handlers than can register a Mantra component the check if the view or a block can be accessed or not according to any condition.
+
+A typical scenario is the access condition for preventing an anonymous user to access a specific view.
+
+In the case of blocks, if the access condition returns false, then the block will not be rendered.
+
+*Remember:* access conditions is pretended to be used to reduce the view function handler code lines to the minimun.
+
 ## Function handler for the block
-Any block can be rendered without any function handler; in the case of it exists a function handler for it, then Mantra will call it before send back its content.
+
+Any block can be rendered without any function handler; in the case of it exists a function handler for it, then Mantra will call it before send back its html content.
 
 The prototype for the block function handler is as following:
 
 ```js
-async (MantraAPI, html) => {
+async (Mantra, html) => {
     let finalHtml;
+
     // Do some stuff, posible modifing html content
 
     return finalHtml;
@@ -104,7 +138,11 @@ async (MantraAPI, html) => {
 
 The html paramenter is the content of the block file.
 
-## Two important things about blocks
+## To remember about blocks:
+
 Remember:
+
 * Any block defined by any component can be rendered in any view of html root document of the project.
 * A block can contain other blocks with no limitation of nesting.
+* If a block doesn't need special rendeding process nor prerequests or access conditions, define it anonymously.
+* If the block alwayt renders the same content, set *isstatic* property to true.
