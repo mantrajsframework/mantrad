@@ -8,39 +8,46 @@
 const CoreConstants = global.gimport("coreconstants");
 const MantraConsole = global.gimport("mantraconsole");
 
-module.exports = {
-    addNewLog: async ( MantraAPI, type, description, data = "", key = "", counter = 0) => {
-        const logApi = MantraAPI.GetInjection( MantraAPI.Config("core.logapi") );
+let logApi = null;
 
-        if ( global.Mantra.Initialized && logApi && logApi !== "" ) {
-            return MantraAPI.Invoke( logApi, {
-                type: type,
-                key: key,
-                counter: counter,
-                description: description,
-                data: data ? data : ""
-            } );
-        } else {
-            switch( type ) {
-                case CoreConstants.LOGTYPE_INFO: {
-                    MantraConsole.info( description );
-                    break;
-                }
-                case CoreConstants.LOGTYPE_WARNING: {
-                    MantraConsole.warning( description );
-                    break;
-                }
-                case CoreConstants.LOGTYPE_ERROR: {
-                    MantraConsole.error( description );
-                    break;
-                }
-                default: {
-                    MantraConsole.error( `Unknown error of type '${type}'. Message: ${description}`);
-                }
+const addNewLogImpl = async ( MantraAPI, type, description, data = "", key = "", counter = 0) => {
+    logApi = ( logApi != null ? logApi : getLogApiImpl(MantraAPI) );
+
+    if ( global.Mantra.Initialized && logApi && logApi !== "" ) {
+        return MantraAPI.Invoke( logApi, {
+            type: type,
+            key: key,
+            counter: counter,
+            description: description,
+            data: data ? data : ""
+        } );
+    } else {
+        switch( type ) {
+            case CoreConstants.LOGTYPE_INFO: {
+                MantraConsole.info( description );
+                break;
             }
-
-            if ( data !== "" ) console.log("Data:", JSON.stringify(data, null, 4));
-            if ( key !== "") console.log(`Key: ${key}` );
+            case CoreConstants.LOGTYPE_WARNING: {
+                MantraConsole.warning( description );
+                break;
+            }
+            case CoreConstants.LOGTYPE_ERROR: {
+                MantraConsole.error( description );
+                break;
+            }
+            default: {
+                MantraConsole.error( `Unknown error of type '${type}'. Message: ${description}`);
+            }
         }
+
+        if ( data !== "" ) console.log("Data:", JSON.stringify(data, null, 4));
+        if ( key !== "") console.log(`Key: ${key}` );
     }
 }
+
+const getLogApiImpl = (MantraAPI) => {
+    return MantraAPI.GetInjection( MantraAPI.Config("core.logapi") );
+}
+
+exports.addNewLog = addNewLogImpl;
+exports.getLogApi = getLogApiImpl;
