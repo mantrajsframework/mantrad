@@ -20,3 +20,6 @@ As described in the following sections, a component can define a number of *asse
 * Component extends
 
 With all this stuff, you can develop applications with the codebase extremely ordered, maximazing the reused of functionaly (inside the project and in other projects) and you can afford *big* systems with hundreds of components without incresing the dificulty of its maintanability and evolution.
+
+***
+To learn by example, go to [Mantra demos](https://www.mantrajs.com/mantrademos/showall) and [components](https://www.mantrajs.com/marketplacecomponent/components) sections of [Mantra site](https://www.mantrajs.com).

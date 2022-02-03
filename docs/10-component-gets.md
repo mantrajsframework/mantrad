@@ -33,7 +33,7 @@ class BooksStarter {
 With this, BookGetHandlers.DownloadBook method will be called when a "get" is requested from the client with the route "/books/downloadbook" is requested.
 
 ## Using *pre requests*
-As with views, [pre request](/docs/component-prerequests.md) are special handler that manages the request of a "get" before Mantra calls the get function handler.
+As with views, [pre requests](/docs/15-component-prerequests.md) are special handler that manages the request of a "get" before Mantra calls the get function handler.
 
 This pre request handlers are useful to validate params, calculate some kind of info before calling the get function handler and the like.
 
@@ -42,7 +42,7 @@ By using them, the code needed for the get function handler can be as minimal as
 *Remember:* pre requests is pretended to be used to reduce the "get" function handler code lines to the minimun.
 
 ## Using *access conditions*
-As with views, [access conditions](/docs/component-access-conditions.md) are handlers than can register a Mantra component the check if the "get" can be accessed or not according to any condition.
+As with views, [access conditions](/docs/14-component-access-conditions.md) are handlers than can register a Mantra component the check if the "get" can be accessed or not according to any condition.
 
 A typical scenario is the access condition for preventing an anonymous user to access a specific "get" request.
 
@@ -82,3 +82,6 @@ async (req,res) => {
 Where *req* is the [Request object of Express framework](https://expressjs.com/en/4x/api.html#req), and *res* is the [Response object of Express framework](http://expressjs.com/en/4x/api.html#res).
 
 As with views, in gest function handlers, MantraAPI object is inyected as a property of res object as it can be seen above.
+
+***
+To learn by example, go to [Mantra demos](https://www.mantrajs.com/mantrademos/showall) and [components](https://www.mantrajs.com/marketplacecomponent/components) sections of [Mantra site](https://www.mantrajs.com).

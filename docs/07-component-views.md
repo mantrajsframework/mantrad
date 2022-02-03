@@ -129,3 +129,6 @@ async (req,res) => {
 Where *req* is the [Request object of Express framework](https://expressjs.com/en/4x/api.html#req), and *res* is the [Response object of Express framework](http://expressjs.com/en/4x/api.html#res).
 
 In views function handlers, MantraAPI object is inyected as a property of res object as it can be seen above.
+
+***
+To learn by example, go to [Mantra demos](https://www.mantrajs.com/mantrademos/showall) and [components](https://www.mantrajs.com/marketplacecomponent/components) sections of [Mantra site](https://www.mantrajs.com).

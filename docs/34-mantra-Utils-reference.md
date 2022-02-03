@@ -388,3 +388,6 @@ Param:
 ## MantraAPI.Utils.Underscore
 
 Returns the instance of [underscore module](https://github.com/jashkenas/underscore).
+
+***
+To learn by example, go to [Mantra demos](https://www.mantrajs.com/mantrademos/showall) and [components](https://www.mantrajs.com/marketplacecomponent/components) sections of [Mantra site](https://www.mantrajs.com).

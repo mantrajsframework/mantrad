@@ -70,3 +70,6 @@ In current Mantra version:
 * When there exist more than one event subscriber, Mantra doesn't call their function handlers in any specific order.
 * Events are useful to orchestrate high level functionality by "orchestration" components.
 * If the function handler for an event crashes, Mantra catch the error, log it the continues calling to the rest of subscribers.
+
+***
+To learn by example, go to [Mantra demos](https://www.mantrajs.com/mantrademos/showall) and [components](https://www.mantrajs.com/marketplacecomponent/components) sections of [Mantra site](https://www.mantrajs.com).

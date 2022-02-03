@@ -46,7 +46,7 @@ The model is created when the component is install when you use *install-compone
 $ mantrad install-component mycomponent
 ```
 
-Mantra will look for *onInstall* method of the component as defined in [Component Definition](/docs/04-component-definition.md).
+Mantra will look for *onInstall* method of the component as defined in [Component Definition](/docs/05-mantra-component-definition.md).
 
 This method will use MantraAPI.InstallSchema( "<component name>" ) to create the database defined by the model.
 
@@ -60,7 +60,7 @@ By running the Mantra command *uninstall-component*, the model will be removed:
 $ mantrad uninstall-component mycomponent
 ```
 
-Mantra will look for *onUninstall* method of the component as defined in [Component Definition](/docs/04-component-definition.md).
+Mantra will look for *onUninstall* method of the component as defined in [Component Definition](/docs/05-mantra-component-definition.md).
 
 This method will use MantraAPI.UninstallSchema( "<component name>" ) to create the database defined by the model.
 
@@ -72,6 +72,9 @@ If there is not specific configuration for the component, then *"Default"* will 
 
 ## Accessing data from dal js file
 
-As explained in [Mantra Data Access Layer](/docs/mantra-data-access-layer.md), you can place a component name like "dal.[component name].js" inside /model folder of the component.
+As explained in [Mantra Data Access Layer](/docs/21-mantra-data-access-layer.md), you can place a component name like "dal.[component name].js" inside /model folder of the component.
 
 In that case, the instance of the model (RedEntities instace) will be loaded by Mantra at MantraAPI.dal.[component name].[entity name].
+
+***
+To learn by example, go to [Mantra demos](https://www.mantrajs.com/mantrademos/showall) and [components](https://www.mantrajs.com/marketplacecomponent/components) sections of [Mantra site](https://www.mantrajs.com).

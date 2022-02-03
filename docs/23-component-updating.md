@@ -37,6 +37,9 @@ $ mantrad update
 
 By running this command, Mantra will look for components to be updated.
 
-If found, then Mantra will call [onUpdate](/docs/mantra-component-definition.md#onupdate-(optional)) method of the Install property of the component.
+If found, then Mantra will call [onUpdate](/docs/05-mantra-component-definition.md#onupdate-(optional)) method of the Install property of the component.
 
 Any activity needed for the updating, should be placed in onUpdate method.
+
+***
+To learn by example, go to [Mantra demos](https://www.mantrajs.com/mantrademos/showall) and [components](https://www.mantrajs.com/marketplacecomponent/components) sections of [Mantra site](https://www.mantrajs.com).

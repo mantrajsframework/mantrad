@@ -15,3 +15,6 @@ All files added by MantraAPI.AddJs() and MantraAPI.AddCss() includes automatical
 This value can get retrieved calling to MantraAPI.GetInstanceId().
 
 Mantra adds the property "sanitizedPath" to Express Request object with the path without the instance id if it is included in it.
+
+***
+To learn by example, go to [Mantra demos](https://www.mantrajs.com/mantrademos/showall) and [components](https://www.mantrajs.com/marketplacecomponent/components) sections of [Mantra site](https://www.mantrajs.com).

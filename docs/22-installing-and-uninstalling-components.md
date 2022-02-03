@@ -8,7 +8,7 @@ $ mantrad install-component mycomponent
 
 When running this, Mantra will look for folder components (indicated in the property *"ComponentsLocations"* in mantraconfig.json file) with the name "mycomponent".
 
-The component should define a mantra.json file and a Node.js module with the file mycomponent.js name as indicated in [Component Definition section](/docs/04-component-definition.md).
+The component should define a mantra.json file and a Node.js module with the file mycomponent.js name as indicated in [Component Definition section](/docs/05-mantra-component-definition.md).
 
 If the component defines *Install* property, then the optional method *onInstall* will be invoked.
 
@@ -22,7 +22,7 @@ To uninstall a Mantra component for the current project, you should use *uninsta
 $ mantrad uninstall-component mycomponent
 ```
 
-As indicated in [Component Definition section](/docs/04-component-definition.md), if the component defines *Install* property, then the optional method *onUninstall* will be invoked.
+As indicated in [Component Definition section](/docs/05-mantra-component-definition.md), if the component defines *Install* property, then the optional method *onUninstall* will be invoked.
 
 # Reinstalling a component
 
@@ -33,3 +33,6 @@ To do that, you can use resintall-command:
 ```bash
 $ mantrad reinstall-component mycomponent
 ```
+
+***
+To learn by example, go to [Mantra demos](https://www.mantrajs.com/mantrademos/showall) and [components](https://www.mantrajs.com/marketplacecomponent/components) sections of [Mantra site](https://www.mantrajs.com).

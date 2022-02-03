@@ -249,7 +249,7 @@ Shows the list of all http posts definitions for all components. If [component n
 $ mantrad startapp [application name, optional]
 ```
 
-Starts the application indicated by its name in Apps section in [/docs/35-mantraconfig-json-file](mantraconfig.json file). If the application name is not indicated, then the first application of the App section will be started by default.
+Starts the application indicated by its name in Apps section in [mantraconfig.json file](/docs/36-mantraconfig-json-file.md). If the application name is not indicated, then the first application of the App section will be started by default.
 
 ## uninstall-component
 
@@ -282,3 +282,6 @@ When installing a component, Mantra saves in core database their folder location
 If for some reason, the location changes (ie. a component is moved to other folder), then this command should be performed.
 
 This command updates the current component locations in core database.
+
+***
+To learn by example, go to [Mantra demos](https://www.mantrajs.com/mantrademos/showall) and [components](https://www.mantrajs.com/marketplacecomponent/components) sections of [Mantra site](https://www.mantrajs.com).

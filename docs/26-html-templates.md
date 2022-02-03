@@ -44,3 +44,6 @@ When running this:
 * If it doesn't exist, then will try to look for the template at "/<components location>/books/templates/bookrow.html"
 
 *Remember:* in current version of Mantra (1.x), Mustache is the rendering engine used.
+
+***
+To learn by example, go to [Mantra demos](https://www.mantrajs.com/mantrademos/showall) and [components](https://www.mantrajs.com/marketplacecomponent/components) sections of [Mantra site](https://www.mantrajs.com).

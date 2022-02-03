@@ -89,7 +89,7 @@ The default configuration for this component is this:
 
 # "scheduler" core component 
 
-This is the component that runs all cron jobs defined in the project. This component only works if "cron" service is enabled in the application (see [Mantra Services](/docs/mantra-services.md) for more information about how to enable or disabled services in an application).
+This is the component that runs all cron jobs defined in the project. This component only works if "cron" service is enabled in the application (see [Mantra Services](/docs/25-mantra-services.md) for more information about how to enable or disabled services in an application).
 
 # "logs" core component 
 
@@ -114,4 +114,7 @@ Remember that to have a list of all commands available, you just need to type "m
 $ mantra
 ```
 
-See [Mantra commands](/docs/mantra-core-commands.md) to see default commands and [Component Commands](/docs/component-commands.md) to know how to implement your own commands in your components.
+See [Mantra commands](/docs/28-mantra-core-commands.md) to see default commands and [Component Commands](/docs/17-component-commands.md) to know how to implement your own commands in your components.
+
+***
+To learn by example, go to [Mantra demos](https://www.mantrajs.com/mantrademos/showall) and [components](https://www.mantrajs.com/marketplacecomponent/components) sections of [Mantra site](https://www.mantrajs.com).

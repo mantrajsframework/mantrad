@@ -146,3 +146,6 @@ Remember:
 * A block can contain other blocks with no limitation of nesting.
 * If a block doesn't need special rendeding process nor prerequests or access conditions, define it anonymously.
 * If the block alwayt renders the same content, set *isstatic* property to true.
+
+***
+To learn by example, go to [Mantra demos](https://www.mantrajs.com/mantrademos/showall) and [components](https://www.mantrajs.com/marketplacecomponent/components) sections of [Mantra site](https://www.mantrajs.com).

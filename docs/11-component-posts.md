@@ -33,7 +33,7 @@ class BooksStarter {
 With this, BookPostHandlers.SetPublicOrPrivate method will be called when a post is requested from the client with the route "/books/setpublicorprivate" is requested.
 
 ## Using *pre requests*
-As with views, [pre request](/docs/component-prerequests.md) are special handler that manages the request of a post before Mantra call the post function handler.
+As with views, [pre requests](/docs/13-component-middlewares.md) are special handler that manages the request of a post before Mantra call the post function handler.
 
 This pre request handlers are useful to validate params, calculate some kind of info before calling the post function handler and the like
 
@@ -42,7 +42,7 @@ By using them, the code needed for the post function handler can be as minimal a
 *Remember:* pre requests is pretended to be used to reduce the post function handler code lines to the minimun.
 
 ## Using *access conditions*
-As with views, [access conditions](/docs/component-access-conditions.md) are handlers than can register a Mantra component the check if the post can be accessed or not according to any condition.
+As with views, [access conditions](/docs/14-component-access-conditions.md) are handlers than can register a Mantra component the check if the post can be accessed or not according to any condition.
 
 A typical scenario is the access condition for preventing an anonymous user to access a specific post.
 
@@ -90,3 +90,6 @@ MantraAPI have methods to manage the response of the post request:
 * MantraAPI.PostRaw
 * MantraAPI.SendStatus
 * MantraAPI.SendError
+
+***
+To learn by example, go to [Mantra demos](https://www.mantrajs.com/mantrademos/showall) and [components](https://www.mantrajs.com/marketplacecomponent/components) sections of [Mantra site](https://www.mantrajs.com).

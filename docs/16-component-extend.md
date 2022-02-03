@@ -14,7 +14,7 @@ MantraAPI.Hooks(["component name"])
 
 You can add any properties for each "Extend" you define.
 
-You can use [MantraAPI.GetExtendsByType](/docs/mantraapi-reference.md#mantraapi.getextendsbytype) to get all "extends" by type define by all components.
+You can use [MantraAPI.GetExtendsByType](/docs/33-mantra-API-reference.md#mantraapi.getextendsbytype) to get all "extends" by type define by all components.
 
 This is a real example for this *hook*:
 
@@ -38,3 +38,6 @@ MantraAPI.Hooks("forms")
             Handler: FormsValidatorHandlers.NotEmpty
         }]);
 ```
+
+***
+To learn by example, go to [Mantra demos](https://www.mantrajs.com/mantrademos/showall) and [components](https://www.mantrajs.com/marketplacecomponent/components) sections of [Mantra site](https://www.mantrajs.com).

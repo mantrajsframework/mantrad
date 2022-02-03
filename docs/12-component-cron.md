@@ -68,3 +68,6 @@ However, due to the nature of cron jobs, if the cron handler need to get a Mantr
 ```js
 const Mantra = global.Mantra.MantraAPIFactory();
 ```
+
+***
+To learn by example, go to [Mantra demos](https://www.mantrajs.com/mantrademos/showall) and [components](https://www.mantrajs.com/marketplacecomponent/components) sections of [Mantra site](https://www.mantrajs.com).

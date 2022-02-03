@@ -203,7 +203,7 @@ Returns a string with the name of the current running application.
 GetAssetsLocations()
 ```
 
-Returns the [Assets Locations](/docs/assetslocations-reference.md) instance with methods to locate assets within the project.
+Returns the [Assets Locations](/docs/35-assetslocations-reference.md) instance with methods to locate assets within the project.
 
 ## MantraAPI.GetComponentDependencies
 
@@ -500,7 +500,7 @@ GetInstanceId()
 
 Returns the current instance id of the application running. 
 
-For more details about instance id, see [Instance Id](/docs/instanceid.md) document.
+For more details about instance id, see [Instance Id](/docs/32-instanceid.md) document.
 
 ## MantraAPI.RenderRawView
 
@@ -623,9 +623,9 @@ The method loads that file and uses [RedEntities](https://github.com/mantrajsfra
 
 The database type for the component should be indicated in "Entities" propery of mantraconfig.json.
 
-See more información about [Mantra entities management](/docs/component-entity-model.md).
+See more información about [Mantra entities management](/docs/20-component-entity-model.md).
 
-Usually, this method is called at onInstall() method in the [component definition](/docs/mantra-component-definition.md).
+Usually, this method is called at onInstall() method in the [component definition](/docs/05-mantra-component-definition.md).
 
 InstallSchema() looks for the schema that match de component version. If no exists, then the default one will be used.
 
@@ -670,7 +670,7 @@ The database type for the component should be indicated in "Entities" propery of
 
 See more información about [Mantra entities management](/docs/component-entity-model.md).
 
-Usually, this method is called at onUninstall() method in the [component definition](/docs/mantra-component-definition.md).
+Usually, this method is called at onUninstall() method in the [component definition](/docs/05-mantra-component-definition.md).
 
 UninstallSchema() looks for the schema that match de component version. If no exists, then the default one will be used.
 
@@ -683,7 +683,7 @@ async UpdateSchema( componentName, currentVersion, versionToUpdate, updateEntity
 
 Updates a new schema for component. This method is complex and involves changes in DB.
 
-It should be called from an onUpdate() method of the [component definition](/docs/mantra-component-definition.md). onUpdate() is called by Mantra when running 'update' command and if it detects changes in "version" property of mantra.json file of the component.
+It should be called from an onUpdate() method of the [component definition](/docs/05-mantra-component-definition.md). onUpdate() is called by Mantra when running 'update' command and if it detects changes in "version" property of mantra.json file of the component.
 
 ```bash
 $ mantrad update
@@ -802,7 +802,7 @@ Params:
 * componentName: <name of the component>
 * schema: <json schema object with the model>
 
-*Remember*: component name is needed to load the database configuration for the component in "Entities" property of [mantraconfig.json](/docs/mantraconfig.json-file.md) file.
+*Remember*: component name is needed to load the database configuration for the component in "Entities" property of [mantraconfig.json](/docs/36-mantraconfig-json-file.md) file.
 
 ## MantraAPI.GetComponentDbConfig
 
@@ -810,7 +810,7 @@ Params:
 GetComponentDbConfig( componentName )
 ```
 
-Returns the json object with the database access properties indicated for the component, according to property "Entities" in [mantraconfig.json](/docs/mantraconfig.json-file.md) file.
+Returns the json object with the database access properties indicated for the component, according to property "Entities" in [mantraconfig.json](/docs/36-mantraconfig-json-file.md) file.
 
 Remember this is one of the principles in a Mantra application: a component can use its own database instance.
 
@@ -824,7 +824,7 @@ GetExtendsByType( type )
 
 Returns an array with all extends for the given type.
 
-With [Extends](/docs/mantra-extends-registering.md), any component can define its own types of *hooks* for multiple purposes.
+With [Extends](/docs/16-component-extend.md), any component can define its own types of *hooks* for multiple purposes.
 
 
 ## MantraAPI.GetInjection
@@ -920,7 +920,7 @@ An example of this, is performed when a prequest hook checks the id of the entit
 
 This decouples the code so that the view handler can be minimal.
 
-Usually, request data is added in [prerequest](/docs/component-prerequests.md) hooks.
+Usually, request data is added in [prerequest](/docs/15-component-prerequests.md) hooks.
 
 ## MantraAPI.GetRequestData
 
@@ -1109,7 +1109,7 @@ This method is equivalent to use "api" property shorcut:
 MantraAPI.api.componentname.apiname
 ```
 
-See [Component APIs](/docs/component-apis.md) for more info about API registration.
+See [Component APIs](/docs/09-component-apis.md) for more info about API registration.
 
 ## MantraAPI.ExistsComponentExtend
 
@@ -1129,7 +1129,7 @@ GetComponentConfig( componentName )
 
 Returns the full config json object for a component given its name.
 
-See [Component Config](/docs/component-configuration.md) for more info about components configuration.
+See [Component Config](/docs/18-component-configuration.md) for more info about components configuration.
 
 ## MantraAPI.IsServiceActive
 
@@ -1141,7 +1141,7 @@ Returns true if the service indicated as parameter is active in current running 
 
 Available Mantra services are 'view','post','get','middleware' and 'cron'.
 
-See [Mantra Services](/docs/mantra-services.md) for more information.
+See [Mantra Services](/docs/25-mantra-services.md) for more information.
 
 ## MantraAPI.Config
 
@@ -1157,7 +1157,7 @@ This method is equivalent to use "config" property shortcut:
 MantraAPI.config.componentname.property
 ```
 
-Se [Components Configuration](/docs/component-configuration.md) for more details about component configurations.
+Se [Components Configuration](/docs/18-component-configuration.md) for more details about component configurations.
 
 
 ## MantraAPI.EmitEvent
@@ -1172,7 +1172,7 @@ Params:
 * eventName: <name of the event>
 * eventData: <data for the event, optional>
   
-See [Component Events](/docs/component-events-subscription.md) for more information about Mantra events.
+See [Component Events](/docs/19-component-events-subscription.md) for more information about Mantra events.
 
 ## MantraAPI.LogInfo
 
@@ -1222,7 +1222,7 @@ Params:
 async ConsoleQuestion( question )
 ```
 
-Useful for [Component Commands](/docs/component-commands.md), awaits to a console question to by typed by the user. The response is returned as string.
+Useful for [Component Commands](/docs/17-component-commands.md), awaits to a console question to by typed by the user. The response is returned as string.
 
 ## MantraAPI.ExtractResource
 
@@ -1243,3 +1243,6 @@ The json returned is like this:
     isMimeType: <true if it is a MIME type>
 }
 ```
+
+***
+To learn by example, go to [Mantra demos](https://www.mantrajs.com/mantrademos/showall) and [components](https://www.mantrajs.com/marketplacecomponent/components) sections of [Mantra site](https://www.mantrajs.com).

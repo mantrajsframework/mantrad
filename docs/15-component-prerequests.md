@@ -109,3 +109,6 @@ In this example, the prequests "getmantrademoidfromurl", adds the id extracted f
 * The prerequests are called in the order they are set for the view, block, post or get handler.
 * It should implement a basic and simple operation (like get an entity from data models, etc).
 * Like access conditions, by using prerequests, the code needed for the handler of the view, block, etc., is smaller responsabilities are splitted (and reusability better). 
+
+***
+To learn by example, go to [Mantra demos](https://www.mantrajs.com/mantrademos/showall) and [components](https://www.mantrajs.com/marketplacecomponent/components) sections of [Mantra site](https://www.mantrajs.com).

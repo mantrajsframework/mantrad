@@ -10,7 +10,7 @@ As we will see in this documentation, most of those *hooks* can be defined impli
 
 Components can define a number of services, like views, bloks, apis, and the like.
 
-To do so, a component should indicated what exactly registers in *onStart* method of the component, as indicated in [Component Definition section](/docs/04-component-definition.md).
+To do so, a component should indicated what exactly registers in *onStart* method of the component, as indicated in [Component Definition section](/docs/05-mantra-component-definition.md).
 
 This is what we call a *Mantra hook*.
 
@@ -52,3 +52,6 @@ In this case, a component named as *books* defines:
 Each kind of hook has its own properties, some optionals and other mandatory, and as said above, they can also be defined implicity.
 
 To avoid to type programmatically all hooks for a component in *onStart* method, some of then can be automatically registered by Mantra *by description* according to file names definitions, as described in the following sections.
+
+***
+To learn by example, go to [Mantra demos](https://www.mantrajs.com/mantrademos/showall) and [components](https://www.mantrajs.com/marketplacecomponent/components) sections of [Mantra site](https://www.mantrajs.com).

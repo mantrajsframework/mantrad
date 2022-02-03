@@ -9,3 +9,6 @@ Simply defines for the client side a object named as MantraAPI.
 During the process of rendering a view, all data added to be loaded in the client side (using Mantra.AddDataValue method in the server side), will be added to MantraAPI.data property.
 
 Components can add its own js files to extend MantraAPI client object.
+
+***
+To learn by example, go to [Mantra demos](https://www.mantrajs.com/mantrademos/showall) and [components](https://www.mantrajs.com/marketplacecomponent/components) sections of [Mantra site](https://www.mantrajs.com).

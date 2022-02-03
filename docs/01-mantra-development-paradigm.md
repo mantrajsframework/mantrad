@@ -40,3 +40,6 @@ The development paradigm for Mantra applications is based on the following rules
 * Very high level functionality is developed orchestrating features of simpler components.
 
 With this paradigm, the maintenability and incremental migration of any application is exponentially simpler.
+
+***
+To learn by example, go to [Mantra demos](https://www.mantrajs.com/mantrademos/showall) and [components](https://www.mantrajs.com/marketplacecomponent/components) sections of [Mantra site](https://www.mantrajs.com).

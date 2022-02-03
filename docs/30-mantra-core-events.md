@@ -19,3 +19,6 @@ Is intended to perform some kind to cleaning during the application behaviour: r
 This event is triggered according to property "cronbackupevent" cron configuration for "core" component.
 
 Is is intended to perform backups if necesary in the application.
+
+***
+To learn by example, go to [Mantra demos](https://www.mantrajs.com/mantrademos/showall) and [components](https://www.mantrajs.com/marketplacecomponent/components) sections of [Mantra site](https://www.mantrajs.com).
