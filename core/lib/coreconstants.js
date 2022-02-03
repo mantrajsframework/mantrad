@@ -59,6 +59,10 @@ module.exports = {
     MANTRASUPPORTMAIL: "support@mantrajs.com",
     DOWNLOADEDFOLDER: "mantradownloaded",
 
+    LOGTYPE_INFO: "info",
+    LOGTYPE_WARNING: "warning",
+    LOGTYPE_ERROR: "error",
+    
     CRONALIASES: {
         "1s": "*/1 * * * * *",
         "5s": "*/5 * * * * *",

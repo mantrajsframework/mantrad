@@ -5,15 +5,16 @@
 
 "use strict";
 
-const Path = require("path");
-const ExtractValues = require("extract-values");
 const Crypto = require("crypto");
+const ExtractValues = require("extract-values");
+const Path = require("path");
 
 const AssetsLocations = global.gimport("assetslocations");
 const CoreConstants = global.gimport("coreconstants");
 const DepsFactory = global.gimport("depsfactory");
 const MantraAPIUtils = global.gimport("mantraapiutils");
 const MantraResourceFiles = global.gimport("mantraresourcefiles");
+const MantraAPILogger = global.gimport("mantraapilogger");
 const MantraConsole = global.gimport("mantraconsole");
 
 const MantraComponentSchemaCache = global.gimport("mantracomponentschemacache");
@@ -151,7 +152,7 @@ class MantraAPI {
      *    viewName: <name of the view to render (no extension file needed)
      */
     async RenderViewHtml( componentName, viewName ) {
-        let viewPath = await this.GetAssetsLocations().GetViewLocation( componentName, viewName );
+        const viewPath = await this.GetAssetsLocations().GetViewLocation( componentName, viewName );
 
         if ( viewPath !== "" ) {            
             return this.RenderContent( await this.Invoke("static.getfile", { fullPathToFile: viewPath } ) );
@@ -965,15 +966,15 @@ class MantraAPI {
     }
     
     async LogInfo( description, data, key, counter ) {
-        return this.addNewLog( 'info', description, data, key, counter );
+        return MantraAPILogger.addNewLog( this, 'info', description, data, key, counter );
     }
 
     async LogWarning( description, data, key, counter ) {
-        return this.addNewLog( 'warning', description, data, key, counter );
+        return MantraAPILogger.addNewLog( this, 'warning', description, data, key, counter );
     }
 
     async LogError( description, data, key, counter ) {
-        return this.addNewLog( 'error', description, data, key, counter );
+        return MantraAPILogger.addNewLog( this, 'error', description, data, key, counter );
     }
 
     async ConsoleQuestion( question ) {
@@ -1033,27 +1034,6 @@ class MantraAPI {
                (apiParts.component && apiParts.asset) &&
                this.componentsLoader.existsComponentByName(apiParts.component) &&
                this.bootstrap.existsApi(apiToCall)
-    }
-
-    async addNewLog( type, description, data = "", key = "", counter = 0) {
-        const logApi = this.GetInjection( this.Config("core.logapi") );
-
-        if ( global.Mantra.Initialized && logApi && logApi !== "" ) {
-            const logData = {
-                type: type,
-                key: key,
-                counter: counter,
-                description: description,
-                data: data ? data : ""
-            }
-    
-            return this.Invoke( logApi, logData );
-        } else {
-            console.log( `Mantra log of type ${type}` );
-            console.log( "Description: ", description);
-            if ( data !== "" ) console.log("Data:", JSON.stringify(data, null, 4));
-            if ( key !== "") console.log(`Key: ${key}` );
-        }
     }
 
     async getHtmlBlock( blockName ) {        
