@@ -1,6 +1,8 @@
 "use strict";
 
 const Path = require("path");
+const Url = require("url");
+
 const CoreConstants = global.gimport("coreconstants");
 
 const TESTASSETS_FOLDER = "testassets";
@@ -20,5 +22,20 @@ module.exports = {
         MantraServer.initGlobal( config );
     
         await global.Mantra.ComponentsLoader.loadComponents([PATH_TO_COMPONENTS]);
+    },
+
+    isValidUrl: (s) => {
+        try {
+            new URL(s);
+            return true;
+        } catch (err) {
+            return false;
+        }
+    },
+
+    isValidMail: (emailToValidate) => {
+        const emailRegexp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+
+        return emailRegexp.test(emailToValidate);
     }
 }

@@ -54,7 +54,7 @@ module.exports = {
     MANTRA_JS_BLOCK: "mantra-js-files",
 
     NODESUPPORTEDVERSIONS: [12, 13, 14, 15, 16, 17],
-    MANTRAWEBSITE: "www.mantrajs.com",
+    MANTRAWEBSITE: "https://www.mantrajs.com",
     APIMANTRAWEBSITEENDPOINT: "http://api.mantrajs.com",
     MANTRASUPPORTMAIL: "support@mantrajs.com",
     DOWNLOADEDFOLDER: "mantradownloaded",

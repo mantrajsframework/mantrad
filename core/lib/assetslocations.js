@@ -176,7 +176,7 @@ class AssetsLocationsAPI {
                     return Path.join(global.Mantra.MantraConfig.SiteTemplatesLocation, global.Mantra.MantraConfig.FrontendName, componentName, base[1]);
                 }
                 default:
-                    MantraConsole.error( `Unkown location type of ${base[0]}` );
+                    throw new Error( `Unkown location type of ${base[0]}` );
             }
         } else {
             return Path.join(MantraAPI.GetComponentLocation(component), location);

@@ -66,4 +66,11 @@ describe( 'AssetsLocations tests', () => {
         
         assert.isTrue( Path.isAbsolute(Path.join(__dirname,cssLocation)) );
     });
+
+    it( '# TranslateLocationFromKeyWords', () => {
+        const Mantra = global.Mantra.MantraAPIFactory();
+        const location = AssetsLocations.TranslateLocationFromKeyWords( Mantra, 'frontendtemplates.blocks', 'mycomponent' );
+
+        assert.isString( location );
+    });
 });
