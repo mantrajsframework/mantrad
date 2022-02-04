@@ -18,12 +18,17 @@ const mantraConfigValidationSchema = {
     "required": ["name", "version"]
 };
 
-module.exports = {
-    isValidConfigFile: ( fullPathToComponent ) => {
-        const mantraConfigFile = require( Path.join( fullPathToComponent, CoreConstants.COMPONENTS_CONFIGFILENAME ) );
-        const validator = new JsonValidator();
-        const validationResult = validator.validate( mantraConfigFile, mantraConfigValidationSchema );
-    
-        return validationResult.errors.length == 0;
-    }
+const isValidConfigJsonImpl = (mantraConfigFile) => {
+    const validationResult = (new JsonValidator()).validate( mantraConfigFile, mantraConfigValidationSchema );
+
+    return validationResult.errors.length == 0;
 }
+
+const isValidConfigFileImpl = (fullPathToComponent) => {
+    const mantraConfigFile = require(Path.join(fullPathToComponent, CoreConstants.COMPONENTS_CONFIGFILENAME));
+
+    return isValidConfigJsonImpl(mantraConfigFile);
+}
+
+module.exports.isValidConfigFile = isValidConfigFileImpl;
+module.exports.isValidConfigJson = isValidConfigJsonImpl;
