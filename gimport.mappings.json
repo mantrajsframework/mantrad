@@ -8,6 +8,7 @@
     "bootstrapnotfoundmiddleware": "./core/bootstrapnotfoundmiddleware.js",
     "bootstrapregister" : "./core/bootstrapregister.js",
     "componentbuilder": "./core/lib/componentbuilder.js",
+    "componentconfigvalidator": "./core/lib/componentconfigvalidator.js",
     "componentsrepositoryinstances": "./core/componentsrepositoryinstances.js",
     "componentsapiinstances": "./core/componentsapiinstances.js",
     "componentsloader" : "./core/componentsloader.js",

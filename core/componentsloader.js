@@ -7,7 +7,9 @@
 
 const path = require("path");
 
+const ComponentConfigValidator = global.gimport("componentconfigvalidator");
 const CoreConstants = global.gimport("coreconstants");
+const MantraConsole = global.gimport("mantraconsole");
 const Loader = global.gimport("componentloader");
 const MantraUtils = global.gimport("mantrautils");
 
@@ -22,14 +24,15 @@ class ComponentsLoader {
     
             // Directory name is considered as component name
             if ( MantraUtils.IsDirectorySync( fullPathToComponent ) ) {
-                // If cmpsToLoad is set
-                if ( cmpsToLoad && cmpsToLoad.includes( file.filename ) ) {
-                    this.componentsInfo[file.filename] = Loader.loadComponent( fullPathToComponent );
-                } else if ( cmpsToLoad == null ) {
-                    this.componentsInfo[file.filename] = Loader.loadComponent( fullPathToComponent );
+                if ( (cmpsToLoad && cmpsToLoad.includes( file.filename )) || cmpsToLoad == null ) {
+                    if ( ComponentConfigValidator.isValidConfigFile( fullPathToComponent ) ) {
+                        this.componentsInfo[file.filename] = Loader.loadComponent( fullPathToComponent );
+                    } else {
+                        MantraConsole.error( `${CoreConstants.COMPONENTS_CONFIGFILENAME} invalid for component '${path.basename(fullPathToComponent)}'. Component not loaded.` );
+                    }
                 }
             }
-        }
+        }   
 
         return Object.keys(this.componentsInfo).length;
     }

@@ -9,7 +9,6 @@ const Path = require("path");
 const fs = require("fs");
 
 const CoreConstants = global.gimport("coreconstants");
-const MantraUtils = global.gimport("mantrautils");
 
 module.exports = {
     /*
@@ -23,17 +22,18 @@ module.exports = {
      */
     loadComponent: ( fullPathToComponent ) => {
         const pathToEntryComponentFile = Path.join( fullPathToComponent, Path.basename(fullPathToComponent) ) + ".js";
+        const mantraConfigFile = require( Path.join( fullPathToComponent, CoreConstants.COMPONENTS_CONFIGFILENAME ) );
 
         if ( fs.existsSync( pathToEntryComponentFile ) ) {
             return {
                 pathToComponent: fullPathToComponent,
-                config: require( Path.join( fullPathToComponent, CoreConstants.COMPONENTS_CONFIGFILENAME ) ),
+                config: mantraConfigFile,
                 component: require( pathToEntryComponentFile )()
             };
         } else {
             return {
                 pathToComponent: fullPathToComponent,
-                config: require( Path.join( fullPathToComponent, CoreConstants.COMPONENTS_CONFIGFILENAME ) ),
+                config: mantraConfigFile,
                 component: {
                     Start: {
                         onStart: async () => {}
