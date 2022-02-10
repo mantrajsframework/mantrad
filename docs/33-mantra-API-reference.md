@@ -219,7 +219,7 @@ Returns in an array the name of the components that a component depends on.
 GetBaseUrl()
 ```
 
-Returns a string with the base url property indicated in "core" configuration module (property "core.baseurl").
+Returns a string with the base url property indicated in "BaseUrl" property in mantraconfig.json file. This property can be set gobally or by each app.
 
 ## MantraAPI.GetRequestPath
 

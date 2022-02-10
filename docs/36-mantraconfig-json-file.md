@@ -108,6 +108,7 @@ And here another version with more stuff to define:
 You add more features to this configuration file while your project gets bigger and new features and components are added.
 
 # Description of mantraconfig.json file properties
+
 *"CurrentVersion"* (optional)
 
 Indicates the current version of the mantra project, usually in the form of x.y.z numbers.
@@ -133,7 +134,7 @@ This property can be overwritten by specific app configuration in its applicatio
 
 The content of this property can be:
 
-* A view of a component as a landing page, in the usual format like : <component name>.<view name>. Por instance, "landing.dashboard", rendering the view "dashboard" of a component named as "landing".
+* A view of a component as a landing page, in the usual format like : <component name>.<view name>. For instance, "landing.dashboard", rendering the view "dashboard" of a component named as "landing".
 * A local redirect, for instance "/landingpage.html", which will render /ui/landingpage.html file as landing page of the site.
 
 *"GlobalConfig"*
@@ -143,6 +144,14 @@ This entry indicates some global an common configuration parameters for the whol
 It defines a json object with the properties needed to include.
 
 All those properties are accesed by Mantra.GlobalConfig( "propertyname" ).
+
+*"BaseUrl"
+
+This optional property sets the url of the project if needed.
+
+This value can get retrieved by applications using Mantra.GetBaseUrl() method.
+
+Can be overwritten in each specific applicacion at "Apps" section.
 
 *"ComponentsConfig*"
 

@@ -16,8 +16,7 @@ This is the default configuration for "core" component you can overwrite in your
     "logapi": "",
     "minifyapi": "",
     "translatejsapi": "",
-    "translatecssapi": "",
-    "baseurl": "http://localhost:8080/"
+    "translatecssapi": ""
 }
 ```
 

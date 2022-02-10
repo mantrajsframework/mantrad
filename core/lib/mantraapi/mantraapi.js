@@ -50,10 +50,10 @@ class MantraAPI {
     }
 
     /*
-     * Returns the base url indicated in config file for the component "core" and the key "baseurl"
+     * Returns the base url indicated in BaseUrl property configuration at mantraconfig.json file
      */
     GetBaseUrl() {
-        return this.Config("core.baseurl");
+        return global.Mantra.MantraConfig.BaseUrl;
     }
 
     /*

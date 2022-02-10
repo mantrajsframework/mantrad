@@ -86,7 +86,11 @@ module.exports = {
             
             // Inherit app properties in site config
             MantraConfig.InactiveComponents = [];
-        
+
+            if ( appConfig.BaseUrl ) {
+                MantraConfig.BaseUrl = appConfig.BaseUrl; 
+            }
+
             if ( appConfig.ActiveComponents ) {
                 MantraConfig.ActiveComponents = appConfig.ActiveComponents;
             }
