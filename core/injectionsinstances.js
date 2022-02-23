@@ -5,6 +5,7 @@
 
 "use strict";
 
+const MantraConsole = global.gimport("mantraconsole");
 const MantraUtils = global.gimport("mantrautils");
 
 let injectionsInstances = {};
@@ -17,14 +18,14 @@ module.exports = {
             if ( injectionApi != "" ) {
                 const apiParts = MantraUtils.ExtractValues( injectionApi, "{componentname}.{apiname}");
     
-                if ( apiParts ) {
+                if ( apiParts && apisInstances[apiParts.componentname] && apisInstances[apiParts.componentname][apiParts.apiname] ) {
                     injectionsInstances[injectionName] = apisInstances[apiParts.componentname][apiParts.apiname];
                 } else {
-                    throw Error(`Unknown api for injection named '${injectionName}'`);  
+                    MantraConsole.error( `Unknown API '${injectionApi}' for injection named '${injectionName}'` );                    
                 }
             }
         }
     },
 
-    GetInjectionsInstances: () => injectionsInstances
+    GetInjectionsInstances: () => injectionsInstances,
 }

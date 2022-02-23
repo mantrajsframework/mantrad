@@ -157,7 +157,7 @@ class Bootstrap {
         ComponentsRepositoryInstances.BuildRepositoryInstances( mantraAPI, this.hooks[CoreConstants.DAL_HOOK] );
         await ModelsInstances.BuildModelInstances( mantraAPI, components );
         InjectionsInstances.BuildInjectionsInstances( global.Mantra.MantraConfig.Injections, ComponentsApiInstances.GetApiInstances() );
-        
+
         await this.checkMantraIsInitialized( mantraAPI );
         
         this.indexHooks();
