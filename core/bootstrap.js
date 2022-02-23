@@ -263,7 +263,7 @@ class Bootstrap {
     async callOnStartComponents( mantraAPI ) {
         // Start core components first to initialize some useful apis for the app components
         await this.iterateOverComponents( async (cmpInstance, componentName) => {
-            if ( CoreConstants.CORE_COMPONENTS.includes(componentName) && cmpInstance.Start.onStart ) {
+            if ( CoreConstants.CORE_COMPONENTS.includes(componentName) && cmpInstance.Start && cmpInstance.Start.onStart ) {
                 try {
                     await cmpInstance.Start.onStart(mantraAPI);
                 } catch(err) {
@@ -273,7 +273,7 @@ class Bootstrap {
         });
 
         await this.iterateOverComponents( async (cmpInstance, componentName) => {
-            if ( !CoreConstants.CORE_COMPONENTS.includes(componentName) ) {
+            if ( !CoreConstants.CORE_COMPONENTS.includes(componentName) && cmpInstance.Start && cmpInstance.Start.onStart ) {
                 try {
                     await cmpInstance.Start.onStart(mantraAPI);
                 } catch(err) {
@@ -286,7 +286,7 @@ class Bootstrap {
     // Call onStop() on each component
     async callOnStopComponents( mantraAPI ) {
         await this.iterateOverComponents( async (cmpInstance, componentName) => {
-            if ( cmpInstance.Start.onStop ) {
+            if ( cmpInstance.Start && cmpInstance.Start.onStop ) {
                 try {
                     await cmpInstance.Start.onStop( mantraAPI );
                 } catch(err) {
@@ -298,7 +298,7 @@ class Bootstrap {
 
     async checkOnStartupHealth( MantraAPI ) {   
         await this.iterateOverComponents( async (cmpInstance, componentName) => {
-            if ( cmpInstance.Start.onCheckStartupHealth ) {
+            if ( cmpInstance.Start && cmpInstance.Start.onCheckStartupHealth ) {
                 try {
                     await cmpInstance.Start.onCheckStartupHealth(MantraAPI);
                 } catch(err) {
@@ -310,11 +310,11 @@ class Bootstrap {
 
     async callOnCheckHealthComponents( mantraAPI ) {
         await this.iterateOverComponents( async (cmpInstance,componentName) => {
-            if ( cmpInstance.Start.onCheckHealth ) {
+            if ( cmpInstance.Start && cmpInstance.Start.onCheckHealth ) {
                 MantraConsole.info(`Checking health for component ${componentName}`, false);
 
                 try {
-                    await cmpInstance.Start.onCheckHealth( mantraAPI );                    
+                    await cmpInstance.Start.onCheckHealth( mantraAPI );                 
                 } catch(err) {
                     MantraConsole.error( `Exception calling onCheckHealth on component ${componentName}. ${err}` );
                 }
@@ -325,7 +325,7 @@ class Bootstrap {
     // Call onServerStarted() on each component
     async callOnServerStartedComponents( app, mantraAPI ) {
         await this.iterateOverComponents( async (cmpInstance, componentName) => {
-            if ( cmpInstance.Start.onServerStarted ) {
+            if ( cmpInstance.Start && cmpInstance.Start.onServerStarted ) {
                 try {
                     await cmpInstance.Start.onServerStarted( app, mantraAPI );
                 } catch(err) {
@@ -338,7 +338,7 @@ class Bootstrap {
     // call onSystemStarted on each component
     async systemStarted( mantraAPI ) {
         await this.iterateOverComponents( async (cmpInstance, componentName) => {
-            if ( cmpInstance.Start.onSystemStarted ) {
+            if ( cmpInstance.Start && cmpInstance.Start.onSystemStarted ) {
                 try {
                     await cmpInstance.Start.onSystemStarted( mantraAPI );
                 } catch(err) {
