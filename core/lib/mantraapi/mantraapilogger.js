@@ -13,26 +13,28 @@ let logApi = null;
 const addNewLogImpl = async ( MantraAPI, type, description, data = "", key = "", counter = 0) => {
     logApi = ( logApi != null ? logApi : getLogApiImpl(MantraAPI) );
 
+    const finalDescription = `(${MantraAPI.GetAppName()}) ${description}`;
+
     if ( global.Mantra.Initialized && logApi && logApi !== "" ) {
         return MantraAPI.Invoke( logApi, {
             type: type,
             key: key,
             counter: counter,
-            description: description,
+            description: finalDescription,
             data: data ? data : ""
         } );
     } else {
         switch( type ) {
             case CoreConstants.LOGTYPE_INFO: {
-                MantraConsole.info( description );
+                MantraConsole.info( finalDescription );
                 break;
             }
             case CoreConstants.LOGTYPE_WARNING: {
-                MantraConsole.warning( description );
+                MantraConsole.warning( finalDescription );
                 break;
             }
             case CoreConstants.LOGTYPE_ERROR: {
-                MantraConsole.error( description );
+                MantraConsole.error( finalDescription );
                 break;
             }
             default: {
