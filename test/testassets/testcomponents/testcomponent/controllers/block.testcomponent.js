@@ -1,4 +1,4 @@
-"user strict";
+"use strict";
 
 module.exports = {
     defaultblock: async (Mantra, html) => {

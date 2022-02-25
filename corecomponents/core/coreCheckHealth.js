@@ -20,7 +20,7 @@ async function checkComponentSchemas(MantraAPI) {
 
     MantraConsole.info("Checking entities for components and database connectivity...", false);
 
-    await ComponentsIterator.iterate( async (cmpInstance, componentName) => { 
+    await ComponentsIterator( async (cmpInstance, componentName) => { 
         if ( !CoreConstants.IsCoreComponent(componentName) ) {
             const schemaLocation = AssetsLocations.GetSchemaLocation( componentName );
             const existsSchemaFile = await MantraAPI.Utils.FileExists( schemaLocation );

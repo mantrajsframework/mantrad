@@ -83,7 +83,7 @@ In this case, the module should define a number of properties named as the follo
 Here there's an example:
 
 ```js
-"user strict";
+"use strict";
 
 module.exports = {
     actionsonarticleblock_accesscondition: ["system.islogged"],
