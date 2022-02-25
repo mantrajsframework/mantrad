@@ -6,6 +6,7 @@
 "use strict";
 
 const MantraConsole = global.gimport("mantraconsole");
+const ComponentsIterator = global.gimport("componentsiterator");
 const CoreConstants = global.gimport("coreconstants");
 
 module.exports = {
@@ -19,7 +20,7 @@ async function checkComponentSchemas(MantraAPI) {
 
     MantraConsole.info("Checking entities for components and database connectivity...", false);
 
-    await global.Mantra.Bootstrap.iterateOverComponents( async (cmpInstance, componentName) => { 
+    await ComponentsIterator.iterate( async (cmpInstance, componentName) => { 
         if ( !CoreConstants.IsCoreComponent(componentName) ) {
             const schemaLocation = AssetsLocations.GetSchemaLocation( componentName );
             const existsSchemaFile = await MantraAPI.Utils.FileExists( schemaLocation );
