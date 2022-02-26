@@ -10,6 +10,7 @@ const { nanoid } = require("nanoid");
 const componentsLoader = new global.gimport("componentsloader");
 const mantraAPI = global.gimport("mantraapi");
 const MantraConsole = global.gimport("mantraconsole");
+const InitialEventsCaller = global.gimport("initialeventscaller");
 
 let App = undefined;
 
@@ -66,8 +67,8 @@ class MantraServer {
             await this.startComponents();
         }
         
-        await global.Mantra.Bootstrap.systemStarted( Mantra );
-        await global.Mantra.Bootstrap.checkOnStartupHealth( Mantra );
+        await InitialEventsCaller.callOnSystemStarted( Mantra );
+        await InitialEventsCaller.checkOnStartupHealth( Mantra );
     
         Mantra = global.Mantra.MantraAPIFactory(); // Force to create the object with all stuff already created (like Extend properties)
         await Mantra.EmitEvent( "system.startup", {} );

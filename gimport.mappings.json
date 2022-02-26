@@ -21,6 +21,7 @@
     "execcommand": "./core/lib/execcommand.js",
     "existscommand": "./core/lib/existscommand.js",
     "fatalending": "./core/lib/fatalending.js",
+    "initialeventscaller": "./core/lib/initialeventscaller.js",
     "injectionsinstances": "./core/injectionsinstances.js",
     "mantraapi" : "./core/lib/mantraapi/mantraapi.js",
     "mantraapilogger" : "./core/lib/mantraapi/mantraapilogger.js",

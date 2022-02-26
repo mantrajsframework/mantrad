@@ -11,6 +11,7 @@ const Path = require("path");
 const AppConditionsChecker = global.gimport("appconditionschecker");
 const ComponentInstaller = global.gimport("componentinstaller");
 const CoreConstants = global.gimport("coreconstants");
+const InitialEventsCaller = global.gimport("initialeventscaller");
 const MantraConsole = global.gimport("mantraconsole");
 const MantraDB = global.gimport("mantradb");
 const NpmInstaller = global.gimport("npminstaller");
@@ -472,7 +473,7 @@ module.exports = {
     },
 
     CheckHealth: async (MantraAPI) => {
-        await global.Mantra.Bootstrap.callOnCheckHealthComponents(MantraAPI);
+        await InitialEventsCaller.callOnCheckHealthComponents(MantraAPI);
     },
 
     ShowComponentsToUpdate: async (MantraAPI) => {
