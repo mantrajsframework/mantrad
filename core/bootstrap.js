@@ -162,15 +162,22 @@ class Bootstrap {
         await this.checkMantraIsInitialized( mantraAPI );
         
         this.indexHooks();
-                
-        process.on('SIGINT', async () => {
-            MantraConsole.info("Stopping components...");
-            await InitialEventsCaller.callOnStopComponents( mantraAPI );
-            MantraConsole.info("App stopped");
-            process.exit();
-        });
 
-        MantraConsole.info("Components started. Double Ctrl+C to close.");
+        const StopFunction = async () => {
+            try {
+                MantraConsole.info("Stopping components...");
+                await InitialEventsCaller.callOnStopComponents( mantraAPI );
+                MantraConsole.info("App stopped");
+            } catch(err) {
+                MantraConsole.error( err );
+            }
+            process.exit(0);
+        }
+        process.on('SIGINT', StopFunction );
+        process.on('SIGQUIT', StopFunction );
+        process.on('SIGTERM', StopFunction );
+
+        MantraConsole.info("Components started. Double Ctrl+C to close. Double Ctrl+R to restart.");
     }
 
     async startServer( app, MantraAPI ) {        

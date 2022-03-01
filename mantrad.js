@@ -8,11 +8,12 @@
 "use strict";
 
 const Path = require("path");
-process.stdin.resume(); // To prevent close process instantly with Ctrl+C
 
 require("gimport").init(__dirname);
 
 const CoreConstants = global.gimport("coreconstants");
+const MantradProcess = global.gimport("mantradprocess");
+const MantradKeys = global.gimport("mantradkeys");
 const MantraConfig = global.gimport("mantraconfig");
 const MantraConsole = global.gimport("mantraconsole");
 const MantraStartup = global.gimport("mantrastartup")();
@@ -50,9 +51,20 @@ if ( !NodeVersionChecker.CheckNodeVersion( CoreConstants.NODESUPPORTEDVERSIONS )
             global.gimport("fatalending").exit();
         }
         case 'startapp': {
-            const config = await loadMantraConfig();
+            const appName = args.arg1 ? args.arg1 : "";
 
-            await MantraStartup.startApp(config, args);
+            MantradProcess.fork(__dirname, appName);
+            await MantradKeys.configureKeys( __dirname, [appName] );
+        }
+        break;
+        case 'startall': {
+            const config = await loadMantraConfig();
+            const apps = config.Apps ? config.Apps : { main: {} };
+
+            for( const appName of Object.keys(apps) ) {
+                MantradProcess.fork(__dirname, appName);
+                await MantradKeys.configureKeys( __dirname, [appName] );
+            }
         }
         break;
         case 'install': {

@@ -72,7 +72,7 @@ class MantraStartup {
 
         MantraConsole.info(`Starting Mantra App ${getMantraVersion()}`);
         await MantraServer.startServer(config);
-        MantraConsole.info(`Mantra "${appToStart}" application started`);
+        MantraConsole.info(`Mantra "${appToStart}" application started at process ID ${process.pid}`);
     }
 
     GetCommands(MantraAPI) {

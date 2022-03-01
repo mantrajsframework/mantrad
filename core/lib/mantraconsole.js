@@ -9,7 +9,13 @@ const ReadLine = require("readline").createInterface(process.stdin, process.stdo
 const Chalk = require("chalk");
 const Moment = require("moment");
 
+let currentAppName = "";
+
 module.exports = {
+    setAppName: (appName) => {
+        currentAppName = appName;
+    },
+
     rawInfo(msg) { console.log(msg); },
 
     info(msg, withDate) {
@@ -62,9 +68,9 @@ function ShowMessage( msg, color, withDate) {
     let showDate = typeof withDate == 'undefined' ? true : withDate;
 
     if (showDate) {
-        console.log( Chalk.keyword(color)(FormatWithDateTime(msg)) );
+        console.log( `(${currentAppName}) ${Chalk.keyword(color)(FormatWithDateTime(msg))}` );
     } else {
-        console.log( Chalk.keyword(color)(msg) );
+        console.log( `(${currentAppName}) ${Chalk.keyword(color)(msg)}` );
     }
 }
 

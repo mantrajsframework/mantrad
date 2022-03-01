@@ -57,7 +57,9 @@ These are the Mantra core commands:
 * [show-middlewares](#show-middlewares)
 
 * [show-posts](#show-posts)
-  
+
+* [startall](#startall)
+
 * [startapp](#startapp)
 
 * [uninstall-component](#uninstall-component)
@@ -242,6 +244,14 @@ $ mantrad show-posts [component name]
 ```
 
 Shows the list of all http posts definitions for all components. If [component name] is indicated, then only shows all post definitions for that component.
+
+## startall
+
+```bash
+$ mantrad startall
+```
+
+Starts all applications of the project defined at Apps section in [mantraconfig.json file](/docs/36-mantraconfig-json-file.md).
 
 ## startapp
 
