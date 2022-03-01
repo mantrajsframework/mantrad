@@ -34,6 +34,12 @@ module.exports = {
         return MantraConfig;
     },
 
+    LoadFullConfigFromProject: function ( mantraRootFolder ) {
+        return this.LoadFullConfig(path.join(mantraRootFolder, CoreConstants.CORECOMPONENTSFOLDER), 
+            path.join(process.cwd(), CoreConstants.MANTRACONFIGFILE), 
+            process.cwd());
+    },
+
     LoadFullConfig : function( fullPathToCoreComponents, fullPathToConfigFile, fullPathToSite ) {
         let MantraConfig = require( fullPathToConfigFile );
 

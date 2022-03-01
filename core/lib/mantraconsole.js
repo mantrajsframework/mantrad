@@ -67,10 +67,18 @@ module.exports = {
 function ShowMessage( msg, color, withDate) {
     let showDate = typeof withDate == 'undefined' ? true : withDate;
 
-    if (showDate) {
-        console.log( `(${currentAppName}) ${Chalk.keyword(color)(FormatWithDateTime(msg))}` );
+    if ( currentAppName && currentAppName !== "" ) {
+        if (showDate) {
+            console.log( `(${currentAppName}) ${Chalk.keyword(color)(FormatWithDateTime(msg))}` );
+        } else {
+            console.log( `(${currentAppName}) ${Chalk.keyword(color)(msg)}` );
+        }
     } else {
-        console.log( `(${currentAppName}) ${Chalk.keyword(color)(msg)}` );
+        if (showDate) {
+            console.log( `${Chalk.keyword(color)(FormatWithDateTime(msg))}` );
+        } else {
+            console.log( `${Chalk.keyword(color)(msg)}` );
+        }
     }
 }
 
