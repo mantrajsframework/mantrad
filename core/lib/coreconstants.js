@@ -55,7 +55,7 @@ module.exports = {
 
     NODESUPPORTEDVERSIONS: [12, 13, 14, 15, 16, 17],
     MANTRAWEBSITE: "https://www.mantrajs.com",
-    APIMANTRAWEBSITEENDPOINT: "http://localhost", //"http://api.mantrajs.com",
+    APIMANTRAWEBSITEENDPOINT: "http://api.mantrajs.com",
     MANTRASUPPORTMAIL: "support@mantrajs.com",
     DOWNLOADEDFOLDER: "mantradownloaded",
 
