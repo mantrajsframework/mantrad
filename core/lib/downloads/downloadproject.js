@@ -78,8 +78,9 @@ module.exports = {
 
 function GetProjectName( fullProjectName ) {
     const projectParts = MantraUtils.ExtractValues( fullProjectName, "{projectName}@{version}");
-    return projectParts ? projectParts.componentName : req.MantraPostData.projectnamerequested;
+    return projectParts ? projectParts.projectName : fullProjectName;
 }
+
 function ShowSupportMessageAfterFailure() {
     MantraConsole.error( `If the problem persists or if you think this is something we need to fix or improve, please contact with ${CoreConstants.MANTRASUPPORTMAIL} and we'll be happy to make Mantra better.`);
 }
