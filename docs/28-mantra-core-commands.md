@@ -117,7 +117,7 @@ $ mantrad download-component [component name] | [component name]@[version]
 
 Downloads a component from www.mantrajs.com site.
 
-You need to be registered at the site. You can get your free license key at your profile account.
+You need to be registered at the site. You can get your free license key at your profile account: You can get your free license key at your profile account: [https://www.mantrajs.com/licenses/userlicense](https://www.mantrajs.com/licenses/userlicense).
 
 Components available at [https://www.mantrajs.com/marketplacecomponent/components](https://www.mantrajs.com/marketplacecomponent/components).
 
@@ -129,7 +129,7 @@ $ mantrad download-project [project name] | [project name]@[version]
 
 Downloads a project from www.mantrajs.com site.
 
-You need to be registered at the site. You can get your free license key at your profile account.
+You need to be registered at the site. You can get your free license key at your profile account: [https://www.mantrajs.com/licenses/userlicense](https://www.mantrajs.com/licenses/userlicense).
 
 Projects available at [https://www.mantrajs.com/marketplaceproject/projects](https://www.mantrajs.com/marketplaceproject/projects).
 

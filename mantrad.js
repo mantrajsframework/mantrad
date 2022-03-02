@@ -40,9 +40,6 @@ if ( !NodeVersionChecker.CheckNodeVersion( CoreConstants.NODESUPPORTEDVERSIONS )
     if ( existsMantraConfigFile ) {
         await checkMainGuards();
         config = await MantraConfig.LoadFullConfigFromProject( __dirname )
-    } else {
-        await MantraStartup.showDefaultHelp();
-        global.gimport("fatalending").exit();
     }
 
     switch( args.command ) {
@@ -109,7 +106,7 @@ if ( !NodeVersionChecker.CheckNodeVersion( CoreConstants.NODESUPPORTEDVERSIONS )
             if ( existsMantraConfigFile ) {
                 await MantraStartup.performCommand(config, args);
             } else {
-                MantraConsole.info(`No detected in this folder Mantra config file (${CoreConstants.MANTRACONFIGFILE}).`, false);
+                await MantraStartup.showDefaultHelp();
             }
             
             global.gimport("fatalending").exit();

@@ -28,6 +28,8 @@ module.exports = {
     },
 
     GetUserCredentialsToDownloadComponent: async () => {
+        MantraConsole.info( "Get your license key at 'https://www.mantrajs.com/licenses/userlicense'", false);
+
         const userMail = await MantraConsole.question(`Your user mail at ${CoreConstants.MANTRAWEBSITE}: `);
         const licenseKey = await MantraConsole.question('Your license key: ');
     
