@@ -16,15 +16,29 @@ module.exports = {
      * token to download a component.
      * Params: 
      * {
-     *    userMail: <mail of the user>,
-     *    userLicense: <license for the user>,
-     *    componentNameRequested: <component to download in with the format 'component name' or 'component name'@'version'>
+     *    usermail: <mail of the user>,
+     *    userlicense: <license for the user>,
+     *    componentnamerequested: <component to download in with the format 'component name' or 'component name'@'version'>
      * } 
      */
     GetDownloadTokenForComponent: async ( data ) => {
         return PostApi.Post( `${CoreConstants.APIMANTRAWEBSITEENDPOINT}/mantrajspublicapi/getdownloadtokenforcomponent`, data );
     },
 
+    /*
+     * Call Mantra API endpoint /mantrajspublicapi/getdownloadtokenforproject to get a
+     * token to download a project.
+     * Params: 
+     * {
+     *    usermail: <mail of the user>,
+     *    userlicense: <license for the user>,
+     *    projectnamerequested: <project to download in with the format 'project name' or 'project name'@'version'>
+     * } 
+     */
+    GetDownloadTokenForProject: async ( data ) => {
+        return PostApi.Post( `${CoreConstants.APIMANTRAWEBSITEENDPOINT}/mantrajspublicapi/getdownloadtokenforproject`, data );
+    },
+    
     GetDownloadComponent: async (downloadToken, destinationFolder) => {
         const urlToDownload = getUrlToDownloadFromToken(downloadToken);
 

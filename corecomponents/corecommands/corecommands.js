@@ -39,7 +39,6 @@ class CoreCommandsStarter {
                 Name: "download-component",
                 Description: `Download a component from ${CoreConstants.MANTRAWEBSITE} site. Use: mantrad download-component <component name>|<component name@version>`,
                 Handler: CoreCommandsHandlers.DownloadComponent
-
             }, {
                 Name: "update-components-locations",
                 Description: "Updates components locations after moving some component to a new location. Use: mantrad update-components-locations",

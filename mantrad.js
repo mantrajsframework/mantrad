@@ -79,6 +79,17 @@ if ( !NodeVersionChecker.CheckNodeVersion( CoreConstants.NODESUPPORTEDVERSIONS )
             await MantraStartup.showVersion();
             global.gimport("fatalending").exit();
         }
+        case 'download-project': {
+            const DownloadProject = global.gimport("downloadproject");
+
+            if ( args.hasArgs && args.arg1 ) {
+                await DownloadProject.Download(args.arg1);
+            } else {
+                MantraConsole.info( "Project name missing. Use '$ mantrad download-project <project name>'", false);
+            }
+
+            global.gimport("fatalending").exit();
+        }
         case 'new-project': {
             await MantraStartup.newProject();
             global.gimport("fatalending").exit();
