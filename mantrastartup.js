@@ -134,6 +134,10 @@ function getDefaultCommands() {
         Description: "Run 'npm install' for components with Node dependencies. Usage: npm-install <component name | optional>"
     }
 
+    cmds['download-project'] = {
+        Description: `Download a project from ${CoreConstants.MANTRAWEBSITE}. Usage: donwload-project <project name> | <project name>@<version>`
+    }
+
     return cmds;
 }
 

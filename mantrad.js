@@ -40,6 +40,9 @@ if ( !NodeVersionChecker.CheckNodeVersion( CoreConstants.NODESUPPORTEDVERSIONS )
     if ( existsMantraConfigFile ) {
         await checkMainGuards();
         config = await MantraConfig.LoadFullConfigFromProject( __dirname )
+    } else {
+        await MantraStartup.showDefaultHelp();
+        global.gimport("fatalending").exit();
     }
 
     switch( args.command ) {

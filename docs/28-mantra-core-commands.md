@@ -26,6 +26,10 @@ These are the Mantra core commands:
 
 * [disable-component](#disable-component)
 
+* [download-component](#download-component)
+
+* [download-project](#download-project)
+
 * [enable-component](#enable-component)
 
 * [install-component](#install-component)
@@ -104,6 +108,30 @@ $ mantrad disable-component [component name]
 Disables a component given its name.
 
 If a component it is not enable, then will not be loaded when starting any applications of the project.
+
+## download-component
+
+```bash
+$ mantrad download-component [component name] | [component name]@[version]
+```
+
+Downloads a component from www.mantrajs.com site.
+
+You need to be registered at the site. You can get your free license key at your profile account.
+
+Components available at [https://www.mantrajs.com/marketplacecomponent/components](https://www.mantrajs.com/marketplacecomponent/components).
+
+## download-project
+
+```bash
+$ mantrad download-project [project name] | [project name]@[version]
+```
+
+Downloads a project from www.mantrajs.com site.
+
+You need to be registered at the site. You can get your free license key at your profile account.
+
+Projects available at [https://www.mantrajs.com/marketplaceproject/projects](https://www.mantrajs.com/marketplaceproject/projects).
 
 ## enable-component
 
