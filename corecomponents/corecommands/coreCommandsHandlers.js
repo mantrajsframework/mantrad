@@ -9,13 +9,13 @@ const Chalk = require("chalk");
 
 const AppConditionsChecker = global.gimport("appconditionschecker");
 const ComponentInstaller = global.gimport("componentinstaller");
+const CoreCommandsUtils = global.gimport("corecommandsutils");
 const CoreConstants = global.gimport("coreconstants");
 const DownloadComponent = global.gimport("downloadcomponent");
 const InitialEventsCaller = global.gimport("initialeventscaller");
 const InstallComponentImpl = global.gimport("installcomponentimpl");
 const MantraConsole = global.gimport("mantraconsole");
 const MantraDB = global.gimport("mantradb");
-const CoreCommandsUtils = global.gimport("corecommandsutils");
 
 module.exports = {
     InstallComponent: async (MantraAPI, componentName) => {
@@ -122,7 +122,7 @@ module.exports = {
     },
     
     ShowComponents: async (MantraAPI) => {
-        let components = await GetComponentsInstalled();
+        let components = await CoreCommandsUtils.GetComponentsInstalled();
 
         components = MantraAPI.Utils.Underscore.sortBy(components, "name");
 
@@ -547,7 +547,7 @@ async function CreateNewComponent() {
     
     componentInfo.name = await MantraConsole.question('New component name: ', false);
     componentInfo.description = await MantraConsole.question('Description: ', false);
-    componentInfo.location = await GetComponentLocation();
+    componentInfo.location = await CoreCommandsUtils.GetComponentLocation();
     componentInfo.template = "basecomponent";
 
     await global.gimport("componentbuilder").buildComponent(componentInfo);
@@ -556,23 +556,13 @@ async function CreateNewComponent() {
     MantraConsole.info(`To install new component, run: $ mantrad install-component ${componentInfo.name}`, false);
 }
 
-async function GetComponentLocation() {
-    const mc = global.Mantra.MantraConfig;
-
-    if ( mc.ComponentsLocations.length > 1 ) {
-        return mc.ComponentsLocations[ await MantraConsole.questionWithOpts( 'Choose location: ', mc.ComponentsLocations ) ];
-    } else {
-        return mc.ComponentsLocations[0];
-    }
-}
-
 async function GetComponentsToUpdate() {
     let ci = ComponentInstaller(global.Mantra.MantraConfig);
     return ci.GetComponentsToUpdate();
 }
 
 async function ExistsComponentInProject( componentName ) {
-    const components = await GetComponentsInstalled();
+    const components = await CoreCommandsUtils.GetComponentsInstalled();
     const componentNameToCheck = CoreCommandsUtils.ExtractComponentName(componentName);
     
     for( const component of components ) {
@@ -582,15 +572,8 @@ async function ExistsComponentInProject( componentName ) {
     return false;
 }
 
-async function GetComponentsInstalled() {
-    const entitiesConfig = global.Mantra.MantraConfig.getEntitiesConfiguration();
-    const mantraDB = MantraDB(entitiesConfig);
-    
-    return mantraDB.GetAllComponents();
-}
-
 async function IsComponentEnabled(componentName) {
-    const components = await GetComponentsInstalled();
+    const components = await CoreCommandsUtils.GetComponentsInstalled();
 
      for( const component of components ) {
         if ( component.name == componentName ) return component.enabled;

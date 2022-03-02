@@ -9,7 +9,6 @@ const ComponentInstaller = global.gimport("componentinstaller");
 const CoreCommandsUtils = global.gimport("corecommandsutils");
 const CoreConstants = global.gimport("coreconstants");
 const MantraConsole = global.gimport("mantraconsole");
-const MantraDB = global.gimport("mantradb");
 const NpmInstaller = global.gimport("npminstaller");
 
 module.exports = {
@@ -82,7 +81,7 @@ async function InstallComponent( MantraAPI, componentName, askIfNpmNeeded = fals
 }
 
 async function ExistsComponentInProject( componentName ) {
-    const components = await GetComponentsInstalled();
+    const components = await CoreCommandsUtils.GetComponentsInstalled();
     const componentNameToCheck = CoreCommandsUtils.ExtractComponentName(componentName);
     
     for( const component of components ) {
@@ -92,15 +91,8 @@ async function ExistsComponentInProject( componentName ) {
     return false;
 }
 
-async function GetComponentsInstalled() {
-    const entitiesConfig = global.Mantra.MantraConfig.getEntitiesConfiguration();
-    const mantraDB = MantraDB(entitiesConfig);
-    
-    return mantraDB.GetAllComponents();
-}
-
 async function IsComponentEnabled(componentName) {
-    const components = await GetComponentsInstalled();
+    const components = await CoreCommandsUtils.GetComponentsInstalled();
 
      for( const component of components ) {
         if ( component.name == componentName ) return component.enabled;

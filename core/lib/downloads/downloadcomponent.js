@@ -47,7 +47,7 @@ module.exports = {
                     if (answer == "Y" || answer == "") {        
                         const ExecCommand = global.gimport("execcommand");
                         const gzFullPathFile = Path.join(destinationFolder, fileNameDownloaded);
-                        const destinationComponentFolder = Path.join(process.cwd(), await GetComponentLocation());
+                        const destinationComponentFolder = Path.join(process.cwd(), await CoreCommandsUtils.GetComponentLocation());
                         const untarCommand = `tar -xzf ${gzFullPathFile} -C ${destinationComponentFolder}`;
 
                         MantraConsole.info("Uncompressing component...");
@@ -72,16 +72,6 @@ module.exports = {
                 }
             }
         }
-    }
-}
-
-async function GetComponentLocation() {
-    const mc = global.Mantra.MantraConfig;
-
-    if ( mc.ComponentsLocations.length > 1 ) {
-        return mc.ComponentsLocations[ await MantraConsole.questionWithOpts( 'Choose location: ', mc.ComponentsLocations ) ];
-    } else {
-        return mc.ComponentsLocations[0];
     }
 }
 

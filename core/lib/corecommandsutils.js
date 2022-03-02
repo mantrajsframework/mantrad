@@ -8,6 +8,7 @@
 
 const MantraConsole = global.gimport("mantraconsole");
 const CoreConstants = global.gimport("coreconstants");
+const MantraDB = global.gimport("mantradb");
 const MantraUtils = global.gimport("mantrautils");
 
 module.exports = {
@@ -27,6 +28,23 @@ module.exports = {
         return componentNameResult;
     },
 
+    GetComponentsInstalled: async () => {
+        const entitiesConfig = global.Mantra.MantraConfig.getEntitiesConfiguration();
+        const mantraDB = MantraDB(entitiesConfig);
+        
+        return mantraDB.GetAllComponents();
+    },
+    
+    GetComponentLocation: async () => {
+        const mc = global.Mantra.MantraConfig;
+    
+        if ( mc.ComponentsLocations.length > 1 ) {
+            return mc.ComponentsLocations[ await MantraConsole.questionWithOpts( 'Choose location: ', mc.ComponentsLocations ) ];
+        } else {
+            return mc.ComponentsLocations[0];
+        }
+    },
+    
     GetUserCredentialsToDownloadComponent: async () => {
         MantraConsole.info( "Get your license key at 'https://www.mantrajs.com/licenses/userlicense'", false);
 
