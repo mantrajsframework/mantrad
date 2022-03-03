@@ -42,6 +42,11 @@ if ( !NodeVersionChecker.CheckNodeVersion( CoreConstants.NODESUPPORTEDVERSIONS )
         config = await MantraConfig.LoadFullConfigFromProject( __dirname )
     }
 
+    if ( !existsMantraConfigFile && ['startapp','startall','install','npm-install'].includes(args.command) ) {
+        MantraConsole.info( `This command should be executed inside a project folder. No ${CoreConstants.MANTRACONFIGFILE} file found.`);
+        global.gimport("fatalending").exit();
+    }
+
     switch( args.command ) {
         case '--help':
         case '-h': {
