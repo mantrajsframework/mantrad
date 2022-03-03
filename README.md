@@ -1,8 +1,12 @@
-Mantra is a framework based on [Node.js](https://nodejs.org/) to develop scalable and progressive projects with highly decoupled components and projects following *lean* methodology with fast and high evolution.
+Mantra is a framework based on [Node.js](https://nodejs.org/) to develop scalable and progressive projects with highly decoupled components following *lean* methodology with fast and high evolution.
 
 Mantra is the core for building platforms, startups applications, enterprise systems or, virtually, any other kind of projects.
 
+Mantra has been designed to develop high performance applications to be deployed in any scenario.
+
 A Mantra project follows some design and software architecture principles defined in [Mantra Paradigm Development Principles](/docs/01-mantra-development-paradigm.md). With them, technical debt is minimized and testeability of components are extremely high.
+
+Also, by its nature, the assets of a Mantra project are very well organized with separation of concerns and the code for common tasks tends to be minimal.
 
 # Install with NPM
 
@@ -34,26 +38,27 @@ Run your first Mantra project with [Mantra Hello World](/docs/24-mantra-hello-wo
 
 Mantra is a Node.js framework for *lean*, scalable and high performance projects, based on small and highly decoupled components.
 
-A Mantra application is based on multiple components that interact between them using a global interaction layer (Mantra). 
+A Mantra application is based on multiple components that interact between them using a global interaction layer (Mantra API). 
 
-Each component *exposes* assets (APIs, posts and gets controllers, data models, views, blocks, middlewares, cron jobs, commands, *prerequests*, access conditions, etc.). Mantra is in charge of the decoupled interaction between all of them. 
+Each component *exposes* assets (APIs, posts and gets controllers, data models, views, blocks, middlewares, cron jobs, commands, *prerequests*, access conditions, etc.). Mantra is in charge of the decoupled interaction between all of them. Any component can define any other asset with new functionality.
 
 The framework intends to define simple components with very specific functionality, following S.O.L.I.D. and Dependency Injection principles, with extremely simple data models, easy updates, multiapplications within the same project and extremely well organized projects. 
 
 Mantra depends on:
 
-* [RedEntities](https://github.com/mantrajsframework/redentities) as object mapper for data repositories.
+* [RedEntities](https://github.com/mantrajsframework/redentities) as object mapper for data repositories, another project of Mantra.
 * [Express](https://expressjs.com/) as core web server.
 * [Mustache](https://github.com/janl/mustache.js) template redering mecanism for views.
 
 Mantra works and has been tested in Linux environments with Node.js 12.x, 13.x, 14.x, 15.x, 16.x and 17.x.
 
-Future versions will support more data providers and rendering engines.
+Currently, MySql, MariaDB, PostgreSql, Sqlite and Aurora databases are supported. Future versions will support more data providers and rendering engines.
 
 # What kind of applications can be built with Mantra?
+
 You can use Mantra for building many different kinds of applications:
 
-* Scalable web applications.
+* Scalable and high performance web applications.
 * Multisite web applications (multiple sites using same set of components).
 * Command line interface applications.
 * Applications with no UI to run any kind of tasks.
@@ -63,13 +68,19 @@ You can use Mantra for building many different kinds of applications:
 
 In the same Mantra project can live together all applications needed to run it: main UI, operation UI, maintenance apps, task scheduler, etc.
 
-# Mantra application samples
+# Mantra application samples, components and projects
 
-In adition to the documentation, the best way to learn how to write Mantra projects is reading samples. You can find multiple samples at [Mantra Demos](https://github.com/mantrajsframework) repository or listed at [Mantra site demos section](http://www.mantrajs.com/mantrademos/showall).
+In adition to the documentation, the best way to learn how to write Mantra projects is reading samples.
 
-# Documentation
+You can find multiple samples at [Mantra Demos](https://github.com/mantrajsframework) repository or listed at [Mantra site demos section](http://www.mantrajs.com/mantrademos/showall).
 
-Learn to build Mantra projects with this documentation:
+Also, you can download for free many official components and projects ready to use from [Mantra site](https://www.mantrajs.com).
+
+# Documentation and how-tos
+
+Learn to build Mantra projects with this documentation and read how-to guides published continuosly at [Manta site how-to section](https://www.mantrajs.com/articles/showhowto).
+
+You can also read this documentation at [Mantra site](https://www.mantrajs.com).
 
 - [01 Mantra Development Paradigm](/docs/01-mantra-development-paradigm.md)
 - [02 Mantra Hello World](/docs/02-mantra-hello-world.md)
@@ -109,6 +120,3 @@ Learn to build Mantra projects with this documentation:
 - [36 mantraconfig.json File](/docs/36-mantraconfig-json-file.md)
 - [37 mantracoreapi.js File Reference](/docs/37-mantracoreapi-js-file-reference.md)
 - [38 Next Steps](/docs/38-next-steps.md)
-
-***
-To learn by example, go to [Mantra demos](https://www.mantrajs.com/mantrademos/showall) and [components](https://www.mantrajs.com/marketplacecomponent/components) sections of [Mantra site](https://www.mantrajs.com).

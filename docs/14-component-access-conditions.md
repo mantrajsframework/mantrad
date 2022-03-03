@@ -1,8 +1,8 @@
 # Component Access Condition Definition
 
-Similarly to prerequest, there's other hook with the name of "access condition", acting like a *guard* before calling views, blocks, gets or posts handlers.
+Similarly to prerequests, there's other hook with the name of AccessCondition, acting like a *guard* before calling views, blocks, gets or posts handlers.
 
-While prerequests are intended to *calculate* some info before calling view function handler, an access condition is intended to allow or not the view to be requested.
+While prerequests are intended to *calculate* some info before calling final functions handlers, an access condition is intended to allow or not the view, post, get or block to be requested.
 
 To register an access condition, "AccessCondition" hook should be used:
 
@@ -11,7 +11,7 @@ MantraAPI.Hooks( "[name of the component]" )
     .AccessCondition([{
         Name: "[name of the access condition]",
         Handler: "[handler for the access condition]",
-        onCancel: "[handler called when the access conditions returns false, optional]"
+        onCancel: "[handler called when the access conditions returns false (optional)]"
     }]);
 ```
 
@@ -20,6 +20,8 @@ The access condition is identified by a name and is used in "accesscondition" pr
 Let's see an example:
 
 ```js
+const AdminAccessConditionsHandlers = require("./adminaccessconditionshandlers.js");
+
 MantraAPI.Hooks( "admin" )
     .AccessCondition([{
         Name: "admin.isuseradmin",
@@ -63,14 +65,14 @@ The access condition should return true or false:
 
 You can define an access condition without registering it with its *hook*.
 
-Mantra will look for access conditions within named as "accesscondistion.componanename.js" inside the /controllers folder of the component.
+Mantra will look for access conditions within named as "accesscondistion.componanename.js" inside the "/controllers" folder of the component.
 
-Those files, are expected to contain the following properties:
+That module, is expected to contain the following properties:
 
 * "<access condition name>": this property is the name of the access condition and it implements de handler.
 * "<access condition name>.oncancel": optional handler to be called when the access condition returns false.
 
-Here's an example defining two access conditions with names "isuserdev" and "checkcurrentuserisowner":
+Here's an example defining two access conditions with names "isuserdev" and "checkcurrentuserisowner", considering a component called "admin":
 
 ```js
 module.exports = {
@@ -86,12 +88,24 @@ module.exports = {
 }
 ```
 
+With this example, two access conditions are defined: "admin.isuserdev" and "admin.checkcurrentuserisowner".
+
+## List access conditions defined by a component
+
+You can get the list of access conditions defined by a component with *show-accessconditions* Mantra command:
+
+```bash
+$ mantrad show-accessconditions <component name>
+```
+
+This is useful to verify that you have define your access conditions well.
+
 # To remember
 
 * An access condition defined in any component can be used in any other component.
 * The access conditions are called in the order they are set for the view, block, post or get handler.
 * It should implement a basic and simple operation related to the accesibility of an asset.
-* Like prerequests, by using access condition, the code needed for the handler of the view, block, etc., is smaller responsabilities are splited (and reusability better). 
+* Like prerequests, by using access condition, the code needed for the handler of the view, block, etc., is smaller, responsabilities are splited (and reusability better). 
 
 ***
 To learn by example, go to [Mantra demos](https://www.mantrajs.com/mantrademos/showall) and [components](https://www.mantrajs.com/marketplacecomponent/components) sections of [Mantra site](https://www.mantrajs.com).

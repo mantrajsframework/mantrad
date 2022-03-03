@@ -2,11 +2,11 @@
 
 A Mantra project is located in a folder with the following assets:
 
-* Folders containing Mantra components (defined in mantraconfig.json configuration).
-* Folders containing frontend (one or more), located at "/ui" folder.
-* mantraconfig.json file with project and applications properties.
+* Folders containing Mantra components (defined in [mantraconfig.json](/docs/36-mantraconfig-json-file.md) file configuration).
+* Folders containing frontend (one or more), located at "/ui" folder with all its stuff.
+* [mantraconfig.json](/docs/36-mantraconfig-json-file.md) file with project and applications properties.
 
-A single project can define one or more applications, according to mantraconfig.json properties.
+A single project can define one or more related applications, according to mantraconfig.json properties.
 
 Mantra looks up that file to start one of the applications with *startapp* command, such as:
 

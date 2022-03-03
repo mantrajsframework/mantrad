@@ -1,8 +1,8 @@
 # Component Cron Jobs Definitions
 
-A component can define a job to be performed recurrently.
+A component can define a job to be executed recurrently.
 
-As other kind of Mantra assets, you have two ways to define a cron job in a component: using the *hook* "Cron" of implicity.
+As other kind of Mantra assets, you have two ways to define a cron job in a component: using the *hook* "Cron" of implicity in a file.
 
 ## Defining a cron using the hook "Cron"
 
@@ -23,7 +23,7 @@ Where:
 
 ## Defining a cron implicity 
 
-The same than above, can be indicated in a file named as "cron.<componentname>.js" that should be inside /controllers folder of the component.
+The same than above, can be indicated in a file named as "cron.<componentname>.js" that should be inside "/controllers" folder of the component.
 
 In this case, the properties of the hook "Cron" are indicated as properties to be exported by that module:
 
@@ -59,15 +59,65 @@ Are these ones:
 * "5h": equivalent to "0 0 */5 * * *"
 * "1d": equivalent to "0 0 0 */1 * *"
 
+For example, to define a cron to be called efery five minutes:
+
+```js
+module.exports = {
+    newtick_config: "5m",
+    newtick : async ( ) => {
+        const Mantra = global.Mantra.MantraAPIFactory();
+
+        await Mantra.LogInfo( `New tick! at ${new Date().toISOString() }`)
+    }
+}
+```
+
+## Cron config by component property
+
+Another method to define the configuration of the cron, consists of use a property of the component.
+
+A component can have any number of properties, defined at "defaultconfig" value at mantra.json of the component. These default properties can be overwritten at [mantraconfig.json](/docs/36-mantraconfig-json-file.md) project file at "ComponentsConfig" section.
+
+Mantra check the value of the cron configuration in this order:
+
+* Checks if it is a valid crontab value.
+* If not, checks if it is an alias as described above.
+* If not, checks if it is a component configuration propert.
+
+In the example:
+
+```js
+module.exports = {
+    newtick_config: "tickcronconfig",
+    newtick : async ( ) => {
+        const Mantra = global.Mantra.MantraAPIFactory();
+
+        await Mantra.LogInfo( `New tick! at ${new Date().toISOString() }`)
+    }
+}
+```
+
+, Mantra expects to find the property configuration "tickcronconfig" at the component configuration.
+
 ## Mantra API instance in cron jobs
 
 Mantra creates itself a Mantra API instance en each interaction with the compoments.
 
-However, due to the nature of cron jobs, if the cron handler need to get a Mantra API instance, the it should create it itself with:
+However, due to the nature of cron jobs, if the cron handler needs to get a Mantra API instance, the it should create it itself with:
 
 ```js
 const Mantra = global.Mantra.MantraAPIFactory();
 ```
+
+## List crons defined by a component
+
+You can get the list of crons defined by a component with *show-crons* Mantra command:
+
+```bash
+$ mantrad show-crons <component name>
+```
+
+This is useful to verify that you have define you *crons* well.
 
 ***
 To learn by example, go to [Mantra demos](https://www.mantrajs.com/mantrademos/showall) and [components](https://www.mantrajs.com/marketplacecomponent/components) sections of [Mantra site](https://www.mantrajs.com).

@@ -11,7 +11,7 @@ $ mantrad new-project
 Follow the instruccions:
 
 ```bash
-27-04-2021 12:11:26 - New project with Mantra version: 1.0.15
+27-04-2021 12:11:26 - New project with Mantra version: 1.2.0
 Project name: helloworldmantra
 Project app name: coreapp
 Select database provider
@@ -26,9 +26,9 @@ Select project type
 4) HTML5UP - Twenty
 
 Select project type: 4
-27-04-2021 12:11:57 - Mantra project created with success
-27-04-2021 12:11:57 - To complete installation, run:
-27-04-2021 12:11:57 - $ cd helloworldmantra && mantra install
+27-02-2022 12:11:57 - Mantra project created with success
+27-02-2022 12:11:57 - To complete installation, run:
+27-02-2022 12:11:57 - $ cd helloworldmantra && mantra install
 ```
 
 Locate at the folder of the project and install core components:
@@ -82,13 +82,13 @@ Then you get:
 
 Open a browser and go to http://localhost:8080
 
-Here it is! Your first Mantra project.
+Here it is! Your first Mantra project in a few steps.
 
 # Basic intro to Mantra with this "hello world" project
 
 In the next sections you have detailed descriptions about a Mantra project, its architecture based on microkernel pattern, components, multiple UI, multi components data repository, hooks, templates and a lot of more stuff.
 
-In the above example, we have built a simple project based on TWENTY HTML5 template with this files structure:
+In the above example, we have built a simple project based on the free [TWENTY HTML5](https://html5up.net/twenty) template with this files structure:
 
 ```
 .
@@ -113,11 +113,12 @@ In the above example, we have built a simple project based on TWENTY HTML5 templ
 ```
 
 Explanation:
-* You have create an application with the name "coreapp" within the project (you can have multiple applications in the same project).
+
+* You have created an application with the name "coreapp" within the project (you can have multiple related applications in the same project).
 * mantraconfig.json describes the main properties of the project.
 * "components" folder will contain all components.
-* "mantradb.db" file is the Sqlite database choosen in the steps above (Mysql flavours and Sqlite currently supported, to be extended in 2.x version of Mantra)
-* "ui" folder will contain all frontends (the same project can contain a number of frontends for different purposes within it)
+* "mantradb.db" file is the Sqlite database choosen in the steps above.
+* "ui" folder will contain all frontends assets (the same project can contain a number of frontends for different purposes within it).
 
 # Adding your first Mantra component
 
@@ -248,6 +249,8 @@ module.exports = () => {
     };
 }
 ```
+
+As you'll learn later in this documentation, most of these properties are optional.
 
 ***
 To learn by example, go to [Mantra demos](https://www.mantrajs.com/mantrademos/showall) and [components](https://www.mantrajs.com/marketplacecomponent/components) sections of [Mantra site](https://www.mantrajs.com).
