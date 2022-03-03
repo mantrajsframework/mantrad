@@ -71,8 +71,8 @@ if ( !NodeVersionChecker.CheckNodeVersion( CoreConstants.NODESUPPORTEDVERSIONS )
 
             for( const appName of Object.keys(apps) ) {
                 MantradProcess.fork(__dirname, appName);
-                await MantradKeys.configureKeys( __dirname, [appName] );
             }
+            await MantradKeys.configureKeys( __dirname, Object.keys(apps) );
         }
         break;
         case 'install': {
