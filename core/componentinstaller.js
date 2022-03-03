@@ -95,6 +95,10 @@ class ComponentInstaller {
         // Components installed currently in system
         const components = await this.mantraDB.GetEnabledComponents();
 
+        // Load all components enabled because in normal bootstrap load process, only
+        // default applications components are loaded
+        componentsLoader.loadComponents( global.Mantra.MantraConfig.getComponentsLocations(), components.map( c => c.name ));
+
         // Check for component version changes
         for( let cmp of components ) {
             let cmpLoaded = componentsLoader.getComponentByName( cmp.name );

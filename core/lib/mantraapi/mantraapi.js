@@ -574,6 +574,8 @@ class MantraAPI {
         const SUFIXFORTEMPORALENTITY = "_temporal";
 
         let currentSchema = await this.GetSchemaByVersion( componentName, currentVersion );
+        
+        // Rename current tables to temporal ones with prefix SUFIXFORTEMPORALENTITY
         let tempSchema = await this.RenameSchemaEntities( componentName, currentSchema, SUFIXFORTEMPORALENTITY );
 
         // 2) Crear las entidades de la nueva versión
@@ -596,7 +598,11 @@ class MantraAPI {
             }
         }
 
-        // 4) Eliminar la versión anterior
+        // 4) Eliminar el esquema temporal inicial
+        for( let entity of tempSchema.entities ) {
+            entity.name = entity.name + SUFIXFORTEMPORALENTITY;
+        }
+
         await this.UninstallSchema( componentName, tempSchema );
     }
 

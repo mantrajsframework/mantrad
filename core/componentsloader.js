@@ -19,6 +19,8 @@ class ComponentsLoader {
     }
 
     loadComponents( fullPathsToComponents, cmpsToLoad ) {
+        this.componentsInfo = [];
+
         for( const file of this.getComponentsLocations(fullPathsToComponents) ) {
             const fullPathToComponent = path.join( file.path, file.filename );
     
