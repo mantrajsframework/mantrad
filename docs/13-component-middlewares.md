@@ -69,7 +69,7 @@ You can get the list of middlewares defined by a component with *show-middleware
 $ mantrad show-middlewares <component name>
 ```
 
-This is useful to verify that you have define you middlewares well.
+This is useful to verify that you have defined you middlewares well.
 
 ***
 To learn by example, go to [Mantra demos](https://www.mantrajs.com/mantrademos/showall) and [components](https://www.mantrajs.com/marketplacecomponent/components) sections of [Mantra site](https://www.mantrajs.com).

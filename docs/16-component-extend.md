@@ -1,8 +1,8 @@
 # Mantra Extends Registering
 
-Mantra has a number of default *hooks* to register some kind of assets (views, blocks, apis, etc.), but you can register your own for diffenent purposes.
+Mantra has a number of default *hooks* to register some kind of assets (views, blocks, apis, etc.), as described in previous sections, but you can register your own for different purposes.
 
-To do this, you can use "Extend" hook:
+To do this, you can use "Extend" hook onStart() method:
 
 ```js
 MantraAPI.Hooks(["component name"])
@@ -20,14 +20,6 @@ This is a real example for this *hook*:
 
 ```js
 MantraAPI.Hooks("forms")
-        .Post([{
-            Command: "validate",
-            Handler: FormsPostHandlers.Validate
-        }])
-        .Api([{
-            APIName: "NewForm",
-            APIHandler: FormsApiHandlers.NewForm
-        }])
         .Extend([{
             Type: "formvalidator",
             Name: "email",
@@ -38,6 +30,20 @@ MantraAPI.Hooks("forms")
             Handler: FormsValidatorHandlers.NotEmpty
         }]);
 ```
+
+With this mecanism, you can extend any component with new assets that other components can implement.
+
+This is one of the most powerfull features of Mantra.
+
+## List extends defined by a component
+
+You can get the list of extends defined by a component with *show-extends* Mantra command:
+
+```bash
+$ mantrad show-extends <component name>
+```
+
+This is useful to verify that you have defined your extends well.
 
 ***
 To learn by example, go to [Mantra demos](https://www.mantrajs.com/mantrademos/showall) and [components](https://www.mantrajs.com/marketplacecomponent/components) sections of [Mantra site](https://www.mantrajs.com).

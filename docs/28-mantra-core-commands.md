@@ -1,20 +1,18 @@
 # Mantra Core Commands
 
-By default, Mantra implements some helpful commands for usual tasks when working with a Mantra project. On the other hand, any component can implement its own commands to be run from the command line.
+By default, Mantra implements some helpful commands for usual tasks when working with a Mantra project. On the other hand, any component can implement its own commands to be run from the command line as explained at [Component Command Line Interface (cli) Definition](./docs/17-component-commands.md).
 
-This is one of the nice features of Mantra Microkernel Framework.
+This is one of the nice features of Mantra Framework.
 
 Running mantra from the shell without parameters will show all commands available.
 
 ```
-$ mantra
+$ mantrad
 ```
-
-TODO: insertar enlace a la sección donde se explica cómo implementar comandos
 
 If you run this inside a Mantra project, then all Mantra commands will be shown as well as all commands implemented by the components.
 
-All core commands are implemented in "corecommmand" component.
+All core commands are implemented in "corecommmand" component. By "core commands" we mean the default Mantra commands (like *startapp*, *show-views* and the like described in this document).
 
 As component commands, some of them requires aditional parameters.
 

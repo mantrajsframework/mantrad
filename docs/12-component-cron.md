@@ -78,6 +78,8 @@ Another method to define the configuration of the cron, consists of use a proper
 
 A component can have any number of properties, defined at "defaultconfig" value at mantra.json of the component. These default properties can be overwritten at [mantraconfig.json](/docs/36-mantraconfig-json-file.md) project file at "ComponentsConfig" section.
 
+Read about [component configuration](/docs/18-component-configuration.md).
+
 Mantra check the value of the cron configuration in this order:
 
 * Checks if it is a valid crontab value.
@@ -117,7 +119,7 @@ You can get the list of crons defined by a component with *show-crons* Mantra co
 $ mantrad show-crons <component name>
 ```
 
-This is useful to verify that you have define you *crons* well.
+This is useful to verify that you have defined you *crons* well.
 
 ***
 To learn by example, go to [Mantra demos](https://www.mantrajs.com/mantrademos/showall) and [components](https://www.mantrajs.com/marketplacecomponent/components) sections of [Mantra site](https://www.mantrajs.com).

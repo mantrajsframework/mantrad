@@ -4,7 +4,8 @@ Some core modules are installed in any Mantra project.
 
 Are these ones:
 
-# "core" core component 
+# "core" component 
+
 Defines some middlewares needed by Mantra and the basic cron jobs for "croncleanupevent" and "cronbackupevent" events.
 
 This is the default configuration for "core" component you can overwrite in your project:
@@ -20,13 +21,15 @@ This is the default configuration for "core" component you can overwrite in your
 }
 ```
 
+These are the properties description for "core" component configuration:
+
 * croncleanupevent: defines a cron configuration to launch "system.cleanup".
   
 * cronbackupevent: defines a cron configuration to launc "system.backup".
     
 * translatejsapi: if used, then should indicate an injection key indicating the API to be called which will manage the process of set js files added to the render request. Optional.
 
-This API should point to a function like this:
+This injection should point to an API function like this:
 
 ```js
 async (MantraAPI, jsFiles )
@@ -38,7 +41,7 @@ The result of this function will be rendered in "mantra-js-files" Mustache tag i
 
 * translatecssapi: if used, then should indicate an injection key indicating the API to be called which will manage the process of set css files added to the render request. Optional.
 
-This API should point to a function like this:
+Again, this injection should point to an API function like this:
 
 ```js
 async (MantraAPI, cssFiles )
@@ -48,9 +51,14 @@ Where cssFiles is an array of all css files that should be included in the rende
 
 The result of this function will be rendered in "mantra-css-files" Mustache tag in the html root document.
 
-* logapi:  if used, then should indicate an injection key indicating the API to be called which will manage how to log messages when Mantra application calls Mantra.LogInfo(), Mantra.LogWarning() and Mantra.LogError() method.
+* logapi:  if used, then should indicate an injection key indicating the API to be called which will manage how to log messages when Mantra application calls Mantra.LogInfo(), Mantra.LogWarning() and Mantra.LogError() method: 
 
-This API should point to a function like this:
+* [Mantra.LogInfo](/docs/33-mantra-API-reference.md#mantraapi.loginfo)
+* [Mantra.LogWarning](/docs/33-mantra-API-reference.md#mantraapi.logwarning)
+* [Mantra.LogError](/docs/33-mantra-API-reference.md#mantraapi.logerror)
+
+
+This injection should point to an API function like this:
 
 ```js
 async (Mantra, params )
@@ -66,7 +74,7 @@ Where params, is an object like containing these properties:
 
 * minifyapi:  if used, then should indicate an injection key indicating the API to be called which will manage the minify process of html content. Optional.
 
-This API should point to a function like this:
+This injection should point to an API function like this:
 
 ```js
 async (Mantra, htmlContent)
@@ -90,27 +98,14 @@ The default configuration for this component is this:
 
 This is the component that runs all cron jobs defined in the project. This component only works if "cron" service is enabled in the application (see [Mantra Services](/docs/25-mantra-services.md) for more information about how to enable or disabled services in an application).
 
-# "logs" core component 
-
-Implement logs in Mantra, used when MantraAPI.LogInfo, MantraAPI.LogWarning and MantraAPI.LogError are used.
-
-This is its default configuration:
-
-```json
-"logs": {
-    "logToConsole": true,
-    "daystoremoveoldlogs": 1
-}
-```
-
 # "corecommands" core component
 
-This component implements default mantra commands.
+This component implements default Mantra commands.
 
-Remember that to have a list of all commands available, you just need to type "mantra" in the terminal:
+Remember that to have a list of all commands available, you just need to type "mantrad" in the terminal:
 
-```
-$ mantra
+```bash
+$ mantrad
 ```
 
 See [Mantra commands](/docs/28-mantra-core-commands.md) to see default commands and [Component Commands](/docs/17-component-commands.md) to know how to implement your own commands in your components.

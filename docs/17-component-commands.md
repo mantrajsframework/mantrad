@@ -16,6 +16,8 @@ MantraAPI.Hooks( "<component name>" )
 As an example, consider this command registration:
 
 ```js
+const SearchCommandHandlers = require("./searchcommandhandlers.js");
+
 MantraAPI.Hooks( "search" )
     .Command([{
         Name: "remove-search-indexes",
@@ -30,21 +32,23 @@ With this, you can run the command from the bash just with:
 $ mantrad remove-search-indexes
 ```
 
-You can see all commands defined in the project (apart from core commands) with:
+By default, you can see all commands defined in the project (apart from core commands) with:
 
 ```
-$ mantra
+$ mantrad
 ```
 
 ## Function handler for the command
 
-The function handler for the command is like:
+The function handler for the command is like this:
 
 ```js
-async (MantraAPI, <list of params> ) => {
+async (Mantra, param1, param2, param3, param4 ) => {
 
 }
 ```
+
+All parameters are optional.
 
 ## Command parameters
 
@@ -64,9 +68,9 @@ async (MantraAPI, bookId) => {
 
 ## Implicit method to define a command
 
-You can also define new commands withoud registering the *hook*.
+You can also define new commands without registering the *hook*.
 
-You do so indicating the commands in a file named as "commands.yourcomponentname.js" inside /controllers folder of your component.
+You do so indicating the commands in a file named as "commands.yourcomponentname.js" inside "/controllers" folder of your component.
 
 In that module, Mantra expects to find these properties to define new commands:
 
@@ -83,6 +87,22 @@ module.exports = {
     }
 }
 ```
+
+Giving this command, you can run it with:
+
+```bash
+$ mantrad mk p01 p02 p03 p04
+```
+
+## List commands defined by a component
+
+You can get the list of commands defined by a component with *show-commands* Mantra command:
+
+```bash
+$ mantrad show-commands <component name>
+```
+
+This is useful to verify that you have defined your commands well.
 
 ***
 To learn by example, go to [Mantra demos](https://www.mantrajs.com/mantrademos/showall) and [components](https://www.mantrajs.com/marketplacecomponent/components) sections of [Mantra site](https://www.mantrajs.com).

@@ -98,7 +98,7 @@ You can get the list of access conditions defined by a component with *show-acce
 $ mantrad show-accessconditions <component name>
 ```
 
-This is useful to verify that you have define your access conditions well.
+This is useful to verify that you have defined your access conditions well.
 
 # To remember
 

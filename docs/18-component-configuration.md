@@ -4,7 +4,7 @@ Each component can define a json object with its own specific configuration.
 
 There are two places where to locate a component configuration:
 
-* Inside "ComponentsConfig" property in mantraconfig.json with the name of the component.
+* Inside "ComponentsConfig" property in [mantraconfig.json](/docs/36-mantraconfig-json-file.md) with the name of the component.
 * In the mantra.json file for the component in the property "defaultconfig".
 
 As an example, consider this mantra.json file for the component "resourceminifier":
@@ -23,11 +23,11 @@ As an example, consider this mantra.json file for the component "resourceminifie
 }
 ```
 
-The json property "defaultconfig" will be considered as the default configuration for the component; to overwrite this default configuration, then this json should be placed at "ComponentsConfig" property in the project configuration file mantraconfig.json:
+The json property "defaultconfig" will be considered as the default configuration for the component; to overwrite this default configuration, then this json should be placed at "ComponentsConfig" property in the project configuration file [mantraconfig.json](/docs/36-mantraconfig-json-file.md):
 
 ```json
 {
-    ...
+    // ...
     "ComponentsConfig":
         "resourceminifier": {
             "minify": false,
@@ -35,7 +35,7 @@ The json property "defaultconfig" will be considered as the default configuratio
             "compactjsfiles": false,
             "compactcssfiles": false
     }
-    ...
+    // ...
 }
 ```
 
@@ -45,17 +45,19 @@ With this capacity of overwritten the default component configuration, the compo
 
 There are two ways to access programatically to the configuration of a component:
 
-* Calling the method MantraAPI.GetComponentConfig("[name of the component]") will return all json object:
+* Calling the method [MantraAPI.GetComponentConfig](/docs/33-mantra-API-reference.md#mantraapi.getcomponentconfig) will return all json object:
 
 ```js
-let config = MantraAPI.GetComponentConfig("resourceminifier");
+const config = Mantra.GetComponentConfig("resourceminifier");
 ```
 
-* Get an specific value for the component configuration with the syntax "[name of the component].[property]"
+* Get an specific value for the component configuration with the syntax "[name of the component].[property]" directly from Mantra API object with [Config](/docs/33-mantra-API-reference.md#mantraapi.config) method:
 
 ```js
-let shouldMinify = MantraAPI.Config("resourceminifier.minify")
+const shouldMinify = Mantra.Config("resourceminifier.minify")
 ```
+
+Components configuration can not be changed at run time.
 
 ***
 To learn by example, go to [Mantra demos](https://www.mantrajs.com/mantrademos/showall) and [components](https://www.mantrajs.com/marketplacecomponent/components) sections of [Mantra site](https://www.mantrajs.com).

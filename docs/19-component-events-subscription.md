@@ -2,9 +2,11 @@
 
 Mantra implements a a publisher/subscriber events model.
 
-This is a design pattern extremely useful to decouple components behaviour
+This is a design pattern extremely useful to decouple components behaviour.
 
-The way to define an event subcriber function handler is using the hook "Event":
+[Mantra Development Paradigm](/docs/01-mantra-development-paradigm.md) expects you to implement high level functionality using events orchestration.
+
+The way to define an event subscriber function handler is using the hook *Event*:
 
 ```js
 MantraAPI.Hooks("[component name"])
@@ -15,7 +17,10 @@ MantraAPI.Hooks("[component name"])
 ```
 
 Let's see an example:
+
 ```js
+const AnalyticsEventHandlers = require("./analyticseventhandlers.js");
+
 MantraAPI.Hooks("admin")
     .Event([{
         EventName: "system.cleanup",
@@ -23,11 +28,11 @@ MantraAPI.Hooks("admin")
     });
 ```
 
-This is defition, when "sytem.cleanup" event is launched, then AnalyticsEventHandlers.SystemCleanup function is called.
+This is definition, when "sytem.cleanup" event is launched, then AnalyticsEventHandlers.SystemCleanup function is called.
 
 ## Brief method to subscribe to events
 
-Similary to views, blocks and other Mantra assets, you can define the subscription to events in a Node.js module within any component with the name of "event.[component name].js", like this:
+Similary to views, blocks and other Mantra assets, you can define the subscription to events in a Node.js module within any component with the name of "event.[component name].js" that should be located at "/controllers" component folder, like this:
 
 ```js
 "use strict";
@@ -39,13 +44,17 @@ module.exports = {
 }
 ```
 
-Due to "." is not allowed in json property names, Mantra replace "-" by "." when registering an event subscribing in this way, so in the example, the component is subscribed to "users.removed" event.
+Due to "." is not allowed in json property names, Mantra replace "." by "-" when registering an event subscribing in this way, so in the example, the component is subscribed to "users.removed" event.
 
 ## Emitting an event
 
-To emit an event, any component can call the API MantraAPI.EmitEvent method.
+To emit an event, any component can call the API [MantraAPI.EmitEvent](/docs/33-mantra-API-reference.md#mantraapi.emitevent) method.
 
-The first parameter is the name of the event, the second one is a json object with parameters or data to be send to the event subscribers.
+The first parameter is the name of the event, the second one is a json object to be send to the event subscribers, like this example:
+
+```js
+await Mantra.EmitEvent( 'users-removed', { userToRemove: userId } );
+```
 
 ## Function handler for the event subscription
 
@@ -61,9 +70,9 @@ async (eventData) => {
 
 eventData is the json object used when emitting the event.
 
-As indicated above, the property eventData.MantraAPI contains the MantraAPI object instance.
+As indicated above, the property eventData.MantraAPI contains the Mantra API object instance.
 
-## Importan notes about events in Mantra
+## Important notes about events in Mantra
 
 In current Mantra version:
 

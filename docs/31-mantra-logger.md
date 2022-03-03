@@ -8,11 +8,11 @@ There are three types of log messages: info, warning and error.
 
 These are the method that can be used for logging:
 
-* MantraAPI.LogInfo( description, data, key, counter )
-* MantraAPI.LogWarning( description, data, key, counter )
-* MantraAPI.LogError( description, data, key, counter )
+* [Mantra.LogInfo](/docs/33-mantra-API-reference.md#mantraapi.loginfo)
+* [Mantra.LogWarning](/docs/33-mantra-API-reference.md#mantraapi.logwarning)
+* [Mantra.LogError](/docs/33-mantra-API-reference.md#mantraapi.logerror)
 
-Where:
+All these thre methods receives the following parameters:
 
 * description: [description message for the log entry]
 * data: [string with the data associated with the log entry, optional]

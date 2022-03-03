@@ -1,4 +1,4 @@
-# Installing and uninstalling components
+# Installing and Uninstalling Components
 
 Each component of a Mantra project should be installed specifically with the command *install-component*:
 
@@ -6,9 +6,9 @@ Each component of a Mantra project should be installed specifically with the com
 $ mantrad install-component mycomponent
 ```
 
-When running this, Mantra will look for folder components (indicated in the property *"ComponentsLocations"* in mantraconfig.json file) with the name "mycomponent".
+When running this, Mantra will look for folder components, indicated in the property *"ComponentsLocations"* in [mantraconfig.json](/docs/36-mantraconfig-json-file.md) file with the name "mycomponent".
 
-The component should define a mantra.json file and a Node.js module with the file mycomponent.js name as indicated in [Component Definition section](/docs/05-mantra-component-definition.md).
+The component optionally can define a mantra.json file, a Node.js module with the file mycomponent.js name as indicated in [Component Definition section](/docs/05-mantra-component-definition.md), if need, to register all *hooks* it implements (we've seen in this documentation that all of them can be defined implicity by definitions).
 
 If the component defines *Install* property, then the optional method *onInstall* will be invoked.
 
@@ -26,9 +26,9 @@ As indicated in [Component Definition section](/docs/05-mantra-component-definit
 
 # Reinstalling a component
 
-You can perform the uninstalling and installing actions at once when needed, for example, when you need to install changes in a component model during development.
+You can perform the uninstalling and installing actions at once when needed, for example, when you need to install changes in a component model during development when no update needed:
 
-To do that, you can use resintall-command:
+To do that, you can use *reinstall-command*:
 
 ```bash
 $ mantrad reinstall-component mycomponent

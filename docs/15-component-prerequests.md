@@ -119,7 +119,7 @@ You can get the list of prerequests defined by a component with *show-prerequest
 $ mantrad show-prerequests <component name>
 ```
 
-This is useful to verify that you have define your prerequests well.
+This is useful to verify that you have defined your prerequests well.
 
 # To remember
 

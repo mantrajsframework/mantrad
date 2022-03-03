@@ -98,7 +98,7 @@ You can get the list of gets defined by a component with *show-gets* Mantra comm
 $ mantrad show-gets <component name>
 ```
 
-This is useful to verify that you have define you *gets* well.
+This is useful to verify that you have defined you *gets* well.
 
 ***
 To learn by example, go to [Mantra demos](https://www.mantrajs.com/mantrademos/showall) and [components](https://www.mantrajs.com/marketplacecomponent/components) sections of [Mantra site](https://www.mantrajs.com).

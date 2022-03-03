@@ -106,7 +106,7 @@ You can get the list of post defined by a component with *show-posts* Mantra com
 $ mantrad show-posts <component name>
 ```
 
-This is useful to verify that you have define you *posts* well.
+This is useful to verify that you have defined you *posts* well.
 
 ***
 To learn by example, go to [Mantra demos](https://www.mantrajs.com/mantrademos/showall) and [components](https://www.mantrajs.com/marketplacecomponent/components) sections of [Mantra site](https://www.mantrajs.com).

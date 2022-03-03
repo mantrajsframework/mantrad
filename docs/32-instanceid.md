@@ -7,14 +7,14 @@ This id is used to guarantee that the browser doesn't cache a resource (like js 
 Just an example:
 
 ```js
-<script src="/vendors/{{miid}}pace.min.js"></script>
+<script src="/vendors/&lcub;&lcub;miid&rcub;&rcub;pace.min.js"></script>
 ```
 
-All files added by MantraAPI.AddJs() and MantraAPI.AddCss() includes automatically this intance id.
+All files added by Mantra.AddJs() and Mantra.AddCss() includes automatically this intance ID.
 
-This value can get retrieved calling to MantraAPI.GetInstanceId().
+This value can get retrieved calling to Mantra.GetInstanceId() and can be used with multiple purposes.
 
-Mantra adds the property "sanitizedPath" to Express Request object with the path without the instance id if it is included in it.
+Mantra adds the property "sanitizedPath" to Express Request object (*res* parameters in handlers) with the path without the instance id if it is included in it.
 
 ***
 To learn by example, go to [Mantra demos](https://www.mantrajs.com/mantrademos/showall) and [components](https://www.mantrajs.com/marketplacecomponent/components) sections of [Mantra site](https://www.mantrajs.com).

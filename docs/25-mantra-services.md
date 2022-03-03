@@ -21,7 +21,7 @@ For more details about those two properties, ses [mantraconfig.json configuratio
 
 With this, you can define multiple applications within your system and enabling exactly the services they need to run.
 
-For instance, for a Mantra application that only read files from an ftp server periodically and store them in a database, only "cron" service needs to be enabled. For another application that only renders a web application, then "view" and "middleware" service should be enabled and so on.
+For instance, for a Mantra application that only reads files from an ftp server periodically and store them in a database, only "cron" service needs to be enabled. For another application that only renders a web application, then "view" and "middleware" service should be enabled and so on.
 
 ***
 To learn by example, go to [Mantra demos](https://www.mantrajs.com/mantrademos/showall) and [components](https://www.mantrajs.com/marketplacecomponent/components) sections of [Mantra site](https://www.mantrajs.com).
