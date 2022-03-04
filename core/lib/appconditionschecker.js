@@ -5,7 +5,7 @@
 
 "use strict";
 
-const RedEntities = require("redentities");
+const RedEntities = global.gimport("redentities");
 
 const MantraConsole = global.gimport("mantraconsole");
 const MantraDB = global.gimport("mantradb");

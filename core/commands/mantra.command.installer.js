@@ -5,7 +5,7 @@
 
 "use strict";
 
-const RedEntities = require("redentities");
+const RedEntities = global.gimport("redentities");
 const Path = require("path");
 
 const CoreConstants = global.gimport("coreconstants");

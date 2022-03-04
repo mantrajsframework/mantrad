@@ -55,5 +55,6 @@
     "prerequests": "./core/lib/prerequests.js",
     "projectbuilder": "./core/lib/projectbuilder.js",
     "projecttypes": "./core/newtemplates/projecttypes.json",
+    "redentities": "./core/redentities/lib/redentities.js",
     "varcache" : "./core/lib/varcache.js"
 }

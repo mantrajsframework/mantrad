@@ -21,7 +21,7 @@ const MantraComponentSchemaCache = global.gimport("mantracomponentschemacache");
 const MantraDbConfigCache = global.gimport("mantradbconfigcache");
 const MantraRegister = global.gimport("mantraregister");
 const MantraUtils = global.gimport("mantrautils");
-const RedEntities = require("redentities");
+const RedEntities = global.gimport("redentities");
 const VarCache = global.gimport("varcache");
 
 class MantraAPI {
