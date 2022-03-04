@@ -1,0 +1,27 @@
+{
+    "mysqlproviderconfig": {
+        "provider": "mysql",
+        "host": "0.0.0.0",
+        "database": "redentitiestest",
+        "user": "testuser",
+        "password": "12345"
+    },
+    "sqliteproviderconfig": {
+        "provider": "sqlite",
+        "databasepath": "./redentitiestest.db"
+    },
+    "postgresqlproviderconfig": {
+        "provider": "postgresql",
+        "user": "postgres",
+        "host": "localhost",
+        "database": "redentitiestest",
+        "password": "12345"
+    },
+    "mariadbproviderconfig": {
+        "provider": "mariadb",
+        "host": "0.0.0.0",
+        "database": "redentitiestest",
+        "user": "testuser",
+        "password": "12345"
+    }
+}
