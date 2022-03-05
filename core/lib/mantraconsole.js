@@ -5,7 +5,6 @@
 
 "use strict";
 
-const ReadLine = require("readline").createInterface(process.stdin, process.stdout);
 const Chalk = require("chalk");
 const Moment = require("moment");
 
@@ -87,8 +86,11 @@ function FormatWithDateTime(msg) {
 }
 
 async function Question(msg) {
+    const rli = require("readline").createInterface(process.stdin, process.stdout);
+
     return new Promise( (resolve,reject) => {        
-        ReadLine.question(msg, (answer) => {
+        rli.question(msg, (answer) => {
+            rli.close();
             resolve(answer);
         } );
     })
