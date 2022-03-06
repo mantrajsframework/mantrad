@@ -1,9 +1,12 @@
+
 /*
- * This code file belongs to Mantra Framework project (www.mantrajs.com)
- * in the scope of MIT license. More info at support@mantrajs.com. Enjoy :-)
- */ 
+* This code file belongs to Mantra Framework project (www.mantrajs.com)
+* in the scope of MIT license. More info at support@mantrajs.com. Enjoy :-)
+*/ 
 
 "use strict";
+
+const readLineInterface = require("readline").createInterface({input: process.stdin, output: process.stdout});
 
 const Chalk = require("chalk");
 const Moment = require("moment");
@@ -60,7 +63,9 @@ module.exports = {
         }
 
         return optSelected-1;
-    }
+    },
+
+    getReadlineInterface: () => readLineInterface
 }
 
 function ShowMessage( msg, color, withDate) {
@@ -86,11 +91,8 @@ function FormatWithDateTime(msg) {
 }
 
 async function Question(msg) {
-    const rli = require("readline").createInterface(process.stdin, process.stdout);
-
     return new Promise( (resolve,reject) => {        
-        rli.question(msg, (answer) => {
-            rli.close();
+        readLineInterface.question(msg, (answer) => {
             resolve(answer);
         } );
     })

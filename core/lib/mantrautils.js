@@ -328,7 +328,12 @@ module.exports = {
     /*
      * Returns the instance of extract-values library
      */
-    ExtractValues: require("extract-values")
+    ExtractValues: require("extract-values"),
+
+    /*
+     * Returns the instance of MantraConsole
+     */
+    Console: require("./mantraconsole.js")
 }
 
 async function deepListFiles( fullPath, allFiles ) {
