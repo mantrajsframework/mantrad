@@ -186,7 +186,7 @@ class Bootstrap {
         process.on('SIGQUIT', StopFunction );
         process.on('SIGTERM', StopFunction );
 
-        MantraConsole.info("Components started. Double Ctrl+C to close. Double Ctrl+R to restart.");
+        MantraConsole.info("Components started");
     }
 
     async startServer( app, MantraAPI ) {        
