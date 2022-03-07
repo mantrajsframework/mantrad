@@ -50,13 +50,14 @@ async function askForAppName() {
 }
 
 async function askForDatabaseProvider() {
-    switch( await MantraConsole.questionWithOpts( "Select provider: ", [ "MySql flavours", "Sqlite3" ] ) ) {
-        case 0: {
-            return askForMysqlProviderConfig();
-        }
-        case 1: {
-            return askForSqliteProviderConfig();
-        }
+    const dataProvidersOptions = [ "MySql flavours", "Sqlite3", "MariaDB", "PostgreSQL", "AWS Aurora" ];
+
+    switch( await MantraConsole.questionWithOpts( "Select provider: ", dataProvidersOptions ) ) {
+        case 0: return askForMysqlProviderConfig();
+        case 1: return askForSqliteProviderConfig();
+        case 2: return askForMariaDBProviderConfig();
+        case 3: return askForPostgreSQLProviderConfig();
+        case 4: return askForAuroraProviderConfig();
     }
 }
 
@@ -75,6 +76,45 @@ async function askForMysqlProviderConfig() {
     mysqlProviderConfig.password = await MantraConsole.question( "Mysql password (optional): " );
     
     return mysqlProviderConfig;
+}
+
+async function askForAuroraProviderConfig() {
+    let auroraProviderConfig = {
+        provider: "mysql"
+    };
+    
+    auroraProviderConfig.host = await MantraConsole.question( "AWS Aurora host: ", false );
+    auroraProviderConfig.database = await MantraConsole.question( "AWS Aurora database: ", false );
+    auroraProviderConfig.user = await MantraConsole.question( "AWS Aurora user: ", false );
+    auroraProviderConfig.password = await MantraConsole.question( "AWS Aurora password (optional): " );
+    
+    return auroraProviderConfig;
+}
+
+async function askForMariaDBProviderConfig() {
+    let mariaDBProviderConfig = {
+        provider: "mariadb"
+    };
+    
+    mariaDBProviderConfig.host = await MantraConsole.question( "MariaDB host: ", false );
+    mariaDBProviderConfig.database = await MantraConsole.question( "MariaDB database: ", false );
+    mariaDBProviderConfig.user = await MantraConsole.question( "MariaDB user: ", false );
+    mariaDBProviderConfig.password = await MantraConsole.question( "MariaDB password (optional): " );
+    
+    return mariaDBProviderConfig;
+}
+
+async function askForPostgreSQLProviderConfig() {
+    let postgreProviderConfig = {
+        provider: "mariadb"
+    };
+    
+    postgreProviderConfig.host = await MantraConsole.question( "PostgreSQL host: ", false );
+    postgreProviderConfig.database = await MantraConsole.question( "PostgreSQL database: ", false );
+    postgreProviderConfig.user = await MantraConsole.question( "PostgreSQL user: ", false );
+    postgreProviderConfig.password = await MantraConsole.question( "PostgreSQL password (optional): " );
+    
+    return postgreProviderConfig;
 }
 
 async function askForSqliteProviderConfig() {

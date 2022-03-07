@@ -13,8 +13,7 @@
    "ComponentsConfig": {
       "core": {
          "croncleanupevent": "* */5 * * * *",
-         "cronbackupevent": "0 */5 * * * *",
-         "baseurl": "http://localhost:8080/"
+         "cronbackupevent": "0 */5 * * * *"
       },
       "static": {
          "cached": false
