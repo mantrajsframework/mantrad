@@ -583,7 +583,7 @@ class MantraAPI {
         let redEntities = this.ComponentEntities(componentName);
 
         await redEntities.CreateFromSchema(newSchema);
-
+        
         // 3) Trasvasar información de la versión actual a la nueva        
         if ( updateEntityFnc ) {
             let dbTemporal = await this.ComponentEntitiesFromSchema( componentName, tempSchema );
@@ -599,13 +599,36 @@ class MantraAPI {
         }
 
         // 4) Eliminar el esquema temporal inicial
-        for( let entity of tempSchema.entities ) {
-            entity.name = entity.name + SUFIXFORTEMPORALENTITY;
-        }
-
         await this.UninstallSchema( componentName, tempSchema );
     }
 
+    /*
+     * Updates the schema of a component from the current version to the new one.
+     * The different between this method and UpdateSchema() is that this method inserts
+     * all current from current schema to the new one. 
+     */
+    async UpdateSchemaWithCurrentEntities( componentName, currentVersion, versionToUpdate ) {
+        let countByEntities = [];
+        
+        const updateEntityFnc = async ( entityName, entity, newdb ) => {
+            try {
+                await newdb[entityName].I().V(entity).R();
+            } catch {
+                MantraConsole.error( `Unable to update entity from '${entityName}' to new schema:`, false );
+                MantraConsole.info( entity, false );
+            }
+
+            if ( !countByEntities[entityName] ) countByEntities[entityName] = 0;
+            if ( (++countByEntities[entityName])%10 == 0 ) MantraConsole.info(`${countByEntities[entityName]} entities updated for ${entityName}...`, false);
+        }
+
+        await this.UpdateSchema( componentName, currentVersion, versionToUpdate, updateEntityFnc );
+
+        for( const entityName of Object.keys(countByEntities).sort() ) {
+            MantraConsole.info(`${countByEntities[entityName]} entities from ${entityName} updated`);
+        }
+    }
+    
     /*
      * Load the json for a schema according to the
      * path: <componentname>.<schemaname>

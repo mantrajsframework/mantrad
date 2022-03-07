@@ -37,6 +37,7 @@ class SqlEntities {
 
         for( const entity of this.DatabaseSchema.entities ) {            
             sql.push( this.Adaptors.Formatters.FormatRenameTable( entity.name, `${entity.name}${sufix}`) );
+            entity.name = `${entity.name}${sufix}`;
         }
 
         for (const query of sql) {
