@@ -52,6 +52,8 @@ These are the Mantra core commands:
 
 * [show-component](#show-component)
 
+* [show-component-config](#show-component-config)
+
 * [show-components](#show-components)
 
 * [show-components-to-update](#show-components-to-update)
@@ -238,6 +240,16 @@ $ mantrad show-component [component name]
 ```
 
 Shows a json object with all hooks registration for the component.
+
+## show-component-config
+
+```bash
+$ mantrad show-component-config [component name]
+```
+
+Shows the configuration properties of a component. This configuration is located at "ComponentsConfig" section of the [mantraconfig.json](/docs/36-mantraconfig-json-file.md) file of the project or the default values at "defaultconfig" of [mantra.json](/docs/05-mantra-component-definition.md) file of the component.
+
+See more details at [components configuration](/docs/18-component-configuration.md) section.
 
 ## show-components
 
