@@ -20,15 +20,15 @@ module.exports = {
 
     rawInfo(msg) { console.log(msg); },
 
-    info(msg, withDate) {
+    info(msg, withDate = true) {
         ShowMessage( msg, 'green', withDate );
     },
 
-    warning(msg, withDate) {
+    warning(msg, withDate = true) {
         ShowMessage( msg, 'orange', withDate );
     },
 
-    error(msg, withDate) {
+    error(msg, withDate = true) {
         ShowMessage( msg, 'red', withDate );
     },
 

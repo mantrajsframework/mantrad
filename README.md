@@ -119,4 +119,5 @@ You can also read this documentation at [Mantra site](https://www.mantrajs.com).
 - [35 AssetsLocations Reference](/docs/35-assetslocations-reference.md)
 - [36 mantraconfig.json File](/docs/36-mantraconfig-json-file.md)
 - [37 mantracoreapi.js File Reference](/docs/37-mantracoreapi-js-file-reference.md)
-- [38 Next Steps](/docs/38-next-steps.md)
+- [38 Mantra Console API reference](/docs/38-mantra-console-api-reference.md)
+- [39 Next Steps](/docs/39-next-steps.md)

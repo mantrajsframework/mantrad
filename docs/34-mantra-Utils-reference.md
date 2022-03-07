@@ -2,6 +2,8 @@
 
 MantraAPI.Util returns an object with some useful methods used internally by Mantra but that it can be used by any component. Most of them are based on "fs" and "fs-extra" Node.js modules:
 
+* [MantraAPI.Utils.Console](#mantraapi.utils.console)
+
 * [MantraAPI.Utils.CopyFile](#mantraapi.utils.copyfile)
   
 * [MantraAPI.Utils.CurrentDateMinusDays](#mantraapi.utils.currentdateminusdays)
@@ -60,10 +62,15 @@ MantraAPI.Util returns an object with some useful methods used internally by Man
 
 * [MantraAPI.Utils.Underscore](#mantraapi.utils.underscore)
 
-# MantraAPI.Utils methods definitions
+## MantraAPI.Utils.Console
 
 ```js
+const MantraConsole = Mantra.Utils.Console
 ```
+
+Returns an object with methods to manage common console functions (log messages, prompt input, etc.).
+
+See [Mantra Console Reference](/docs/38-mantra-console-api-reference.md) for more details.
 
 ## MantraAPI.Utils.CopyFile
 
