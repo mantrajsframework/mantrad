@@ -52,7 +52,7 @@ module.exports = {
         MantraConfig.Injections = MantraConfig.Injections ? MantraConfig.Injections : [];
         MantraConfig.Apps = MantraConfig.Apps ? MantraConfig.Apps : { main: {} };
         MantraConfig.ComponentsConfig = MantraConfig.ComponentsConfig ? MantraConfig.ComponentsConfig : {}; 
-
+        
         MantraConfig.getComponentsLocations = function() {
             let folders = [];
             

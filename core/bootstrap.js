@@ -82,38 +82,47 @@ class Bootstrap {
      */
     async loadComponents() {
         MantraConsole.info('Loading components...');
-        const mc = global.Mantra.MantraConfig;
-        const entitiesConfig = global.Mantra.MantraConfig.getEntitiesConfiguration();
         let componentsToLoad;
-
+        
+        const mc = global.Mantra.MantraConfig;
+        const entitiesConfig = mc.getEntitiesConfiguration();    
+        
         this.MantraDB = MantraDB(entitiesConfig);
 
-        if ( !(await this.MantraDB.IsDatabaseInstalled()) ) {
-            global.gimport("fatalending").exitByError( "Database not installed or unreachable ");
-        }
-        
-        if ( mc.ActiveComponents ) {
-            componentsToLoad = mc.ActiveComponents.concat( CoreConstants.CORE_COMPONENTS );
-        } else {
-            componentsToLoad = await this.MantraDB.GetComponentsInstalledAndEnabled();
+        if ( mc.LoadAllEnabledComponents && 
+             mc.LoadAllEnabledComponents == true ) {
+                const components = await this.MantraDB.GetEnabledComponents();
+
+                componentsToLoad = components.map( c => c.name );        
+
+        } else {            
+            if ( !(await this.MantraDB.IsDatabaseInstalled()) ) {
+                global.gimport("fatalending").exitByError( "Database not installed or unreachable ");
+            }
             
-            if ( mc.InactiveComponents ) {
-                for( const cmpToRemove of mc.InactiveComponents ) {
-                    const index = componentsToLoad.indexOf(cmpToRemove);
-    
-                    if ( index > -1 ) {
-                        componentsToLoad.splice( componentsToLoad.indexOf(cmpToRemove), 1 );
+            if ( mc.ActiveComponents ) {
+                componentsToLoad = mc.ActiveComponents.concat( CoreConstants.CORE_COMPONENTS );
+            } else {
+                componentsToLoad = await this.MantraDB.GetComponentsInstalledAndEnabled();
+                
+                if ( mc.InactiveComponents ) {
+                    for( const cmpToRemove of mc.InactiveComponents ) {
+                        const index = componentsToLoad.indexOf(cmpToRemove);
         
-                        MantraConsole.info(`Component deactivated: ${cmpToRemove}`);
-                    } else {
-                        MantraConsole.error(`Component to deactivate '${cmpToRemove}' no existing or disabed`);
+                        if ( index > -1 ) {
+                            componentsToLoad.splice( componentsToLoad.indexOf(cmpToRemove), 1 );
+            
+                            MantraConsole.info(`Component deactivated: ${cmpToRemove}`);
+                        } else {
+                            MantraConsole.error(`Component to deactivate '${cmpToRemove}' no existing or disabed`);
+                        }
                     }
                 }
             }
+    
+            componentsToLoad = [...new Set(componentsToLoad)];    
         }
 
-        componentsToLoad = [...new Set(componentsToLoad)];
-            
         global.Mantra.ComponentsLoader.loadComponents( mc.getComponentsLocations(), componentsToLoad );
 
         mc.ComponentActiveServices = ActiveServices.extractActiveServicesByComponent( componentsToLoad );
@@ -610,6 +619,8 @@ function loadDefaultComponentsConfigurations() {
             global.Mantra.MantraConfig.ComponentsConfig[cmpName] = component.config.defaultconfig;
             
             MantraConsole.warning( `Inhering default configuration for component '${cmpName}'` );
+        } else if ( !component.config.defaultconfig && !mc.ComponentsConfig[cmpName] ) {
+            global.Mantra.MantraConfig.ComponentsConfig[cmpName] = {};
         }
     }
 }

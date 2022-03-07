@@ -928,8 +928,7 @@ class MantraAPI {
 
         if ( cnf ) return cnf;
 
-        MantraConsole.warning(`Unknown config for component ${componentName}` );
-        throw Error( `Unknown config for component ${componentName}`);
+        MantraConsole.error(`Unknown config requested for component ${componentName}` );
     }
 
     IsServiceActive(service) {

@@ -47,7 +47,7 @@ class MantraStartup {
     }
 
     async performCommand(config, args) {
-        MantraServer.initGlobal(config);
+        MantraServer.initGlobal(config, true); // Load all enabled components with this parameter to true
         await MantraServer.startComponents();
     
         let api = global.Mantra.MantraAPIFactory();

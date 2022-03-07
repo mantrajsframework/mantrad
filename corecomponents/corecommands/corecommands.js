@@ -44,6 +44,10 @@ class CoreCommandsStarter {
                 Description: "Updates components locations after moving some component to a new location. Use: mantrad update-components-locations",
                 Handler:CoreCommandsHandlers.UpdateComponentsLocations
             }, {
+                Name: "show-component-config",
+                Description: "Show the configuration properties for a component.",
+                Handler: CoreCommandsHandlers.ShowComponentConfig
+            }, {
                 Name: "show-components-to-update",
                 Description: "Show the components that should be updated.",
                 Handler: CoreCommandsHandlers.ShowComponentsToUpdate

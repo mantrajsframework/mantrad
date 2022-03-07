@@ -17,8 +17,10 @@ let App = undefined;
 class MantraServer {
     /*
      * Initialize global Mantra vars
+     * Receives the content of mantraconfig.json file.
+     * If loadAllComponents is true, then all enabled components ared loaded
      */
-    initGlobal(mantraConfig) {
+    initGlobal(mantraConfig, loadAllEnabledComponents = false) {
         if (!global.Mantra) {
             global.Mantra = {
                 MantraConfig: mantraConfig,
@@ -34,6 +36,8 @@ class MantraServer {
                 },
                 Initialized: false // Indicates if the project has been initialized
             }
+
+            global.Mantra.MantraConfig.LoadAllEnabledComponents = loadAllEnabledComponents;
         }
     }
 

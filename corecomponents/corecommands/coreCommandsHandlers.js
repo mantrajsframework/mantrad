@@ -437,6 +437,20 @@ module.exports = {
         }    
     },
 
+    ShowComponentConfig: async (Mantra, componentName) => {
+        if ( componentName == undefined ) {
+            MantraConsole.warning("Expected the name of the component with show-component-config command");
+        } else {
+            const componentConfig = Mantra.GetComponentConfig(componentName);
+
+            if ( Object.keys(componentConfig).length == 0 ) {
+                MantraConsole.info( `Component '${componentName}' doesn't have any configuration properties`, false );
+            } else {
+                console.dir(componentConfig, {depth: null, colors: true})
+            }
+        }
+    },
+
     CheckProject: async (Mantra) => {
         await AppConditionsChecker.checkConditionsBeforeStarting( Mantra );
     },
