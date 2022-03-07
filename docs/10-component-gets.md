@@ -5,7 +5,7 @@ A component can define a number of HTTP GET handlers for building REST APIs.
 To do that, the hook *Get* is used in *onStart* component method, similarly to views and blocks definitions:
 
 ```js
-MantraAPI.Hooks("<component name>")
+Mantra.Hooks("<component name>")
     .Get([{
         Command: [name of the post route],
         Handler: [async function handler for the HTTP GET],
@@ -20,8 +20,8 @@ As an example, consider this "get" registration:
 const BookGetHandlers = require("./bookgethandlers.js);
 
 class BooksStarter {
-    async onStart( MantraAPI ) {
-        MantraAPI.Hooks("books")
+    async onStart( Mantra ) {
+        Mantra.Hooks("books")
             .Get([[{
                 Command: "downloadbook",
                 Handler: BookGetHandlers.DownloadBook,

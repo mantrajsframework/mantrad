@@ -9,7 +9,7 @@ As other kind of Mantra assets, you have two ways to define a cron job in a comp
 You just need to add the hook "Cron" like this:
 
 ```js
-MantraAPI.Hooks("mycomponent")
+Mantra.Hooks("mycomponent")
     .Cron({
         CronConfig: "standard cron configuration",
         CronHandler: async () => {}

@@ -7,7 +7,7 @@ The functionality of the component should be exposed in its API.
 To register an API method, you need to use hook "Api" in *onStart* component method:
 
 ```js
-MantraAPI.Hooks("<component name>")
+Mantra.Hooks("<component name>")
     .Api([{
         APIName: "name of the method",
         APIHandler: <handler for the api>
@@ -20,8 +20,8 @@ Just as an example:
 const BooksApiHandlers = require("./booksapihandlers.js);
 
 class BooksStarter {
-    async onStart( MantraAPI ) {
-        MantraAPI.Hooks("books")
+    async onStart( Mantra ) {
+        Mantra.Hooks("books")
             .Api([{
                 APIName: "addnewbook",
                 APIHandler: BooksApiHandlers.AddNewBook
@@ -35,13 +35,13 @@ In this case, the api *addnewbook* is defined by the component "books".
 Any component can invoke this API with [Invoked Mantra API method](/docs/33-mantra-API-reference.md#mantraapi.invoke):
 
 ```js
-MantraAPI.Invoke("books.addnewbook", <json object with params> );
+Mantra.Invoke("books.addnewbook", <json object with params> );
 ```
 
 Despite you can use "Invoke", the recommended way to invoke Mantra components APIs is in this way:
 
 ```js
-MantraAPI.api.books.addnewbook( MantraAPI, <param1>, <param2>... );
+Mantra.api.books.addnewbook( Mantra, <param1>, <param2>... );
 ```
 
 *Remember:* if the method is *asynchronous*, then you should use *await* when calling it.
@@ -56,7 +56,7 @@ Here an example:
 
 ```js api.books.js
 module.exports = {
-    getbookscount: async (MantraAPI, params) => {
+    getbookscount: async (Mantra, params) => {
         // ...
     }   
 }

@@ -9,7 +9,7 @@ This is a design pattern extremely useful to decouple components behaviour.
 The way to define an event subscriber function handler is using the hook *Event*:
 
 ```js
-MantraAPI.Hooks("[component name"])
+Mantra.Hooks("[component name"])
     .Event([{
         EventName: "[name of the event]",
         EventHandler: [handler for the event]
@@ -21,7 +21,7 @@ Let's see an example:
 ```js
 const AnalyticsEventHandlers = require("./analyticseventhandlers.js");
 
-MantraAPI.Hooks("admin")
+Mantra.Hooks("admin")
     .Event([{
         EventName: "system.cleanup",
         EventHandler: AnalyticsEventHandlers.SystemCleanup

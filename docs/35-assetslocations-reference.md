@@ -1,6 +1,6 @@
 # AssetsLocations
 
-With MantraAPI.GetAssetsLocations(), you get an object with methods to locate where components assets (views, blocks, etc) are located in the project.
+With Mantra.GetAssetsLocations(), you get an object with methods to locate where components assets (views, blocks, etc) are located in the project.
 
 * [AssetsLocations.ExistsView](#assetslocations.existsview)
 

@@ -5,7 +5,7 @@ A component can define a number of HTTP post handlers for building REST APIs.
 To do that, the hook *Post* is used in *onStart* component method:
 
 ```js
-MantraAPI.Hooks("<component name>")
+Mantra.Hooks("<component name>")
     .Post([{
         Command: <name of the post route>,
         Handler: <async function handler for the HTTP post>,
@@ -20,8 +20,8 @@ As an example, consider this "post" registration:
 const BookPostHandlers = require("./bookposthandlers.js);
 
 class BooksStarter {
-    async onStart( MantraAPI ) {
-        MantraAPI.Hooks("books")
+    async onStart( Mantra ) {
+        Mantra.Hooks("books")
             .Post([[{
                 Command: "setpublicorprivate",
                 Handler: BookPostHandlers.SetPublicOrPrivate,

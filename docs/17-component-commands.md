@@ -5,7 +5,7 @@ Usually, *command line interface* commands are useful for administration tasks i
 Any Mantra component can define its own commands with the hook *Command*:
 
 ```js
-MantraAPI.Hooks( "<component name>" )
+Mantra.Hooks( "<component name>" )
     .Command([{
         Name: "<name of the command>",
         Description: "Description for the command",
@@ -18,7 +18,7 @@ As an example, consider this command registration:
 ```js
 const SearchCommandHandlers = require("./searchcommandhandlers.js");
 
-MantraAPI.Hooks( "search" )
+Mantra.Hooks( "search" )
     .Command([{
         Name: "remove-search-indexes",
         Description: "Remove all search indexes",
@@ -61,7 +61,7 @@ $ mantrad books-show-book 9iIdss2a2
 When running this, the parameter "9iIdss2a2" will be set as parameter of the function handler:
 
 ```js
-async (MantraAPI, bookId) => { 
+async (Mantra, bookId) => { 
     // ... 
 };
 ```

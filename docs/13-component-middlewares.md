@@ -7,7 +7,7 @@ Because Mantra relies on Express, its middlewares consists of the same concept d
 To register a middleware, the hook *Middleware* is used in *onStart* component method:
 
 ```js
-MantraAPI.Hooks("<component name>")
+Mantra.Hooks("<component name>")
     .Middleware([{
         MiddlewareHandler: <function handler for the middleware>,
         Weight: <integer with the weight of the middleware (optional), default: 0>
@@ -19,7 +19,7 @@ As an example, consider this middleware registration:
 ```js
 const RedirectMiddlewareHandlers = require("./redirectmiddlewarehandlers.js");
 
-MantraAPI.Hooks("redirect")
+Mantra.Hooks("redirect")
     .Middleware([{
         MiddlewareHandler: RedirectMiddlewareHandlers.CheckOrigin,
         Weight: -500

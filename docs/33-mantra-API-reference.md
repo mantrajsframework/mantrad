@@ -359,7 +359,7 @@ Params:
 As an example:
 
 ```js
-let viewHtml = await MantraAPI.RenderViewHtml( "books", "showfullbook" );
+let viewHtml = await Mantra.RenderViewHtml( "books", "showfullbook" );
 ```
 
 ## MantraAPI.RenderRawViewContentHtml
@@ -387,7 +387,7 @@ Returns '(unknown)' if the key entry doesn't exist.
 As an example:
 
 ```js
-let globalSiteName = MantraAPI.GetGlobalVar( "global-sitename" )
+let globalSiteName = Mantra.GetGlobalVar( "global-sitename" )
 ```
 
 ## MantraAPI.RenderContent
@@ -585,7 +585,7 @@ async Render( html )
 
 Renders the html document indicated as parameter.
 
-Al data to render within the document, should be indicated previously with MantraAPI.AddRenderValue o MantraAPI.AddRenderValues.
+Al data to render within the document, should be indicated previously with Mantra.AddRenderValue o Mantra.AddRenderValues.
 
 If the document contains blocks, then they are rendered as well.
 
@@ -632,7 +632,7 @@ InstallSchema() looks for the schema that match de component version. If no exis
 For instance:
 
 ```js
-await MantraAPI.InstallSchema( "users" );
+await Mantra.InstallSchema( "users" );
 ```
 
 If users has "1.0.3" version (indicated at "version" property at its mantra.json file), then InstallSchema() will try to locate first the model "/users/model/users.1.0.3.schema.json". If it doesn't exist, then "/users/model/users.schema.json" will be used.
@@ -855,7 +855,7 @@ Params:
 * key: <key name of the variable to render>
 * value: <value for the key>
   
-For example, by running MantraAPI.AddRenderValue( "name", "Mantra Microkernel Framework" ), when rendering any html piece of code with Mustache syntax like:
+For example, by running Mantra.AddRenderValue( "name", "Mantra Microkernel Framework" ), when rendering any html piece of code with Mustache syntax like:
 
 ```html
 <p>{{name}}</p>
@@ -1106,7 +1106,7 @@ Returns the value returned by the API method.
 This method is equivalent to use "api" property shorcut:
 
 ```js
-MantraAPI.api.componentname.apiname
+Mantra.api.componentname.apiname
 ```
 
 See [Component APIs](/docs/09-component-apis.md) for more info about API registration.
@@ -1154,7 +1154,7 @@ Returns a component property componentProperty is in the format "component name"
 This method is equivalent to use "config" property shortcut:
 
 ```js
-MantraAPI.config.componentname.property
+Mantra.config.componentname.property
 ```
 
 Se [Components Configuration](/docs/18-component-configuration.md) for more details about component configurations.

@@ -32,7 +32,7 @@ These are the properties description for "core" component configuration:
 This injection should point to an API function like this:
 
 ```js
-async (MantraAPI, jsFiles )
+async (Mantra, jsFiles )
 ```
 
 Where jsFiles is an array of all js files that should be included in the rendering process.
@@ -44,7 +44,7 @@ The result of this function will be rendered in "mantra-js-files" Mustache tag i
 Again, this injection should point to an API function like this:
 
 ```js
-async (MantraAPI, cssFiles )
+async (Mantra, cssFiles )
 ```
 
 Where cssFiles is an array of all css files that should be included in the rendering process.

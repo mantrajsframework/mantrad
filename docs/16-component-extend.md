@@ -5,7 +5,7 @@ Mantra has a number of default *hooks* to register some kind of assets (views, b
 To do this, you can use "Extend" hook onStart() method:
 
 ```js
-MantraAPI.Hooks(["component name"])
+Mantra.Hooks(["component name"])
     .Extend([{
         Type: "[name for your extend]",
         ... extend properties ...
@@ -19,7 +19,7 @@ You can use [MantraAPI.GetExtendsByType](/docs/33-mantra-API-reference.md#mantra
 This is a real example for this *hook*:
 
 ```js
-MantraAPI.Hooks("forms")
+Mantra.Hooks("forms")
         .Extend([{
             Type: "formvalidator",
             Name: "email",

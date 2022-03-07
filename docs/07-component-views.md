@@ -7,7 +7,7 @@ A view is based on a html file and Mantra expects to find it inside "ui/views" f
 There are two ways to register a view. The first one is using the *hook* of the name "View":
 
 ```js
-MantraAPI.Hooks("[component name]")
+Mantra.Hooks("[component name]")
     .View([{
         Command: [name of the view route],
         Handler: [async function handler for the view],
@@ -24,8 +24,8 @@ As an example, consider this view registration:
 const BookViewHandlers = require("./bookviewhandlers.js");
 
 class BooksStarter {
-    async onStart( MantraAPI ) {
-        MantraAPI.Hooks("books")
+    async onStart( Mantra ) {
+        Mantra.Hooks("books")
             .View([{
                 Command: "showallbooks",
                 Handler: BookViewsHandlers.ShowAllBooks
@@ -43,7 +43,7 @@ If property *Js* is included in the hook, then Mantra will include the file or f
 Mantra expect to find those files in "/ui/js" folder of the module.
 
 ```js
-MantraAPI.Hooks("books")
+Mantra.Hooks("books")
     .View([{
         Command: "showallbooks",
         Handler: BookViewsHandlers.ShowAllBooks,
@@ -62,7 +62,7 @@ Similarly, if property *Css* is included in the hook, then Mantra will include t
 Mantra expect to find those files in "/ui/css" folder of the module.
 
 ```js
-MantraAPI.Hooks("books")
+Mantra.Hooks("books")
     .View([{
         Command: "showallbooks",
         Handler: BookViewsHandlers.ShowAllBooks,

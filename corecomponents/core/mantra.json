@@ -7,7 +7,6 @@
         "minifyhtml": false,
         "compressresponses": false,
         "translatejsapi": "",
-        "translatecssapi": "",
-        "baseurl": "http://localhost:8080/"
+        "translatecssapi": ""
      }
 }

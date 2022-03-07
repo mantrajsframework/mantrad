@@ -13,7 +13,7 @@ By doing so, you can reduce the code needed by views, blocks, posts and gets han
 As other kind of hooks, you can register a prerequest with the hook "PreRequest":
 
 ```js
-MantraAPI.Hooks("[component name"])
+Mantra.Hooks("[component name"])
     .PreRequest([{
         Name: "[name of the prerequest]",
         Handler: "[handler for the prerequest]",
@@ -28,7 +28,7 @@ Let' see an example:
 ```js
 const ResourcesPreRequestHandlers = require("./resourcesprerequesthandlers.js");
 
-MantraAPI.Hooks("resources")
+Mantra.Hooks("resources")
     .PreRequest([{
         Name: "resources.getuseridfromurl",
         Handler: ResourcesPreRequestHandlers.GetResourceIdFromUrl

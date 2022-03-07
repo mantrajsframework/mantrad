@@ -159,7 +159,7 @@ JSON object with the configuration if needed for each component.
 
 Each component of the project can set a number of properties to configure it according to specific needs inside the project.
 
-This properties are available with MantraAPI.GetComponentConfig("<component name>") or MantraAPI.config.<component name>.
+This properties are available with Mantra.GetComponentConfig("<component name>") or Mantra.config.<component name>.
 
 *"Injections*"
 This property can be overwritten in App sections as well.

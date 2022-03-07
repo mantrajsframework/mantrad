@@ -38,7 +38,7 @@ There three ways to register a block: explicity by the specific *hook*, implicit
 You can define your block using this hook, always in *onStart* method of the component:
 
 ```js
-MantraAPI.Hooks(["component name"])
+Mantra.Hooks(["component name"])
     .Block([{
         BlockName: "[unique name of the block]",
         RenderHandler: [block function handler (optional)]
@@ -55,7 +55,7 @@ Similarly to views, blocks accept prerequests and access conditions as well.
 Let's give an example:
 
 ```js
-MantraAPI.Hooks("contact")
+Mantra.Hooks("contact")
     .Block([{
         BlockName: "contact-block",
         RenderHandler: ContactBlockHandlers.Contact
@@ -92,7 +92,7 @@ Here there's an example:
 
 module.exports = {
     actionsonarticleblock_accesscondition: ["system.islogged"],
-    actionsonarticleblock: async (MantraAPI, html) => {
+    actionsonarticleblock: async (Mantra, html) => {
         let finalHtml;
 
         // Do something with html if necesary

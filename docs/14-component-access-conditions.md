@@ -7,7 +7,7 @@ While prerequests are intended to *calculate* some info before calling final fun
 To register an access condition, "AccessCondition" hook should be used:
 
 ```js
-MantraAPI.Hooks( "[name of the component]" )
+Mantra.Hooks( "[name of the component]" )
     .AccessCondition([{
         Name: "[name of the access condition]",
         Handler: "[handler for the access condition]",
@@ -22,7 +22,7 @@ Let's see an example:
 ```js
 const AdminAccessConditionsHandlers = require("./adminaccessconditionshandlers.js");
 
-MantraAPI.Hooks( "admin" )
+Mantra.Hooks( "admin" )
     .AccessCondition([{
         Name: "admin.isuseradmin",
         Handler: AdminAccessConditionsHandlers.IsUserAdmin
@@ -34,7 +34,7 @@ In this example, an access condition is defined with the name "admin.isuseradmin
 If specific rejection method should be used (the handler of the access condition returns false), then you can use onCancel property:
 
 ```js
-MantraAPI.Hooks( "admin" )
+Mantra.Hooks( "admin" )
     .AccessCondition([{
         Name: "admin.isuseradmin",
         Handler: AdminAccessConditionsHandlers.IsUserAdmin,
