@@ -187,6 +187,10 @@ Mantra API object is the heart of the framework, all it's represented by its met
 
 * [MantraAPI.ExtractResource](#mantraapi.extractresource)
 
+* [MantraAPI.UpdateSchema](#mantraapi.updateschema)
+
+* [MantraAPI.UpdateSchemaWithCurrentEntities](#mantraapi.updateschemawithcurrententities)
+
 # MantraAPI methods definitions
 
 ## MantraAPI.GetAppName
@@ -681,15 +685,17 @@ UninstallSchema() looks for the schema that match de component version. If no ex
 async UpdateSchema( componentName, currentVersion, versionToUpdate, updateEntityFnc )
 ```
 
-Updates a new schema for component. This method is complex and involves changes in DB.
+Updates a new schema for a component. This method is complex and involves changes in DB.
 
-It should be called from an onUpdate() method of the [component definition](/docs/05-mantra-component-definition.md). onUpdate() is called by Mantra when running 'update' command and if it detects changes in "version" property of mantra.json file of the component.
+It should be called from an onUpdate() method of the [component definition](/docs/05-mantra-component-definition.md).
+
+onUpdate() is called by Mantra when running *update* command and if it detects changes in "version" property of mantra.json file of the component:
 
 ```bash
 $ mantrad update
 ```
 
-As with any othe important updatet in any software system, it is *Recommended* to make database backup before calling this method.
+As with any other important update in any software system, it is *recommended* to make database backups before calling this method, and, of course, test the update in development or pre-production environments first.
 
 Params:
 * componentName: <name of the component to update>
@@ -697,26 +703,43 @@ Params:
 * versionToUpdate: <new version to update of the component, as indicated in current mantra.json>
 * updateEntityFnc: <optional callback function: async (entityName, entity, db) {}, to be called for each current entity instance for each entity in current db>
 
-Basically, the update process performs this:
-1) Renames current entities with the sufix "_temporal"
-2) Creates the new version of the schema
+Basically, the updating to a new schema version process performs this steps:
+1) Renames current entities with the sufix "_temporal".
+2) Creates the new version of the schema.
 3) To load old data to be stored at new schema (and maybe with changes or conversion in the data entities), then calls to updateEntityFnc() calback by each entity in the old schema.
 4) Removes temporal entities renamed at step 1.
 
-The callback function, is given, is called by each entity (row) in the database, and has this prototype:
+The callback function, if it is given, is called by each entity (row) in the database tables of the schema of the component, and has this prototype:
 
 ```js
 async function(entityName, entity, newdb)
 ```
 
 Where:
-* entityName: <name of the entity (table)>
-* entity: <data of the entity (row)>
+* entityName: <name of the entity (table), as defined in the schema>
+* entity: <json object with the data of the entity (row)>
 * newdb: <RedEntities instance with the new db created and where the data of the old one should be saved>
 
 *Remember*: one of the Mantra main concepts to scacle applications is that entities should be small (one, two of three tables by each component as much), the entities should be defined with simple types and entities for each components should not store "very long" data sets.
 
 If long data sets are needed, then third options should be used.
+
+Refer to [Updating Components Data Models](/docs/39-updating-components-data-models.md) of the documentation to read same examples.
+
+
+## MantraAPI.UpdateSchemaWithCurrentEntities
+
+```js
+async UpdateSchemaWithCurrentEntities(componentName, currentVersion, versionToUpdate)
+```
+
+Same than UpdateSchema but with the difference that Mantra is in charge of move current data entities to new data model. Use this method to easily update the model when its changes only consists of minimal changes in the new version of the schema, like:
+
+* New properties with default values.
+* Property removed.
+* Adition of new indexes.
+
+Refer to [Updating Components Data Models](/docs/39-updating-components-data-models.md) of the documentation to read same examples.
 
 ## MantraAPI.LoadSchema
 

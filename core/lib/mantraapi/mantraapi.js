@@ -612,7 +612,9 @@ class MantraAPI {
         
         const updateEntityFnc = async ( entityName, entity, newdb ) => {
             try {
-                await newdb[entityName].I().V(entity).R();
+                if ( newdb[entityName] ) {
+                    await newdb[entityName].I().V(entity).R();
+                }
             } catch {
                 MantraConsole.error( `Unable to update entity from '${entityName}' to new schema:`, false );
                 MantraConsole.info( entity, false );

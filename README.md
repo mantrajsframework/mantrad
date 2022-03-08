@@ -120,4 +120,5 @@ You can also read this documentation at [Mantra site](https://www.mantrajs.com).
 - [36 mantraconfig.json File](/docs/36-mantraconfig-json-file.md)
 - [37 mantracoreapi.js File Reference](/docs/37-mantracoreapi-js-file-reference.md)
 - [38 Mantra Console API reference](/docs/38-mantra-console-api-reference.md)
+- [39 Updating Components Data Models](/docs/39-updating-models.md)
 - [39 Next Steps](/docs/39-next-steps.md)
