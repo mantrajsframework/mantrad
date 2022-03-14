@@ -14,7 +14,7 @@ const MantraUtils = global.gimport("mantrautils");
 
 module.exports = {
     buildNewProject: async (projectInfo) => {
-        const baseProjectPath = MantradArgs.getRootFolder();
+        const baseProjectPath = MantradArgs.getRootProjectFolder();
 
         // Create folders
         const projectPath = Path.join(baseProjectPath, projectInfo.projectname);

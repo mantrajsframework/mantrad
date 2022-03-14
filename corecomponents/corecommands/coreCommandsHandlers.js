@@ -63,7 +63,7 @@ module.exports = {
             const version = Mantra.GetComponentVersion(componentName);
             const componentRootLocation = Mantra.GetComponentLocation(componentName).replace(componentName, "");
             const fileToGenerate = `${componentName}@${version}.tar.gz`;
-            const currentFolder = MantradArgs.getRootFolder();
+            const currentFolder = MantradArgs.getRootProjectFolder();
             const existsTarCommand = await CoreCommandsUtils.ExistsTarCommandInSystem();                ;
 
             if ( existsTarCommand ) {

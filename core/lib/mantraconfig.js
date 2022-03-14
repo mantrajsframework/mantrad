@@ -173,6 +173,7 @@ module.exports = {
 }
 
 function checkSqliteLocalDatabase( MantraConfig, fullPathToSite ) {
+    // For sqlite provider, the database file can be indicated as local file inside the project folder.
     if ( MantraConfig.Entities ) {
         for( const entitiesConfigName of Object.keys(MantraConfig.Entities) ) {
             let entitiesConfig = MantraConfig.Entities[entitiesConfigName];

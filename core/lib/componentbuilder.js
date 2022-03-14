@@ -14,7 +14,7 @@ const MantraUtils = global.gimport("mantrautils");
 
 module.exports = {
     buildComponent: async (componentInfo) => {
-        const componentLocation = Path.join( MantradArgs.getRootFolder(), componentInfo.location, componentInfo.name );
+        const componentLocation = Path.join( MantradArgs.getRootProjectFolder(), componentInfo.location, componentInfo.name );
         const templateLocation = Path.join( __dirname, "..", "newtemplates", "components", componentInfo.template );
         
         await MantraUtils.EnsureDir( componentLocation );

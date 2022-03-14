@@ -35,7 +35,7 @@ module.exports = {
                 const apiCallResult = await MantrajsApiClient.GetDownloadTokenForProject(projectDownloadRequestData);
 
                 if (apiCallResult.success) {
-                    const destinationFolder = MantradArgs.getRootFolder();
+                    const destinationFolder = MantradArgs.getRootProjectFolder();
                     await MantraUtils.EnsureDir(destinationFolder);
                     const downloadToken = apiCallResult.payload.downloadtoken;
                     const fileNameDownloaded = await MantrajsApiClient.GetDownloadComponent(downloadToken, destinationFolder);

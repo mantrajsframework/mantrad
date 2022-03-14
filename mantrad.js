@@ -34,12 +34,12 @@ if ( !NodeVersionChecker.CheckNodeVersion( CoreConstants.NODESUPPORTEDVERSIONS )
  */
 (async () => {
     const args = await MantradArgs.getArgs();
-    const existsMantraConfigFile = await MantraConfig.ExistsConfigFile(Path.join(MantradArgs.getRootFolder(), CoreConstants.MANTRACONFIGFILE));
+    const existsMantraConfigFile = await MantraConfig.ExistsConfigFile(Path.join(MantradArgs.getRootProjectFolder(), CoreConstants.MANTRACONFIGFILE));
     let config = {};
 
     if ( existsMantraConfigFile ) {
         await checkMainGuards();
-        config = await MantraConfig.LoadFullConfigFromProject( __dirname, MantradArgs.getRootFolder() )
+        config = await MantraConfig.LoadFullConfigFromProject( __dirname, MantradArgs.getRootProjectFolder() )
     }
 
     if ( !existsMantraConfigFile && ['startapp','startall','install','npm-install'].includes(args.command) ) {
@@ -111,7 +111,11 @@ if ( !NodeVersionChecker.CheckNodeVersion( CoreConstants.NODESUPPORTEDVERSIONS )
             if ( existsMantraConfigFile ) {
                 await MantraStartup.performCommand(config, args);
             } else {
-                await MantraStartup.showDefaultHelp();
+                if ( args.hasArgs ) {
+                    MantraConsole.warning("Uknown command or bad location", false );
+                } else {
+                    await MantraStartup.showDefaultHelp();
+                }
             }
             
             global.gimport("fatalending").exit();
@@ -119,7 +123,7 @@ if ( !NodeVersionChecker.CheckNodeVersion( CoreConstants.NODESUPPORTEDVERSIONS )
     }
 
     async function checkMainGuards() {
-        if ( existsMantraConfigFile && !MantraConfig.IsJsonFileValid(Path.join(MantradArgs.getRootFolder(), CoreConstants.MANTRACONFIGFILE)) ) {
+        if ( existsMantraConfigFile && !MantraConfig.IsJsonFileValid(Path.join(MantradArgs.getRootProjectFolder(), CoreConstants.MANTRACONFIGFILE)) ) {
             global.gimport("fatalending").exitByError(`${CoreConstants.MANTRACONFIGFILE} json file format invalid. Check format and properties according to documentation`);
         }
     
@@ -129,7 +133,7 @@ if ( !NodeVersionChecker.CheckNodeVersion( CoreConstants.NODESUPPORTEDVERSIONS )
         }
         
         if ( !args.hasArgs && existsMantraConfigFile ) {
-            const config = await MantraConfig.LoadFullConfigFromProject( __dirname, MantradArgs.getRootFolder() );
+            const config = await MantraConfig.LoadFullConfigFromProject( __dirname, MantradArgs.getRootProjectFolder() );
             await MantraStartup.showHelp( config );
             global.gimport("fatalending").exit();
         }

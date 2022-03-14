@@ -36,7 +36,7 @@ module.exports = {
                 const apiCallResult = await MantrajsApiClient.GetDownloadTokenForComponent(componentDownloadRequestData);
 
                 if (apiCallResult.success) {
-                    const destinationFolder = Path.join(MantradArgs.getRootFolder(), CoreConstants.DOWNLOADEDFOLDER);
+                    const destinationFolder = Path.join(MantradArgs.getRootProjectFolder(), CoreConstants.DOWNLOADEDFOLDER);
                     await MantraUtils.EnsureDir(destinationFolder);
                     const downloadToken = apiCallResult.payload.downloadtoken;
                     const fileNameDownloaded = await MantrajsApiClient.GetDownloadComponent(downloadToken, destinationFolder);
@@ -48,7 +48,7 @@ module.exports = {
                     if (answer == "Y" || answer == "") {        
                         const ExecCommand = global.gimport("execcommand");
                         const gzFullPathFile = Path.join(destinationFolder, fileNameDownloaded);
-                        const destinationComponentFolder = Path.join(MantradArgs.getRootFolder(), await CoreCommandsUtils.GetComponentLocation());
+                        const destinationComponentFolder = Path.join(MantradArgs.getRootProjectFolder(), await CoreCommandsUtils.GetComponentLocation());
                         const untarCommand = `tar -xzf ${gzFullPathFile} -C ${destinationComponentFolder}`;
 
                         MantraConsole.info("Uncompressing component...");

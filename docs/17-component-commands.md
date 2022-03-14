@@ -32,6 +32,12 @@ With this, you can run the command from the bash just with:
 $ mantrad remove-search-indexes
 ```
 
+Also, you can indicate in the command line the local or absolute path to the project:
+
+```bash
+$ mantrad ./myproject/remove-search-indexes
+```
+
 By default, you can see all commands defined in the project (apart from core commands) with:
 
 ```

@@ -16,6 +16,16 @@ All core commands are implemented in "corecommmand" component. By "core commands
 
 As component commands, some of them requires aditional parameters.
 
+As custom components commands, they can be run indicating the relative or absolute path of the project, like in these examples:
+
+```bash
+$ mantrad ./project/myproject/show-components
+```
+
+```bash
+$ mantrad /home/user/project/myproject/show-components
+```
+
 These are the Mantra core commands:
 
 * [check-health](#check-health)

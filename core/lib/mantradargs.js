@@ -8,16 +8,17 @@
 const MantraUtils = global.gimport("mantrautils");
 const Path = require("path");
 
-let rootFolder = "";
+let rootProjectFolder = "";
 
 module.exports = {
     getArgs: async () => {
         let args = {};
         let mainCommand = process.argv[2];
-        rootFolder = process.cwd();
+        rootProjectFolder = process.cwd();
+        args.hasArgs = process.argv.length > 2;
 
-        if ( process.argv.length > 2 ) {
-            // Extract project location
+        if ( args.hasArgs ) {
+            // Extract project location if indicated
             let command = Path.basename(process.argv[2]);
             let folder = Path.dirname(process.argv[2]);
     
@@ -27,20 +28,17 @@ module.exports = {
     
             if ( await MantraUtils.ExistsDirectory(folder) ) {
                 mainCommand = command;
-                rootFolder = folder;
+                rootProjectFolder = folder;
             }
-        }
-    
-        args.hasArgs = process.argv.length > 2;
 
-        if ( args.hasArgs ) {
-            args.command = process.argv.length == 2 ? "--help" : mainCommand;
             args.arg1 = process.argv[3] ? process.argv[3] : undefined;
             args.arg2 = process.argv[4] ? process.argv[4] : undefined;
         }
+        
+        args.command = !args.hasArgs ? "--help" : mainCommand;
 
         return args;
     },
 
-    getRootFolder: () => rootFolder
+    getRootProjectFolder: () => rootProjectFolder
 }
