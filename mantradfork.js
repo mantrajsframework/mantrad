@@ -20,8 +20,8 @@ const MantraConsole = global.gimport("mantraconsole");
 const MantraStartup = global.gimport("mantrastartup")();
 
 (async () => {
-    const args = MantradArgs.getArgs();
-    const config = await MantraConfig.LoadFullConfigFromProject( __dirname );
+    const args = await MantradArgs.getArgs();
+    const config = MantraConfig.LoadFullConfigFromProject( __dirname, MantradArgs.getRootFolder() );
 
     MantraConsole.setAppName( args.arg1 ? args.arg1 : ( config.Apps ? Object.keys(config.Apps)[0] : "main" ) );
 

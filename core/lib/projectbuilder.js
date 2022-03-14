@@ -9,11 +9,12 @@ const Mustache = require("mustache");
 const Path = require("path");
 
 const CoreConstants = global.gimport("coreconstants");
+const MantradArgs = global.gimport("mantradargs");
 const MantraUtils = global.gimport("mantrautils");
 
 module.exports = {
     buildNewProject: async (projectInfo) => {
-        const baseProjectPath = process.cwd();
+        const baseProjectPath = MantradArgs.getRootFolder();
 
         // Create folders
         const projectPath = Path.join(baseProjectPath, projectInfo.projectname);

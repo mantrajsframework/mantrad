@@ -14,6 +14,7 @@ const CoreConstants = global.gimport("coreconstants");
 const DownloadComponent = global.gimport("downloadcomponent");
 const InitialEventsCaller = global.gimport("initialeventscaller");
 const InstallComponentImpl = global.gimport("installcomponentimpl");
+const MantradArgs = global.gimport("mantradargs");
 const MantraConsole = global.gimport("mantraconsole");
 const MantraDB = global.gimport("mantradb");
 
@@ -62,7 +63,7 @@ module.exports = {
             const version = Mantra.GetComponentVersion(componentName);
             const componentRootLocation = Mantra.GetComponentLocation(componentName).replace(componentName, "");
             const fileToGenerate = `${componentName}@${version}.tar.gz`;
-            const currentFolder = process.cwd();
+            const currentFolder = MantradArgs.getRootFolder();
             const existsTarCommand = await CoreCommandsUtils.ExistsTarCommandInSystem();                ;
 
             if ( existsTarCommand ) {

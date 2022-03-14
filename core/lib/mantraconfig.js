@@ -9,6 +9,7 @@ const path = require("path");
 const { nanoid } = require("nanoid");
 const CoreConstants = require("./coreconstants");
 
+const MantradArgs = global.gimport("mantradargs");
 let MantraUtils = global.gimport("mantrautils");
 
 const FRONTEND_FOLDER = "frontend";
@@ -34,10 +35,10 @@ module.exports = {
         return MantraConfig;
     },
 
-    LoadFullConfigFromProject: function ( mantraRootFolder ) {
+    LoadFullConfigFromProject: function ( mantraRootFolder, projectRootFolder ) {
         return this.LoadFullConfig(path.join(mantraRootFolder, CoreConstants.CORECOMPONENTSFOLDER), 
-            path.join(process.cwd(), CoreConstants.MANTRACONFIGFILE), 
-            process.cwd());
+            path.join(projectRootFolder, CoreConstants.MANTRACONFIGFILE), 
+            projectRootFolder);
     },
 
     LoadFullConfig : function( fullPathToCoreComponents, fullPathToConfigFile, fullPathToSite ) {
@@ -135,6 +136,8 @@ module.exports = {
             MantraConfig.GlobalConfig = {};
         }
 
+        checkSqliteLocalDatabase( MantraConfig, fullPathToSite );
+
         return MantraConfig;
     },
 
@@ -165,6 +168,18 @@ module.exports = {
         
         if ( appConfig.LandingView ) {
             MantraConfig.LandingView = appConfig.LandingView;
+        }
+    }
+}
+
+function checkSqliteLocalDatabase( MantraConfig, fullPathToSite ) {
+    if ( MantraConfig.Entities ) {
+        for( const entitiesConfigName of Object.keys(MantraConfig.Entities) ) {
+            let entitiesConfig = MantraConfig.Entities[entitiesConfigName];
+
+            if ( entitiesConfig.provider == "sqlite" && entitiesConfig.databasepath.charAt(0) == ".") {
+                entitiesConfig.databasepath = path.join(fullPathToSite, entitiesConfig.databasepath); 
+            }
         }
     }
 }

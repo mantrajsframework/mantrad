@@ -33,13 +33,13 @@ if ( !NodeVersionChecker.CheckNodeVersion( CoreConstants.NODESUPPORTEDVERSIONS )
  * $ mantrad <command> [0..n params]
  */
 (async () => {
-    const args = MantradArgs.getArgs();
-    const existsMantraConfigFile = await MantraConfig.ExistsConfigFile(Path.join(process.cwd(), CoreConstants.MANTRACONFIGFILE));
+    const args = await MantradArgs.getArgs();
+    const existsMantraConfigFile = await MantraConfig.ExistsConfigFile(Path.join(MantradArgs.getRootFolder(), CoreConstants.MANTRACONFIGFILE));
     let config = {};
 
     if ( existsMantraConfigFile ) {
         await checkMainGuards();
-        config = await MantraConfig.LoadFullConfigFromProject( __dirname )
+        config = await MantraConfig.LoadFullConfigFromProject( __dirname, MantradArgs.getRootFolder() )
     }
 
     if ( !existsMantraConfigFile && ['startapp','startall','install','npm-install'].includes(args.command) ) {
@@ -62,7 +62,7 @@ if ( !NodeVersionChecker.CheckNodeVersion( CoreConstants.NODESUPPORTEDVERSIONS )
             const appName = args.arg1 ? args.arg1 : ( config.Apps ? Object.keys(config.Apps)[0] : "main" );
             MantraConsole.setAppName( appName );
 
-            MantradProcess.fork(__dirname, appName );
+            MantradProcess.fork( __dirname, appName );
             await MantradKeys.configureKeys( __dirname, [appName] );
         }
         break;
@@ -119,7 +119,7 @@ if ( !NodeVersionChecker.CheckNodeVersion( CoreConstants.NODESUPPORTEDVERSIONS )
     }
 
     async function checkMainGuards() {
-        if ( existsMantraConfigFile && !MantraConfig.IsJsonFileValid(Path.join(process.cwd(), CoreConstants.MANTRACONFIGFILE)) ) {
+        if ( existsMantraConfigFile && !MantraConfig.IsJsonFileValid(Path.join(MantradArgs.getRootFolder(), CoreConstants.MANTRACONFIGFILE)) ) {
             global.gimport("fatalending").exitByError(`${CoreConstants.MANTRACONFIGFILE} json file format invalid. Check format and properties according to documentation`);
         }
     
@@ -129,7 +129,7 @@ if ( !NodeVersionChecker.CheckNodeVersion( CoreConstants.NODESUPPORTEDVERSIONS )
         }
         
         if ( !args.hasArgs && existsMantraConfigFile ) {
-            const config = await MantraConfig.LoadFullConfigFromProject( __dirname );
+            const config = await MantraConfig.LoadFullConfigFromProject( __dirname, MantradArgs.getRootFolder() );
             await MantraStartup.showHelp( config );
             global.gimport("fatalending").exit();
         }

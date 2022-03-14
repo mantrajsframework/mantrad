@@ -10,6 +10,7 @@ const Path = require("path");
 const CoreConstants = global.gimport("coreconstants");
 const CoreCommandsUtils = global.gimport("corecommandsutils");
 const InstallComponentImpl = global.gimport("installcomponentimpl");
+const MantradArgs = global.gimport("mantradargs");
 const MantrajsApiClient = global.gimport("mantrajsapiclient");
 const MantraConsole = global.gimport("mantraconsole");
 const MantraUtils = global.gimport("mantrautils");
@@ -35,7 +36,7 @@ module.exports = {
                 const apiCallResult = await MantrajsApiClient.GetDownloadTokenForComponent(componentDownloadRequestData);
 
                 if (apiCallResult.success) {
-                    const destinationFolder = Path.join(process.cwd(), CoreConstants.DOWNLOADEDFOLDER);
+                    const destinationFolder = Path.join(MantradArgs.getRootFolder(), CoreConstants.DOWNLOADEDFOLDER);
                     await MantraUtils.EnsureDir(destinationFolder);
                     const downloadToken = apiCallResult.payload.downloadtoken;
                     const fileNameDownloaded = await MantrajsApiClient.GetDownloadComponent(downloadToken, destinationFolder);
@@ -47,7 +48,7 @@ module.exports = {
                     if (answer == "Y" || answer == "") {        
                         const ExecCommand = global.gimport("execcommand");
                         const gzFullPathFile = Path.join(destinationFolder, fileNameDownloaded);
-                        const destinationComponentFolder = Path.join(process.cwd(), await CoreCommandsUtils.GetComponentLocation());
+                        const destinationComponentFolder = Path.join(MantradArgs.getRootFolder(), await CoreCommandsUtils.GetComponentLocation());
                         const untarCommand = `tar -xzf ${gzFullPathFile} -C ${destinationComponentFolder}`;
 
                         MantraConsole.info("Uncompressing component...");

@@ -8,11 +8,13 @@
 const Path = require("path");
 const { fork } = require('child_process');
 
+const MantradArgs = global.gimport("mantradargs");
+
 let mantraProcesses = [];
 
 module.exports = {
     fork: (mantraRootFolder, app) => {
-        const forkProcess = fork( `${Path.join(mantraRootFolder,'mantradfork.js')}`, ['startapp', app]);
+        const forkProcess = fork( `${Path.join(mantraRootFolder,'mantradfork.js')}`, [`${MantradArgs.getRootFolder()}/startapp`, app]);
 
         mantraProcesses.push(forkProcess);
     },

@@ -9,6 +9,7 @@ const Path = require("path");
 
 const CoreConstants = global.gimport("coreconstants");
 const CoreCommandsUtils = global.gimport("corecommandsutils");
+const MantradArgs = global.gimport("mantradargs");
 const MantrajsApiClient = global.gimport("mantrajsapiclient");
 const MantraConsole = global.gimport("mantraconsole");
 const MantraUtils = global.gimport("mantrautils");
@@ -34,7 +35,7 @@ module.exports = {
                 const apiCallResult = await MantrajsApiClient.GetDownloadTokenForProject(projectDownloadRequestData);
 
                 if (apiCallResult.success) {
-                    const destinationFolder = process.cwd();
+                    const destinationFolder = MantradArgs.getRootFolder();
                     await MantraUtils.EnsureDir(destinationFolder);
                     const downloadToken = apiCallResult.payload.downloadtoken;
                     const fileNameDownloaded = await MantrajsApiClient.GetDownloadComponent(downloadToken, destinationFolder);
