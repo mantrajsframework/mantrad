@@ -24,6 +24,7 @@
     "execcommand": "./core/lib/execcommand.js",
     "existscommand": "./core/lib/existscommand.js",
     "fatalending": "./core/lib/fatalending.js",
+    "gzipproject": "./core/lib/gzip/gzipproject.js",
     "initialeventscaller": "./core/lib/initialeventscaller.js",
     "injectionsinstances": "./core/injectionsinstances.js",
     "installcomponentimpl": "./core/lib/install/installcomponentimpl.js",

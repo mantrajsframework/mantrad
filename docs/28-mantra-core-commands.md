@@ -40,6 +40,10 @@ These are the Mantra core commands:
 
 * [enable-component](#enable-component)
 
+* [gzip-component](#gzip-component)
+
+* [gzip-project](#gzip-project)
+
 * [install-component](#install-component)
 
 * [new-component](#new-component)
@@ -152,6 +156,22 @@ $ mantrad enable-component [component name]
 Enables a component given its name.
 
 Mantra only loads all enabled components when starting any applications of the project.
+
+## gzip-component
+
+```bash
+$ mantrad gzip-component [component name]
+```
+
+Generates a gzip tar file with a component of the current project.
+
+## gzip-project
+
+```bash
+$ mantrad gzip-project [project path]
+```
+
+Generates a gzip tar file with a project which location is indicated as parameter.
 
 ## install-component
 

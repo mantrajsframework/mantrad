@@ -95,6 +95,17 @@ if ( !NodeVersionChecker.CheckNodeVersion( CoreConstants.NODESUPPORTEDVERSIONS )
 
             global.gimport("fatalending").exit();
         }
+        case 'gzip-project': {
+            const GzipProject = global.gimport("gzipproject");
+
+            if ( args.hasArgs && args.arg1 ) {
+                await GzipProject.Gzip(args.arg1);
+            } else {
+                MantraConsole.info( "Project location missing. Use '$ mantrad gzip-project <project location>'", false);
+            }
+
+            global.gimport("fatalending").exit();
+        }
         case 'new-project': {
             await MantraStartup.newProject();
             global.gimport("fatalending").exit();

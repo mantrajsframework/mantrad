@@ -138,6 +138,10 @@ function getDefaultCommands() {
         Description: `Download a project from ${CoreConstants.MANTRAWEBSITE}. Usage: donwload-project <project name> | <project name>@<version>`
     }
 
+    cmds['gzip-project'] = {
+        Description: "Gzip a project. Use: mantrad gzip-project <relative or absolute location to project>"
+    }
+
     return cmds;
 }
 
