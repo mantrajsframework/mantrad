@@ -121,4 +121,5 @@ You can also read this documentation at [Mantra site](https://www.mantrajs.com).
 - [37 mantracoreapi.js File Reference](/docs/37-mantracoreapi-js-file-reference.md)
 - [38 Mantra Console API reference](/docs/38-mantra-console-api-reference.md)
 - [39 Updating Components Data Models](/docs/39-updating-models.md)
-- [39 Next Steps](/docs/39-next-steps.md)
+- [40 Injections](/docs/40-mantra-injections.md)
+- [41 Next Steps](/docs/41-next-steps.md)
