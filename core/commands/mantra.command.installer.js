@@ -63,20 +63,7 @@ async function Perform(MantraAPI, siteName) {
 }
 
 async function InstallMantraAsync() {
-    const redEntities = RedEntities(MantraConfig.getEntitiesConfiguration());
-    const mantraSchema = MantraModel.LoadModel();
-    const entities = redEntities.Entities( mantraSchema );
-
-    MantraConsole.info("Removing existing database (if any)...");
-
-    for( const dbname of MantraConfig.getEntitiesConfigurationNames() ) {
-        let dbEntitiesConfig = MantraConfig.getEntitiesConfiguration(dbname);
-
-        await entities.RemoveAndCreateDatabase( dbEntitiesConfig.database )
-    }
-    
-    MantraConsole.info("Creating Mantra Framework schema...");
-    await entities.CreateSchema( mantraSchema ); 
+    const entities = await CreateProjectDatabases();
 
     MantraConsole.info( "Creating default values" );
     await InstallDefaultValues(entities);
@@ -92,6 +79,35 @@ async function InstallMantraAsync() {
         await InstallComponents( MantraConfig.DefaultComponents );
     }    
 };
+
+async function CreateProjectDatabases() {    
+    const entitiesConfigNames = MantraConfig.getEntitiesConfigurationNames();
+
+    if ( !entitiesConfigNames.includes(CoreConstants.DEFAULT_ENTITIES_CONFIGURATION) ) {
+        MantraConsole.warning( `No 'default' entities configuration at ${CoreConstants.MANTRACONFIGFILE}` );
+        global.gimport("fatalending").exit();
+    }
+
+    MantraConsole.info("Removing existing databases (if any)...");
+    
+    // Iterates over all entities configurations
+    // Each one can have a different provider
+    for( const entitiesConfigName of entitiesConfigNames ) {
+        const dbEntitiesConfig = MantraConfig.getEntitiesConfiguration(entitiesConfigName);
+        const redEntities = RedEntities(dbEntitiesConfig);
+        await redEntities.Entities( { entities: [] } ).RemoveAndCreateDatabase( dbEntitiesConfig.database );   
+    }
+
+    // Create Mantra core database
+    const redCoreEntities = RedEntities(MantraConfig.getEntitiesConfiguration("default"));
+    const mantraSchema = MantraModel.LoadModel();
+    const entities = redCoreEntities.Entities( mantraSchema );
+
+    MantraConsole.info("Creating Mantra Framework core schema...");
+    await entities.CreateSchema( mantraSchema ); 
+
+    return entities;
+}
 
 async function InstallComponents( cmps ) {
     let ci = ComponentsInstaller(MantraConfig);

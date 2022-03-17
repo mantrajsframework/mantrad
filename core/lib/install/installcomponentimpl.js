@@ -9,13 +9,15 @@ const ComponentInstaller = global.gimport("componentinstaller");
 const CoreCommandsUtils = global.gimport("corecommandsutils");
 const CoreConstants = global.gimport("coreconstants");
 const MantraConsole = global.gimport("mantraconsole");
+const MantraModel = global.gimport("mantramodel")();
 const NpmInstaller = global.gimport("npminstaller");
+const RedEntities = global.gimport("redentities");
 
 module.exports = {
     Install: async ( Mantra, componentName, askQuestion ) => {
         let installed = false;
         const componentNameToInstall = CoreCommandsUtils.ExtractComponentName(componentName);
-    
+
         if ( await ExistsComponentInProject(componentNameToInstall) ) {
             MantraConsole.warning( `Component '${componentNameToInstall}' is already installed.` );
             MantraConsole.warning( `If you are installing a different version, uninstall it first.` );
@@ -27,6 +29,8 @@ module.exports = {
             }
     
             if (answer == "Y" || answer == "") {
+                await CheckExistingDatabases();
+
                 installed = await InstallComponent(Mantra, componentNameToInstall, true);
     
                 if (installed) {
@@ -110,5 +114,28 @@ async function EnableComponent( MantraAPI, componentName ) {
     }
     catch(error) {
         MantraConsole.error(error.message);
+    }
+}
+
+async function CheckExistingDatabases() {
+    const MantraConfig = global.Mantra.MantraConfig;
+
+    // Iterates over all entities configurations to check if a new database should be created.
+    // Each entity configuration can have a different provider
+    for( const entitiesConfigName of MantraConfig.getEntitiesConfigurationNames() ) {
+        const dbEntitiesConfig = MantraConfig.getEntitiesConfiguration(entitiesConfigName);
+        const redEntities = RedEntities(dbEntitiesConfig).Entities( { entities: [] } );
+
+        let existsDatabase = false; 
+        
+        try {
+            // If exception is raised, then it doesn't exist 
+            existsDatabase = await redEntities.ExistsDatabase();
+        } catch {}
+        
+        if ( !existsDatabase ) {
+            MantraConsole.info( `Creating database for entities configuration '${entitiesConfigName}'`);
+            await redEntities.CreateDatabase( dbEntitiesConfig.database );
+        }
     }
 }
