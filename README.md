@@ -8,20 +8,17 @@ A Mantra project follows some design and software architecture principles define
 
 Also, by its nature, the assets of a Mantra project are very well organized with separation of concerns and the code for common tasks tends to be minimal.
 
-# Install with NPM
+# Install Mantra
 
 *mantrad* is the command line interface (cli) to manage Mantra applications. Install it with:
 
-```bash
-$ npm install -g mantrad
-```
-
-Or clone it and install globally with:
+Clone current version and install globally with:
 
 ```bash
-$ git clone https://github.com/mantrajsframework/mantrad
+$ git clone -b 1.2.2 https://github.com/mantrajsframework/mantrad
 $ cd mantrad
 $ npm install . -g
+$ npm rebuild
 ```
 
 Check current version with:
