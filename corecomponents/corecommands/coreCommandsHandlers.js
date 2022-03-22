@@ -304,6 +304,26 @@ module.exports = {
         }
     },
 
+    ShowPrerequests: async (MantraAPI, componentName) => {
+        const prHooks = global.Mantra.Bootstrap.getHooksByName( CoreConstants.PREREQUEST_HOOK );
+        let prNames = [];
+        
+        for( const prHook of prHooks ) {
+            if ( componentName == undefined || prHook.Component == componentName ) {
+                prNames.push(`${prHook.Component}: ${prHook.Name}`)
+            }
+        }
+        
+        if ( prNames.length == 0 ) {
+            MantraConsole.info("No prerequests defined");
+        } else {
+            let i = 0;
+            for( const prName of prNames.sort() ) {
+                MantraConsole.info( `(${++i}) ${prName}`, false );
+            }
+        }
+    },
+
     ShowMiddlewares: async (MantraAPI, componentName ) => {
         let middlewareHooks = global.Mantra.Bootstrap.getHooksByName( CoreConstants.MIDDLEWARE_HOOK );
         let middlewareNames = [];

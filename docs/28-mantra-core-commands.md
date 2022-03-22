@@ -74,6 +74,8 @@ These are the Mantra core commands:
 
 * [show-middlewares](#show-middlewares)
 
+* [show-prerequests](#show-prerequests),
+
 * [show-posts](#show-posts)
 
 * [startall](#startall)
@@ -304,6 +306,14 @@ $ mantrad show-middlewares [component name]
 ```
 
 Shows the list of all middlewares definitions for all components. If [component name] is indicated, then only shows all middleware definitions for that component.
+
+## show-prerequests
+
+```bash
+$ mantrad show-prerequests [component name]
+```
+
+Shows the list of all prerequests definitions for all components. If [component name] is indicated, then only shows all prerequests definitions for that component.
 
 ## show-posts
 

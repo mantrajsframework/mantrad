@@ -80,6 +80,10 @@ class CoreCommandsStarter {
                 Description: "Show access conditions defined by components. User mantrad show-accessconditions <component name, optional>",
                 Handler: CoreCommandsHandlers.ShowAccessConditions
             }, {
+                Name: "show-prerequests",
+                Description: "Show prerequests defined by components. User mantrad show-prerequests <component name, optional>",
+                Handler: CoreCommandsHandlers.ShowPrerequests
+            }, {
                 Name: "show-apps",
                 Description: "Show apps defined in configuration file. Use mantrad show-apps",
                 Handler: CoreCommandsHandlers.ShowApps
