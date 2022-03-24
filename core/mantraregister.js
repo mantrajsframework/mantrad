@@ -132,7 +132,7 @@ class MantraRegister {
     Cron( data ) {   
         const cronsToRegister = Array.isArray(data) ? data : [data];
 
-        for( const cronItem of cronsToRegister ) {
+        for( let cronItem of cronsToRegister ) {
             this.checkPropertyExists( "CronConfig", CoreConstants.CRON_HOOK, cronItem );
             this.checkPropertyExists( "CronHandler", CoreConstants.CRON_HOOK, cronItem );
             this.checkPropertyType( "CronConfig", CoreConstants.EVENT_HOOK, cronItem, 'string' );
@@ -252,7 +252,7 @@ class MantraRegister {
 
     checkAndTranslateCronConfiguration( cronConfig ) {
         if ( this.isCronAlias(cronConfig) ) {
-            return CoreConstants.CRONALIASES[cronItem.CronConfig];
+            return CoreConstants.CRONALIASES[cronConfig];
         } 
 
         if ( CronValidator.isValidCron(cronConfig, { seconds: true }) ) {

@@ -12,7 +12,7 @@ let allJobs = [];
 class SchedulerStarter {
     async onSystemStarted( Mantra ) {
         if ( Mantra.IsServiceActive("cron") ) {
-            for( const cron of Mantra.GetHooksByName("cron") ) {                
+            for( const cron of Mantra.GetHooksByName("cron") ) {      
                 allJobs.push( new CronJob( cron.CronConfig, cron.CronHandler, null, true, "Europe/Madrid" ) );
             }
         }

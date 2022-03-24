@@ -292,10 +292,10 @@ module.exports = {
     },
 
     /*
-     * Removes all characteres apart from letters and numbers, and accents
+     * Removes all characteres apart from letters and numbers
      */
     SanitizeToLatin( str ) {
-        return str.trim().replace(/[^A-Za-z ñÑ áéíóúÁÉÍöÖÓÚüÜ 0-9 ,:"'-<>()]*/g, '')
+        return str.trim().replace(/[^a-zA-Z 0-9]/g,'');
     },
 
     /*
