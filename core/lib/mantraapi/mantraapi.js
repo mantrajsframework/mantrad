@@ -50,13 +50,6 @@ class MantraAPI {
     }
 
     /*
-     * Returns the base url indicated in BaseUrl property configuration at mantraconfig.json file
-     */
-    GetBaseUrl() {
-        return global.Mantra.MantraConfig.BaseUrl;
-    }
-
-    /*
      * Returns the path requested
      */
     GetRequestPath() {
@@ -1005,10 +998,6 @@ class MantraAPI {
 
     async LogError( description, data, key, counter ) {
         return MantraAPILogger.addNewLog( this, 'error', description, data, key, counter );
-    }
-
-    async ConsoleQuestion( question ) {
-        return MantraConsole.question(question);
     }
 
     async ExtractResource( resource ) {

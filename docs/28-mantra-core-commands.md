@@ -50,33 +50,33 @@ These are the Mantra core commands:
 
 * [reinstall-component](#reinstall-component)
 
-* [show-apis](#show-apis)
-
 * [show-accessconditions](#show-accessconditions)
 
+* [show-apis](#show-apis)
+
 * [show-blocks](#show-blocks)
-
-* [show-crons](#show-crons)
-
-* [show-events-subscribers](#show-events-subscribers)
-
-* [show-views](#show-views)
 
 * [show-commands](#show-commands)
 
 * [show-component](#show-component)
 
-* [show-component-config](#show-component-config)
-
 * [show-components](#show-components)
 
+* [show-component-config](#show-component-config)
+
 * [show-components-to-update](#show-components-to-update)
+
+* [show-crons](#show-crons)
+
+* [show-events-subscribers](#show-events-subscribers)
 
 * [show-middlewares](#show-middlewares)
 
 * [show-prerequests](#show-prerequests),
 
 * [show-posts](#show-posts)
+
+* [show-views](#show-views)
 
 * [startall](#startall)
 
@@ -87,7 +87,9 @@ These are the Mantra core commands:
 * [update](#update)
 
 * [update-components-locations](#update-components-locations)
-  
+ 
+# Mantra Core Commands Reference
+
 ## check-health
 
 ```bash
@@ -217,14 +219,6 @@ $ mantrad show-accessconditions [component name, optional]
 
 Shows the list of all access conditions definitions for all components. If [component name] is indicated, then only shows the access conditions defined by that component.
 
-## show-apis
-
-```bash
-$ mantrad show-apis [component name, optional]
-```
-
-Shows the list of all api definitions for all components. If [component name] is indicated, then only shows all api definitions for that component.
-
 ## show-blocks
 
 ```bash
@@ -232,30 +226,6 @@ $ mantrad show-blocks [component name, optional]
 ```
 
 Shows the list of all blocks definitions for all components. If [component name] is indicated, then only shows all block definitions for that component.
-
-## show-crons
-
-```bash
-$ mantrad show-crons [component name, optional]
-```
-
-Shows the list of all crons jobs definitions for all components. If [component name] is indicated, then only shows all crons definitions for that component.
-
-## show-events-subscribers
-
-```bash
-$ mantrad show-events-subscribers [component name, optional]
-```
-
-Shows the list of all events subsribers definitions for all components. If [component name] is indicated, then only shows all event subscriber definitions for that component.
-
-## show-views
-
-```bash
-$ mantrad show-views [component name, optional]
-```
-
-Shows the list of all views definitions for all components. If [component name] is indicated, then only shows all view definitions for that component.
 
 ## show-commands
 
@@ -273,16 +243,6 @@ $ mantrad show-component [component name]
 
 Shows a json object with all hooks registration for the component.
 
-## show-component-config
-
-```bash
-$ mantrad show-component-config [component name]
-```
-
-Shows the configuration properties of a component. This configuration is located at "ComponentsConfig" section of the [mantraconfig.json](/docs/36-mantraconfig-json-file.md) file of the project or the default values at "defaultconfig" of [mantra.json](/docs/05-mantra-component-definition.md) file of the component.
-
-See more details at [components configuration](/docs/18-component-configuration.md) section.
-
 ## show-components
 
 ```bash
@@ -299,6 +259,32 @@ $ mantrad show-components-to-update
 
 Shows the components that should be updated because its version has changed.
 
+## show-component-config
+
+```bash
+$ mantrad show-component-config [component name]
+```
+
+Shows the configuration properties of a component. This configuration is located at "ComponentsConfig" section of the [mantraconfig.json](/docs/36-mantraconfig-json-file.md) file of the project or the default values at "defaultconfig" of [mantra.json](/docs/05-mantra-component-definition.md) file of the component.
+
+See more details at [components configuration](/docs/18-component-configuration.md) section.
+
+## show-crons
+
+```bash
+$ mantrad show-crons [component name, optional]
+```
+
+Shows the list of all crons jobs definitions for all components. If [component name] is indicated, then only shows all crons definitions for that component.
+
+## show-events-subscribers
+
+```bash
+$ mantrad show-events-subscribers [component name, optional]
+```
+
+Shows the list of all events subsribers definitions for all components. If [component name] is indicated, then only shows all event subscriber definitions for that component.
+
 ## show-middlewares
 
 ```bash
@@ -306,6 +292,14 @@ $ mantrad show-middlewares [component name]
 ```
 
 Shows the list of all middlewares definitions for all components. If [component name] is indicated, then only shows all middleware definitions for that component.
+
+## show-posts
+
+```bash
+$ mantrad show-posts [component name]
+```
+
+Shows the list of all http posts definitions for all components. If [component name] is indicated, then only shows all post definitions for that component.
 
 ## show-prerequests
 
@@ -315,13 +309,13 @@ $ mantrad show-prerequests [component name]
 
 Shows the list of all prerequests definitions for all components. If [component name] is indicated, then only shows all prerequests definitions for that component.
 
-## show-posts
+## show-views
 
 ```bash
-$ mantrad show-posts [component name]
+$ mantrad show-views [component name, optional]
 ```
 
-Shows the list of all http posts definitions for all components. If [component name] is indicated, then only shows all post definitions for that component.
+Shows the list of all views definitions for all components. If [component name] is indicated, then only shows all view definitions for that component.
 
 ## startall
 
