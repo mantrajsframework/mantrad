@@ -1001,8 +1001,8 @@ class MantraAPI {
     }
 
     async ExtractResource( resource ) {
-        let localFile = Path.join( global.Mantra.MantraConfig.FrontendLocation, resource );        
-        let isFrontendResource = await this.Utils.FileExists( localFile );
+        const localFile = Path.join( global.Mantra.MantraConfig.FrontendLocation, resource );        
+        const isFrontendResource = await this.Utils.FileExists( localFile );
         let extension = Path.extname(resource);
 
         let result = {
@@ -1019,7 +1019,7 @@ class MantraAPI {
             result.fullPathToResource = localFile;            
             result.fileType = extension.substring(1);
         } else {
-            let componentsLoader = global.Mantra.ComponentsLoader;
+            const componentsLoader = global.Mantra.ComponentsLoader;
             let componentResourceParts = ExtractValues( resource, "/{componentName}/{f1}/{f2}/{file}");
 
             if ( componentResourceParts === null ) { 
@@ -1030,16 +1030,15 @@ class MantraAPI {
                     
             if (componentsLoader.existsComponentByName(componentResourceParts.componentName) &&
                 result.isMimeType ) {
-                let cmp = componentsLoader.getComponentByName(componentResourceParts.componentName);
-                let fullPath = Path.join(cmp.pathToComponent,
+                const cmp = componentsLoader.getComponentByName(componentResourceParts.componentName);
+                
+                const fullPath = Path.join(cmp.pathToComponent,
                                          componentResourceParts.resource ? componentResourceParts.resource : "",
                                          componentResourceParts.f1 ? componentResourceParts.f1 : "",
                                          componentResourceParts.f2 ? componentResourceParts.f2 : "", 
                                          componentResourceParts.file);
         
-                let exists = await this.Utils.FileExists(fullPath);
-        
-                if (exists) {
+                if (await this.Utils.FileExists(fullPath)) {
                     result.exists = true;
                     result.isComponentResource = true;
                     result.fullPathToResource = fullPath;
