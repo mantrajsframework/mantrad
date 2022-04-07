@@ -1017,17 +1017,25 @@ class MantraAPI {
             result.exists = true;
             result.isFrontendResource = true;
             result.fullPathToResource = localFile;            
-            result.fileType = extension.substr(1);
+            result.fileType = extension.substring(1);
         } else {
-            let componentResourceParts = ExtractValues( resource, "/{componentName}/{resource}/{file}");
             let componentsLoader = global.Mantra.ComponentsLoader;
-        
+            let componentResourceParts = ExtractValues( resource, "/{componentName}/{f1}/{f2}/{file}");
+
+            if ( componentResourceParts === null ) { 
+                componentResourceParts = ExtractValues( resource, "/{componentName}/{resource}/{file}");                
+            }
+
             if ( componentResourceParts === null ) { return result; }
                     
             if (componentsLoader.existsComponentByName(componentResourceParts.componentName) &&
                 result.isMimeType ) {
                 let cmp = componentsLoader.getComponentByName(componentResourceParts.componentName);
-                let fullPath = Path.join(cmp.pathToComponent, componentResourceParts.resource, componentResourceParts.file);
+                let fullPath = Path.join(cmp.pathToComponent,
+                                         componentResourceParts.resource ? componentResourceParts.resource : "",
+                                         componentResourceParts.f1 ? componentResourceParts.f1 : "",
+                                         componentResourceParts.f2 ? componentResourceParts.f2 : "", 
+                                         componentResourceParts.file);
         
                 let exists = await this.Utils.FileExists(fullPath);
         
@@ -1035,7 +1043,7 @@ class MantraAPI {
                     result.exists = true;
                     result.isComponentResource = true;
                     result.fullPathToResource = fullPath;
-                    result.fileType = extension.substr(1);
+                    result.fileType = extension.substring(1);
                 }
             }
         }    

@@ -8,7 +8,7 @@ const NodeVersionChecker = global.gimport("nodeversionchecker");
 
 describe( 'nodeversionchecker tests', () => {
     it( '# Check with current version', () => {
-        let currentNodeVersion = parseInt(process.version.substr(1).split(".")[0]);
+        let currentNodeVersion = parseInt(process.version.substring(1).split(".")[0]);
         let isRight = NodeVersionChecker.CheckNodeVersion( [currentNodeVersion] );
 
         assert.isTrue(isRight);

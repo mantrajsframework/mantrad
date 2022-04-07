@@ -153,7 +153,7 @@ module.exports = {
                     let filesInDirectory = [];
 
                     for( const file of files ) {
-                        if ( path.extname(file).substr(1) == extension ) {
+                        if ( path.extname(file).substring(1) == extension ) {
                             filesInDirectory.push( path.join(fullPath,file) )
                         }
                     }
@@ -306,7 +306,7 @@ module.exports = {
         const filesToCopy = await deepListFiles( source );
 
         for( const file of filesToCopy ) {
-            const destFile = path.join( dest, file.substr(source.length) );
+            const destFile = path.join( dest, file.substring(source.length) );
 
             await fsExtra.ensureDir( path.dirname(destFile) );
             await fsExtra.copy( file, destFile );
