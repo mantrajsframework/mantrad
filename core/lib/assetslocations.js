@@ -90,7 +90,7 @@ class AssetsLocationsAPI {
             return Path.join( global.Mantra.MantraConfig.FrontendLocation, fileName );
         }
 
-        let asset = await this.getAsset( LOCATIONS.CSS_LOCATIONS, `${componentName}.${fileName}`, "css" );
+        let asset = await this.GetAsset( LOCATIONS.CSS_LOCATIONS, `${componentName}.${fileName}`, "css" );
 
         return asset.exists ? asset.fullpath : "";
     }
