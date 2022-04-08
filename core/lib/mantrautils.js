@@ -17,6 +17,7 @@ const MIME_TYPES = {
     '.png': 'image/png',
     '.jpg': 'image/jpeg',
     '.jpeg': 'image/jpeg',
+    '.html': 'text/html',
     '.wav': 'audio/wav',
     '.mp3': 'audio/mpeg',
     '.svg': 'image/svg+xml',

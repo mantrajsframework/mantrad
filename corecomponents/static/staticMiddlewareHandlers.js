@@ -19,7 +19,7 @@ module.exports = {
         else {
             let ext = path.extname(req.path);
             let pathSanitized = req.sanitizedPath;
-            
+
             if ( MantraUtils.IsMIMEType(ext) ) {
                 // Check if static file requested exists
                 let localFile = path.join( global.Mantra.MantraConfig.FrontendLocation, pathSanitized );
