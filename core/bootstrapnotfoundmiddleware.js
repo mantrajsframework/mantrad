@@ -19,7 +19,9 @@ module.exports = {
             MantraConsole.warning(`Unknown path requested for ${req.path}`);
         
             if ( mc.NotFoundRedirect ) {
-                if ( await res.MantraAPI.Utils.FileExists( Path.join( mc.FrontendLocation, mc.NotFoundRedirect ) ) ) {
+                if ( mc.NotFoundRedirect == '/' ) {
+                    res.MantraAPI.Redirect("/");
+                } else if ( await res.MantraAPI.Utils.FileExists( Path.join( mc.FrontendLocation, mc.NotFoundRedirect ) ) ) {
                     res.MantraAPI.RenderRoot(mc.NotFoundRedirect);
                 } else {
                     MantraConsole.warning(`Not found file ${mc.NotFoundRedirect} doesn't exist`);

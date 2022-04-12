@@ -19,18 +19,18 @@ module.exports = {
         else {
             let ext = path.extname(req.path);
             let pathSanitized = req.sanitizedPath;
-
+            
             if ( MantraUtils.IsMIMEType(ext) ) {
                 // Check if static file requested exists
                 let localFile = path.join( global.Mantra.MantraConfig.FrontendLocation, pathSanitized );
                 let isFrontendResource = await MantraUtils.FileExists( localFile );
-        
+                
                 if ( isFrontendResource ) {
                     StaticUtils.SendContent( localFile, ext, res );
                 } else {
                     // Check if it is a component resource (css, js, etc.)            
                     let componentResource = await StaticApiHandlers.IsComponentResource(res.MantraAPI, pathSanitized);
-    
+                    
                     if ( componentResource.isComponentResource ) {
                         StaticUtils.SendContent( componentResource.fullPathToResource, ext, res );
                     } else {
@@ -38,7 +38,10 @@ module.exports = {
                         next();
                     }
                 }        
-            } else next();
+            } else {
+                next();
+            }
+                
         }
     },
     

@@ -69,8 +69,6 @@ Mantra API object is the heart of the framework, all it's represented by its met
 
 * [Mantra.GetAssetsLocations](#mantra.getassetslocations)
 
-* [Mantra.GetBaseUrl](#mantra.getbaseurl)
-
 * [Mantra.GetComponentConfig](#mantra.getcomponentconfig)
 
 * [Mantra.GetComponentDbConfig](#mantra.getcomponentdbconfig)

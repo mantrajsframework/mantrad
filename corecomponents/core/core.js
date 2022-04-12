@@ -25,10 +25,6 @@ class Core {
                     Weight: -180
                 },
                 {
-                    MiddlewareHandler: CoreMiddlewareHandlers.IndexMiddleware,
-                    Weight: -175
-                },
-                {
                     MiddlewareHandler: CoreMiddlewareHandlers.ValidatePostData,
                     Weight: -50
                 },

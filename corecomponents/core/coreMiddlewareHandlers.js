@@ -20,27 +20,21 @@ module.exports = {
         next();        
     }, 
 
-    CheckLanding: (req, res, next) => {
-        if ( res.MantraAPI.IsGet() && (req.path == "/" || req.path == "/index.html") ) { 
-            const landingView = global.Mantra.MantraConfig.LandingView;
-            
-            if ( landingView ) {
-                return landingView.indexOf(".") > 0 ? res.MantraAPI.RenderView( landingView ) : res.MantraAPI.Redirect( `/${landingView}` );
-            }
-        }
-
-        next();
-    },
-
     SetMantraAPI: (req, res, next) => {
         res.MantraAPI = global.Mantra.MantraAPIFactory(req,res);
 
         next();    
     },
 
-    IndexMiddleware: (req, res, next) => {
-        if (res.MantraAPI.IsGet() && (req.path == "/" || req.path == "/index.html")) {
-            return res.MantraAPI.RenderLandingPage();
+    CheckLanding: (req, res, next) => {
+        if ( res.MantraAPI.IsGet() && (req.path == "/" || req.path == "/index.html") ) { 
+            const landingView = global.Mantra.MantraConfig.LandingView;
+            
+            if ( landingView ) {
+                return landingView.indexOf(".") > 0 ? res.MantraAPI.RenderView( landingView ) : res.MantraAPI.Redirect( `/${landingView}` );
+            } else {
+                return res.MantraAPI.RenderLandingPage();
+            }
         }
 
         next();
@@ -51,7 +45,7 @@ module.exports = {
      * this middleware checks it
      */
     ValidatePostData: (req, res, next) => {
-        if (req.method == "POST") {
+        if ( res.MantraAPI.IsPost() ) {
             const cp = CoreUtils.GetComponentAndCommand(req.path);
             const postConfig = global.Mantra.Bootstrap.GetPost(cp.componentName, cp.command);
             let postData = "";
@@ -78,7 +72,9 @@ module.exports = {
             } else {
                 next();
             }
-        } else { next(); }
+        } else { 
+            next(); 
+        }
     },
 
     AccessCondition: async ( req, res, next ) => {
@@ -98,15 +94,17 @@ module.exports = {
             if ( cp && await PreRequests.checkPR(cp.componentName, cp.command, req, res) ) {
                 next();
             } // Other case, prerequest will redirect
+
+            if ( !cp ) next();
         } else {
-            return next();
+            next();
         }
     }    
 }
 
 async function AccessConditionGet( Mantra, req, res, next ) {
     let cp = CoreUtils.GetComponentAndCommand(req.path);
-    
+
     if ( cp ) {
         let viewConfig  = global.Mantra.Bootstrap.GetView( cp.componentName, cp.command );
         
