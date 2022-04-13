@@ -94,33 +94,25 @@ module.exports = {
             // Inherit app properties in site config
             MantraConfig.InactiveComponents = [];
 
-            if ( appConfig.BaseUrl ) {
-                MantraConfig.BaseUrl = appConfig.BaseUrl; 
-            }
-
             if ( appConfig.ActiveComponents ) {
                 MantraConfig.ActiveComponents = appConfig.ActiveComponents;
             }
-            
-            if ( appConfig.InactiveComponents ) {
-                MantraConfig.InactiveComponents = appConfig.InactiveComponents;
-            }
-        
+
             if ( appConfig.ActiveServices ) {
                 MantraConfig.ActiveServices = appConfig.ActiveServices;
             }
-        
-            if ( appConfig.Port ) {
-                MantraConfig.Port = appConfig.Port;
+
+            if ( appConfig.BaseUrl ) {
+                MantraConfig.BaseUrl = appConfig.BaseUrl; 
             }
-        
+            
             if (appConfig.FrontendLocation) {
                 MantraConfig.FrontendLocation = path.join( MantraConfig.Location, "ui", appConfig.FrontendLocation );
                 MantraConfig.FrontendName = appConfig.FrontendLocation; 
             }
-            
-            if ( appConfig.LandingView ) {
-                MantraConfig.LandingView = appConfig.LandingView;
+
+            if ( appConfig.InactiveComponents ) {
+                MantraConfig.InactiveComponents = appConfig.InactiveComponents;
             }
             
             if( appConfig.Injections ) {
@@ -128,6 +120,18 @@ module.exports = {
                     MantraConfig.Injections[appInjectionKey] = appConfig.Injections[appInjectionKey];
                 }
             }
+
+            if ( appConfig.NotFoundRedirect ) {
+                MantraConfig.NotFoundRedirect = appConfig.NotFoundRedirect;
+            }
+
+            if ( appConfig.LandingView ) {
+                MantraConfig.LandingView = appConfig.LandingView;
+            }
+
+            if ( appConfig.Port ) {
+                MantraConfig.Port = appConfig.Port;
+            }            
         }
 
         MantraConfig.setApp( Object.keys(MantraConfig.Apps)[0] ); // Set first app as default
@@ -139,36 +143,6 @@ module.exports = {
         checkSqliteLocalDatabase( MantraConfig, fullPathToSite );
 
         return MantraConfig;
-    },
-
-    SetApp : function( MantraConfig, appName ) {
-        let appConfig = config.Apps[appName];
-    
-        MantraConfig.AppName = Object.keys(MantraConfig.Apps)[0];
-        MantraConfig.InactiveComponents = [];
-        
-        // Overwrite app properties in site config
-        if ( appConfig.InactiveComponents ) {
-            MantraConfig.InactiveComponents = appConfig.InactiveComponents;
-        }
-    
-        if ( appConfig.ActiveServices ) {
-            MantraConfig.ActiveServices = appConfig.ActiveServices;
-        }
-    
-        if ( appConfig.Port ) {
-            MantraConfig.Port = appConfig.Port;
-        }
-    
-        if (appConfig.FrontendLocation) {
-            MantraConfig.FrontendLocation = Path.join( MantraConfig.Location, "ui", appConfig.FrontendLocation ); 
-            config.FrontendLocation = MantraConfig.FrontendLocation;    
-            MantraConfig.FrontendName = appConfig.FrontendLocation; 
-        }
-        
-        if ( appConfig.LandingView ) {
-            MantraConfig.LandingView = appConfig.LandingView;
-        }
     }
 }
 

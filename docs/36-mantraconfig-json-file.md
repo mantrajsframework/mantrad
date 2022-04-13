@@ -230,6 +230,8 @@ This property can be overwritten by specific app configuration.
 
 Indicates the html file to render when a route is not found. Only needed if the application defines an user interface.
 
+This property can be overwritten by specific app configuration.
+
 *"GlobalTemplateVars"* (optional)
 
 This json object indicates a number of properties available for all views within the application, useful for global variables like name of the site and so one.
