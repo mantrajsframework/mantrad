@@ -13,27 +13,27 @@ class Core {
         MantraAPI.Hooks("core")
             .Middleware([
                 {
-                    MiddlewareHandler: CoreMiddlewareHandlers.SanitizedPath,
+                    MiddlewareHandler: CoreMiddlewareHandlers.sanitizedpath,
                     Weight: -5000
                 },
                 {
-                    MiddlewareHandler: CoreMiddlewareHandlers.SetMantraAPI,
+                    MiddlewareHandler: CoreMiddlewareHandlers.setmantraapi,
                     Weight: -1200
                 },
                 {
-                    MiddlewareHandler: CoreMiddlewareHandlers.CheckLanding,
+                    MiddlewareHandler: CoreMiddlewareHandlers.checklanding,
                     Weight: -180
                 },
                 {
-                    MiddlewareHandler: CoreMiddlewareHandlers.ValidatePostData,
+                    MiddlewareHandler: CoreMiddlewareHandlers.validatepostdata,
                     Weight: -50
                 },
                 {
-                    MiddlewareHandler: CoreMiddlewareHandlers.PreRequest,
+                    MiddlewareHandler: CoreMiddlewareHandlers.prerequest,
                     Weight: -48
                 },
                 {
-                    MiddlewareHandler: CoreMiddlewareHandlers.AccessCondition,
+                    MiddlewareHandler: CoreMiddlewareHandlers.accesscondition,
                     Weight: -46
                 }])
                 .Cron( [{

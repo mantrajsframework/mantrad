@@ -12,7 +12,7 @@ const AccessConditions = global.gimport("accessconditions");
 const PreRequests = global.gimport("prerequests");
 
 module.exports = {
-    SanitizedPath: (req, res, next) => { 
+    sanitizedpath: (req, res, next) => { 
         if (req.method == "GET") {
             req.sanitizedPath = req.path.replace(global.Mantra.MantraConfig.InstanceId, "")
         }
@@ -20,13 +20,13 @@ module.exports = {
         next();        
     }, 
 
-    SetMantraAPI: (req, res, next) => {
+    setmantraapi: (req, res, next) => {
         res.MantraAPI = global.Mantra.MantraAPIFactory(req,res);
 
         next();    
     },
 
-    CheckLanding: (req, res, next) => {
+    checklanding: (req, res, next) => {
         if ( res.MantraAPI.IsGet() && (req.path == "/" || req.path == "/index.html") ) { 
             const landingView = global.Mantra.MantraConfig.LandingView;
             
@@ -44,7 +44,7 @@ module.exports = {
      * If json schema is provided by post configuration,
      * this middleware checks it
      */
-    ValidatePostData: (req, res, next) => {
+    validatepostdata: (req, res, next) => {
         if ( res.MantraAPI.IsPost() ) {
             const cp = CoreUtils.GetComponentAndCommand(req.path);
             const postConfig = global.Mantra.Bootstrap.GetPost(cp.componentName, cp.command);
@@ -77,7 +77,7 @@ module.exports = {
         }
     },
 
-    AccessCondition: async ( req, res, next ) => {
+    accesscondition: async ( req, res, next ) => {
         if ( res.MantraAPI.IsGet() ) { 
             return AccessConditionGet( res.MantraAPI, req, res, next );
         } else if ( res.MantraAPI.IsPost() ) {
@@ -87,7 +87,7 @@ module.exports = {
         }
     },
 
-    PreRequest: async (req, res, next ) => {
+    prerequest: async (req, res, next ) => {
         if ( res.MantraAPI.IsGet() ) { 
             const cp = CoreUtils.GetComponentAndCommand(req.path);      
 
