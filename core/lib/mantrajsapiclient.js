@@ -11,6 +11,10 @@ const MantraUtils = global.gimport("mantrautils");
 const PostApi = global.gimport("postapi");
 
 module.exports = {
+    Echo: async () => {
+        return PostApi.Post( `${CoreConstants.APIMANTRAWEBSITEENDPOINT}/mantrajspublicapi/echo` );
+    },
+
     /*
      * Call Mantra API endpoint /mantrajspublicapi/getdownloadtokenforcomponent to get a
      * token to download a component.

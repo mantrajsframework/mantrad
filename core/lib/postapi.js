@@ -9,11 +9,13 @@ const MantraUtils = global.gimport("mantrautils");
 
 module.exports = {
     Post: async (fullPath, data) => {
+        const dataToSend = data ? data : {};
+
         const apiParts = MantraUtils.ExtractValues( fullPath, "{protocol}://{host}/{componenttocall}/{commandtocall}" );
 
         if ( apiParts == null ) throw new Error(`Unkown path or format invalid for api post: ${fullPath}`);
 
-        const postParams = JSON.stringify(data);
+        const postParams = JSON.stringify(dataToSend);
 
         const postOptions = {
           hostname: apiParts.host,

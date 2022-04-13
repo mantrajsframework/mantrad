@@ -24,7 +24,7 @@ module.exports = {
         } else {
             try {                
                 const credentials = await CoreCommandsUtils.GetUserCredentialsToDownloadComponent();
-
+                
                 const componentDownloadRequestData = {
                     usermail: credentials.userMail,
                     licensekey: credentials.licenseKey,

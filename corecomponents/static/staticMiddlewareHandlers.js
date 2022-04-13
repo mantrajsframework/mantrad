@@ -15,7 +15,7 @@ let cachedContent = [];
 
 module.exports = {
     CheckStatic: async ( req, res, next ) => {
-        if ( req.method !== "GET" ) { next(); }
+        if ( !res.MantraAPI.IsGet() ) { next(); }
         else {
             let ext = path.extname(req.path);
             let pathSanitized = req.sanitizedPath;
@@ -46,7 +46,7 @@ module.exports = {
     },
     
     CheckStaticCached: async ( req, res, next ) => {
-        if ( req.method !== "GET" ) { next(); }
+        if ( !res.MantraAPI.IsGet() ) { next(); }
         else {
             let ext = path.extname(req.path);
             let pathSanitized = req.sanitizedPath;

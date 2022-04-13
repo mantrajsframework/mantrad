@@ -5,6 +5,7 @@
 
 "use strict";
 
+const { Console } = require("console");
 const Path = require("path");
 
 const CoreConstants = global.gimport("coreconstants");
@@ -22,7 +23,9 @@ module.exports = {
             MantraConsole.warning(`Unable to locate in system 'tar' command to run download-component`);
         } else {   
             try {
-                const credentials = await CoreCommandsUtils.GetUserCredentialsToDownloadComponent();
+                //const credentials = await CoreCommandsUtils.GetUserCredentialsToDownloadComponent();
+
+                const credentials = { userMail: "admin@admin.com", licenseKey: "242137c0a61a11eca04411202dc139a3" };
 
                 const projectDownloadRequestData = {
                     usermail: credentials.userMail,
