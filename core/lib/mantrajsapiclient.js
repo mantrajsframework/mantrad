@@ -43,7 +43,7 @@ module.exports = {
         return PostApi.Post( `${CoreConstants.APIMANTRAWEBSITEENDPOINT}/mantrajspublicapi/getdownloadtokenforproject`, data );
     },
     
-    GetDownloadComponent: async (downloadToken, destinationFolder) => {
+    Download: async (downloadToken, destinationFolder) => {
         const urlToDownload = getUrlToDownloadFromToken(downloadToken);
 
         return DownloadFile.downloadFromUrl(urlToDownload, destinationFolder);

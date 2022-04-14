@@ -39,7 +39,7 @@ module.exports = {
                     const destinationFolder = Path.join(MantradArgs.getRootProjectFolder(), CoreConstants.DOWNLOADEDFOLDER);
                     await MantraUtils.EnsureDir(destinationFolder);
                     const downloadToken = apiCallResult.payload.downloadtoken;
-                    const fileNameDownloaded = await MantrajsApiClient.GetDownloadComponent(downloadToken, destinationFolder);
+                    const fileNameDownloaded = await MantrajsApiClient.Download(downloadToken, destinationFolder);
 
                     MantraConsole.info(`File ${fileNameDownloaded} downloaded with success at '${CoreConstants.DOWNLOADEDFOLDER}' folder`);
 
