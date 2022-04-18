@@ -615,7 +615,9 @@ function loadDefaultComponentsConfigurations() {
     for( let cmpName of Object.keys(cmps) ) {
         const component = cmps[cmpName]
 
-        if ( component.config.defaultconfig && !mc.ComponentsConfig[cmpName] ) {
+        if ( component.config.defaultconfig && 
+             Object.keys(component.config.defaultconfig).length > 0 && 
+             !mc.ComponentsConfig[cmpName] ) {
             global.Mantra.MantraConfig.ComponentsConfig[cmpName] = component.config.defaultconfig;
             
             MantraConsole.warning( `Inhering default configuration for component '${cmpName}'` );
