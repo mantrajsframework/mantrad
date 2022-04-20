@@ -21,7 +21,7 @@ describe( 'nodeversionchecker tests', () => {
     });
 
     it( '# Check with multiple values', () => {
-        let isRight = NodeVersionChecker.CheckNodeVersion( [12,13,14,15,16,17] );
+        let isRight = NodeVersionChecker.CheckNodeVersion( [12,13,14,15,16,17,18] );
 
         assert.isTrue(isRight);
     });

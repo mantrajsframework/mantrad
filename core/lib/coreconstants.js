@@ -53,7 +53,7 @@ module.exports = {
     MANTRA_INSTANCE_ID: "miid",
     MANTRA_JS_BLOCK: "mantra-js-files",
 
-    NODESUPPORTEDVERSIONS: [12, 13, 14, 15, 16, 17],
+    NODESUPPORTEDVERSIONS: [12, 13, 14, 15, 16, 17, 18],
     MANTRAWEBSITE: "https://www.mantrajs.com",
     APIMANTRAWEBSITEENDPOINT: "http://api.mantrajs.com",
     MANTRASUPPORTMAIL: "support@mantrajs.com",
