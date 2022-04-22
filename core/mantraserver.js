@@ -90,7 +90,7 @@ class MantraServer {
         if ( isViewOrPostServiceActive(mc) ) {
             return App.listen( mc.Port, () => {
                     MantraConsole.info( `App server running & listening at port ${mc.Port}`);
-                    MantraConsole.info("Double Ctrl+C to close double Ctrl+R to restart");
+                    MantraConsole.info("Double Ctrl+C to close. Double Ctrl+R to restart");
             }).on('error', (err) => {
                 if ( err.code == 'EADDRINUSE' ) {
                     MantraConsole.error( `Seems that port ${mc.Port} is already used!`);

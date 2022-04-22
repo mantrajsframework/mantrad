@@ -47,7 +47,7 @@ Mantra depends on:
 * [Express](https://expressjs.com/) as core web server.
 * [Mustache](https://github.com/janl/mustache.js) template redering mecanism for views.
 
-Mantra works and has been tested in Linux environments with Node.js 12.x, 13.x, 14.x, 15.x, 16.x and 17.x.
+Mantra works and has been tested in Linux environments with Node.js 12.x, 13.x, 14.x, 15.x, 16.x, 17.x and 18.x.
 
 Currently, MySql, MariaDB, PostgreSql, Sqlite and Aurora databases are supported. Future versions will support more data providers and rendering engines.
 
