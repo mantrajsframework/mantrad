@@ -35,16 +35,28 @@ This is definition, when "sytem.cleanup" event is launched, then AnalyticsEventH
 Similary to views, blocks and other Mantra assets, you can define the subscription to events in a Node.js module within any component with the name of "event.[component name].js" that should be located at "/controllers" component folder, like this:
 
 ```js
-"use strict";
-
 module.exports = {
     users_removed: async (eventData) => {
+        const Mantra = eventData.MantraAPI;
+        
         // ...
     }
 }
 ```
 
-Due to "." is not allowed in json property names, Mantra replace "." by "-" when registering an event subscribing in this way, so in the example, the component is subscribed to "users.removed" event.
+Due to "." is not allowed in json property names, Mantra replace "_" by "-" when registering an event subscribing in this way, so in the example, the component is subscribed to "users.removed" event.
+
+Alternatively, you can set directly the name of the event as the string name of the function handler:
+
+```js
+module.exports = {
+    "users.removed": async (eventData) => {
+        const Mantra = eventData.MantraAPI;
+
+        // ...
+    }
+}
+```
 
 ## Emitting an event
 
