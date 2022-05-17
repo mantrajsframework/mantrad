@@ -68,7 +68,7 @@ module.exports = {
 
             if ( existsTarCommand ) {
                 let command = `cd ${componentRootLocation}`;
-                command += ` && tar -zcf ${fileToGenerate} ${componentName}`;
+                command += ` && tar --exclude=**/.git/* --exclude=**/node_modules/* -zcf ${fileToGenerate} ${componentName}`;
                 command += ` && cd ${currentFolder}`;
                 command += ` && mv ${componentRootLocation}${fileToGenerate} .`;
     
