@@ -83,6 +83,8 @@ Mantra API object is the heart of the framework, all it's represented by its met
 
 * [Mantra.GetExtendsByType](#mantra.getextendsbytype)
 
+* [Mantra.GetProjectDirectory](#mantra.getprojectdirectory)
+
 * [Mantra.GetGlobalVar](#mantra.getglobalvar)
 
 * [Mantra.GetHooksByName](#mantra.gethooksbyname)
@@ -534,6 +536,14 @@ GetExtendsByType( type )
 Returns an array with all extends for the given type.
 
 With [Extends](/docs/16-component-extend.md), any component can define its own types of *hooks* for multiple purposes.
+
+* Mantra.GetProjectDirectory
+
+```js
+GetProjectDirectory()
+```
+
+Returns the absolute root directory of the current project.
 
 ## Mantra.GetDataValues
 

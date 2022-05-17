@@ -104,6 +104,13 @@ class MantraAPI {
     }
 
     /*
+     * Returns the absolute root directory of the current project
+     */
+    GetProjectDirectory() {
+        return global.Mantra.MantraConfig.RootDirectory;
+    }
+
+    /*
      * Send a file using Express response.sendFile method
      * Params:
      *    fullPathToFile: <full path to file to send>
