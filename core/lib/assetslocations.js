@@ -5,16 +5,23 @@
 
 "use strict";
 
+const MantraConsole = global.gimport("mantraconsole");
 const Path = require("path");
 const VarCache = global.gimport("varcache");
-const MantraConsole = global.gimport("mantraconsole");
+
+const KEYWORDS = {
+    COMPONENT: "component",
+    FRONTEND: "frontend",
+    FRONTENDTEMPLATES: "frontendtemplates",
+    TEMPLATES: "templates"
+}
 
 const LOCATIONS = {
     BLOCKS_LOCATIONS: ['frontendtemplates.blocks', 'templates.blocks', 'component.ui/blocks', 'component.blocks'],
-    VIEWS_LOCATIONS: ['frontendtemplates.views', 'templates.views', 'component.ui/views', 'component.views'],
-    TEMPLATES_LOCATIONS: ['component.ui/templates', 'component.templates'],
+    CSS_LOCATIONS: ['component.ui/css', 'component.css'],
     JS_LOCATIONS: ['component.ui/js', 'component.js'],
-    CSS_LOCATIONS: ['component.ui/css', 'component.css']
+    TEMPLATES_LOCATIONS: ['component.ui/templates', 'component.templates'],
+    VIEWS_LOCATIONS: ['frontendtemplates.views', 'templates.views', 'component.ui/views', 'component.views']
 }
 
 let locationsCache = VarCache();
@@ -56,7 +63,7 @@ class AssetsLocationsAPI {
     }   
 
     async GetJsLocation( componentName, fileName ) {
-        if (componentName == 'frontend' ) {
+        if (componentName == KEYWORDS.FRONTEND ) {
             return fileName;
         }
 
@@ -66,7 +73,7 @@ class AssetsLocationsAPI {
     }
 
     async GetFullJsLocation( componentName, fileName ) {
-        if (componentName == 'frontend' ) {
+        if (componentName == KEYWORDS.FRONTEND ) {
             return Path.join( global.Mantra.MantraConfig.FrontendLocation, fileName );
         }
 
@@ -76,7 +83,7 @@ class AssetsLocationsAPI {
     }
 
     async GetCssLocation( componentName, fileName ) {
-        if (componentName == 'frontend' ) {
+        if (componentName == KEYWORDS.FRONTEND ) {
             return fileName;
         }
         
@@ -86,7 +93,7 @@ class AssetsLocationsAPI {
     }
 
     async GetFullCssLocation( componentName, fileName ) {
-        if (componentName == 'frontend' ) {
+        if (componentName == KEYWORDS.FRONTEND ) {
             return Path.join( global.Mantra.MantraConfig.FrontendLocation, fileName );
         }
 
@@ -166,13 +173,13 @@ class AssetsLocationsAPI {
     
         if (base.length == 2) {
             switch (base[0]) {
-                case 'component': {
+                case KEYWORDS.COMPONENT: {
                     return Path.join(MantraAPI.GetComponentLocation(componentName), base[1]);
                 }
-                case 'templates': {
+                case KEYWORDS.TEMPLATES: {
                     return Path.join(global.Mantra.MantraConfig.SiteTemplatesLocation, componentName, base[1]);
                 }
-                case 'frontendtemplates': {
+                case KEYWORDS.FRONTENDTEMPLATES: {
                     return Path.join(global.Mantra.MantraConfig.SiteTemplatesLocation, global.Mantra.MantraConfig.FrontendName, componentName, base[1]);
                 }
                 default:
@@ -211,13 +218,13 @@ function GetLocationFullPath( MantraAPI, location, component, file ) {
 
     if (base.length == 2) {
         switch (base[0]) {
-            case 'component': {
+            case KEYWORDS.COMPONENT: {
                 return Path.join(MantraAPI.GetComponentLocation(component), base[1], file);
             }
-            case 'templates': {
+            case KEYWORDS.TEMPLATES: {
                 return Path.join(global.Mantra.MantraConfig.SiteTemplatesLocation, component, base[1], file);
             }
-            case 'frontendtemplates': {
+            case KEYWORDS.FRONTENDTEMPLATES: {
                 return Path.join(global.Mantra.MantraConfig.SiteTemplatesLocation, global.Mantra.MantraConfig.FrontendName, component, base[1], file);
             }
             default:
