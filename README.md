@@ -15,7 +15,7 @@ Also, by its nature, the assets of a Mantra project are very well organized with
 Clone current version and install globally with:
 
 ```bash
-$ git clone -b v1.3.0 https://github.com/mantrajsframework/mantrad
+$ git clone -b v1.3.1 https://github.com/mantrajsframework/mantrad
 $ cd mantrad
 $ sudo npm install . -g
 $ sudo npm rebuild
